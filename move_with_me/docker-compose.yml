@@ -1,13 +1,21 @@
-app:
-  build: .
+react:
+  build: ./client/move_with_me
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./client/move_with_me:/user/src/app
+  links:
+    - flask
+flask:
+  build: ./server
   command: python -u app.py
   ports:
     - "5000:5000"
   volumes:
-    - .:/app
+    - ./server:/app
   links:
-    - db
-db:
+    - mongodb
+mongodb:
   image: mongo:latest
   hostname: mvm_mongodb
   environment:

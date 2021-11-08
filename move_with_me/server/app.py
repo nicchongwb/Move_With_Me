@@ -16,8 +16,15 @@ def get_db():
 
 # Main index route
 @app.route("/")
-def home():
+def main():
     return "This is home() output from @app.route"
+
+@app.route("/home")
+def home():
+    return {
+        "project_name":"Move With Me",
+        "build":"Build with React, Flask, MongoDB, Docker"
+    }
 
 # Test route to query the databse
 @app.route('/users')
