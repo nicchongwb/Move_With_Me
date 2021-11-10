@@ -1,3 +1,5 @@
 # Ignore pychace file
 *.pyc
-/mongodb/data/db/*
+
+# Ignore mongodb db files
+/move_with_me/server/mongodb/data/db/*
