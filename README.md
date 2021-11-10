@@ -35,6 +35,9 @@ cd ict2101_project/move_with_me/server
 sudo apt-get install mongodb # Install mongodb into system
 sudo chown -R `id -un` mongodb/data/db # Change permisssions of this folder
 mongod --dbpath mongodb/data/db # Start mongodb and point it to mongodb/data/db folder
+
+# Loading json collections (will autocreate if not exist)
+mongoimport --db mvm_db --collection <collection> --file mongodb/scripts/<collection>.json
 ```
 
 #### MVC in Flask Structure

@@ -1,2 +1,3 @@
 # Ignore pychace file
 *.pyc
+/mongodb/data/db/*
