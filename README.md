@@ -44,8 +44,8 @@ FLASK_APP=app.py FLASK_ENV=development flask run # Run Flask in debug mode
 ```bash
 cd ict2101_project/move_with_me/server
 sudo apt-get install mongodb # Install mongodb into system
-sudo chown -R `id -un` mongodb/data/db # Change permisssions of this folder
-mongod --dbpath mongodb/data/db # Start mongodb and point it to mongodb/data/db folder
+mkdir -p /data/db # For linux system
+sudo mongod # Start mongodb
 
 # Loading json collections (will autocreate if not exist)
 mongoimport --db mvm_db --collection <collection> --file mongodb/scripts/<collection>.json
