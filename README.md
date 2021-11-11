@@ -26,6 +26,7 @@ cd ict2101_project/move_with_me
 cd ict2101_project/move_with_me/server
 python3 -m venv venv # Create a python environmment
 . venv/bin/activate # Start python environment
+pip install -r requirements.txt
 FLASK_APP=app.py FLASK_ENV=development flask run # Run Flask in debug mode
 ```
 
