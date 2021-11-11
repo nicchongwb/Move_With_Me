@@ -23,14 +23,14 @@ cd ict2101_project/move_with_me
 
 #### Start backend : Flask
 ```bash
-Windows Setup
+#Windows Setup
 cd ict2101_project/move_with_me/server
 python3 -m venv venv # Create a python environmment
 . venv/bin/activate # Start python environment
 pip install -r requirements.txt
 FLASK_APP=app.py FLASK_ENV=development flask run # Run Flask in debug mode
 
-Mac Setup
+#Mac Setup
 cd ict2101_project/move_with_me/server
 python3 -m venv venv # Create a python environmment
 source venv/bin/activate # Start python environment
