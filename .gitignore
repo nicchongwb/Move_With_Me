@@ -1,5 +1,9 @@
 # Ignore pychace file
 *.pyc
 
+# Ignore 
+move_with_me/server/venv/*
+move_with_me/server/__pycache__/*
+
 # Ignore mongodb db files
-/move_with_me/server/mongodb/data/db/*
+move_with_me/server/mongodb/data/db/*.*
