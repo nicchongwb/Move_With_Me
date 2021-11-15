@@ -78,7 +78,39 @@ show dbs
 use mvm_db
 show collections
 ```
+---
 
+## Development Workflow
+Always branch for each feature. A feature typically comprise of a class, eg. Entity, Control, Boundary
+
+```
+dev/<component>
+dev/AccountManagement/UserEntity
+dev/AccountManagement/UserController
+dev/AccountManagement/UserBoundary
+```
+If a feature is too complex, eg. GameBoundary then we can split further with following
+```
+dev/AccountManagement/GameBoundary
+dev/AccountManagement/GameBoundary/<function>
+```
+Commands to use
+```bash
+git branch # see which branch
+git checkout -b <branch name> # Create a new branch and switch to it
+
+Example to create a feature branch:
+git switch dev
+git checkout -b dev/<component> # Create the compononet branch if not exist
+git checkout -b dev/<component>/<feature>
+
+# Staging and commit
+git add . # this will add all changes, if you don't wish to do that, then don't use .
+git commit -m "Enter message here"
+git pull
+git push
+```
+Messages should be clear, eg. Update ... or Implemented ... or Integrated A with B
 
 ## Things to test
 - React integration [See link](https://dev.to/dev_elie/connecting-a-react-frontend-to-a-flask-backend-h1o)
