@@ -35,7 +35,7 @@ cd ict2101_project/move_with_me/server
 python3 -m venv venv # Create a python environmment
 source venv/bin/activate # Start python environment
 pip install -r requirements.txt
-FLASK_APP=app.py FLASK_ENV=development flask run # Run Flask in debug mode
+FLASK_APP=run.py FLASK_ENV=development flask run # Run Flask in debug mode
 
 
 ```
@@ -84,15 +84,16 @@ show collections
 Always branch for each feature. A feature typically comprise of a class, eg. Entity, Control, Boundary
 
 ```
-dev/<component>
-dev/AccountManagement/UserEntity
-dev/AccountManagement/UserController
-dev/AccountManagement/UserBoundary
+dev-<component>-<feature>
+dev-<component>-<feature>-<function>
+dev-AccountManagement-UserEntity
+dev-AccountManagement-UserController
+dev-AccountManagement-UserBoundary
 ```
 If a feature is too complex, eg. GameBoundary then we can split further with following
 ```
-dev/AccountManagement/GameBoundary
-dev/AccountManagement/GameBoundary/<function>
+dev-AccountManagement-GameBoundary
+dev-AccountManagement-GameBoundary-<function>
 ```
 Commands to use
 ```bash
