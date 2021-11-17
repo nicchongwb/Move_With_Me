@@ -7,4 +7,4 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
 
-from app.routes import home, users
+from app.routes import home, users, react_test
