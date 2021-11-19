@@ -32,6 +32,30 @@ cd client
 npm start
 ```
 
+##### WSL - React troubleshoot
+For npx create-react-app client, if faced with a bash\r: no such file or directory 
+```bash
+sudo apt install nodejs npm
+sudo nano /etc/wsl.conf
+```
+
+While in the wsl.conf file
+```
+[interop]
+appendWindowsPath = false
+```
+
+While in command prompt
+```cmd
+wsl --shutdown
+Restart-Service LxssManager
+```
+
+Start the react app
+```bash
+npx create-react-app client
+```
+
 #### Start backend : Flask
 ```bash
 #Windows Setup
