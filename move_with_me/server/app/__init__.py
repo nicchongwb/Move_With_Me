@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+
 import pymongo
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
@@ -6,5 +7,12 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
+
+
+@app.route("/helloesp", methods=['GET'])
+def helloHandler():
+    if request.method == 'GET':
+        return 'Hello EcSP8266'
+
 
 from app.routes import home, users, react_test

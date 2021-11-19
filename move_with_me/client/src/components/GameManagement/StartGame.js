@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const ChallengeResult = () => {
+
+const StartGame = () => {
   return <div></div>;
 };
-export default ChallengeResult;
+export default StartGame;

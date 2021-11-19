@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const SelectChallenge = () => {
+
+const Map = () => {
   return <div></div>;
 };
-export default SelectChallenge;
+export default Map;

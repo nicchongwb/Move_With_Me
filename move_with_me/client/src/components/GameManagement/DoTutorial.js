@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-const CarSpecs = () => {
+
+const DoTutorial = () => {
   return <div></div>;
 };
-export default CarSpecs;
+export default DoTutorial;
