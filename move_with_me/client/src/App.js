@@ -6,7 +6,6 @@ import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
-
 import "tailwindcss/tailwind.css";
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
   }
   return (
     <div>
-      <h1 class="text-yellow-400">test</h1>
       <Router>
         <Route
           exact

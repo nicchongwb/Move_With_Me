@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
 const StartGame = () => {
-  return <div>this is start game</div>;
+  return <div>This is start game</div>;
 };
 export default StartGame;
