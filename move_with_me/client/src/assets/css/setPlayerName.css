@@ -1,3 +1,5 @@
-.ant-input {
-    width: 25rem;
+.ant-form-item-control-input{
+    width: 30%;
+    margin: 0 auto;
+    
 }

@@ -14,5 +14,9 @@ def helloHandler():
     if request.method == 'GET':
         return 'Hello EcSP8266'
 
+@app.route("/saveUsers", methods=['POST'])
+def save_player_names():
+    if request.method == 'GET':
+        return 
 
 from app.routes import home, users, react_test
