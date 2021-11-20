@@ -178,3 +178,4 @@ Links - to be added to Wiki:
 - [React Setting up](https://www.youtube.com/watch?v=7LNl2JlZKHA)
 - [React VSCode plugin](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - [Gitignore templates](https://github.com/github/gitignore)
+- [Tailwind Guide](https://tailwindcomponents.com/cheatsheet/)
