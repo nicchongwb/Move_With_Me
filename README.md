@@ -24,12 +24,47 @@ git clone git@github.com:nicchongwb/ict2101_project.git
 cd ict2101_project/move_with_me
 ```
 
+#### Setup NodeJS environment
+```bash
+sudo apt update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+nvm --version # Check version ensure its v14.17.0
+nvm ls-remote # list all node versions from remote repo
+nvm install v14.17.0 # We all work on this version
+nvm alias default v14.17.0
+```
+
 #### Start frontend : React
 ```bash
 cd ict2101_project/move_with_me
 npx create-react-app client # Creates react app into client folder
 cd client
 npm start
+```
+
+##### WSL - React troubleshoot
+For npx create-react-app client, if faced with a bash\r: no such file or directory 
+```bash
+sudo apt install nodejs npm
+sudo nano /etc/wsl.conf
+```
+
+While in the wsl.conf file
+```
+[interop]
+appendWindowsPath = false
+```
+
+While in command prompt
+```cmd
+wsl --shutdown
+Restart-Service LxssManager
+```
+
+Start the react app
+```bash
+npx create-react-app client
 ```
 
 #### Start backend : Flask
@@ -154,3 +189,4 @@ Links - to be added to Wiki:
 - [React Setting up](https://www.youtube.com/watch?v=7LNl2JlZKHA)
 - [React VSCode plugin](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - [Gitignore templates](https://github.com/github/gitignore)
+- [Tailwind Guide](https://tailwindcomponents.com/cheatsheet/)
