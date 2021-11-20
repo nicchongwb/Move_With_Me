@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
 const SelectChallenge = () => {
-  return <div></div>;
+  return <div>This is select challenge</div>;
 };
 export default SelectChallenge;
