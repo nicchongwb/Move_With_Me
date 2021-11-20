@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
-import { savePlayerNames } from "../../api";
+// import { savePlayerNames } from "../../api";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
@@ -12,12 +12,21 @@ const SetPlayerName = () => {
     e.preventDefault();
     setName(e.target.value);
 
-    const res1 = await savePlayerNames(name);
-    if (res1.status == 200) {
-      console.log("status 200");
-    } else {
-      console.log("error", res1.status);
-    }
+ fetch("http://localhost:5000/saveUsers", {
+   method: "POST",
+   mode: "cors",
+   headers: {
+     "Content-Type": "application/json",
+   },
+  
+   body: JSON.stringify({
+     name: name
+   }),
+ })
+   .then((response) => response.json()
+ )
+    
+  
   };
   console.log("your name", name);
   return (
