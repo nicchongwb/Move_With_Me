@@ -7,6 +7,7 @@ import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import "tailwindcss/tailwind.css";
+import "antd/dist/antd.css";
 
 function App() {
   {
