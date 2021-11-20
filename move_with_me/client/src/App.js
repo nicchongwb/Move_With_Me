@@ -22,8 +22,6 @@ function App() {
 
   return (
     <div>
-      <h1 class="text-yellow-400">hello</h1>
-
       {/* {typeof data.members === "undefined" ? (
         ) : (
           data.members.map((member, i) => <p key={i}>{member}</p>)
