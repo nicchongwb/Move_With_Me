@@ -24,6 +24,17 @@ git clone git@github.com:nicchongwb/ict2101_project.git
 cd ict2101_project/move_with_me
 ```
 
+#### Setup NodeJS environment
+```bash
+sudo apt update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+nvm --version # Check version ensure its v14.17.0
+nvm ls-remote # list all node versions from remote repo
+nvm install v14.17.0 # We all work on this version
+nvm alias default v14.17.0
+```
+
 #### Start frontend : React
 ```bash
 cd ict2101_project/move_with_me
