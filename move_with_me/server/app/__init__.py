@@ -5,6 +5,8 @@ from pymongo import MongoClient
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
+
+
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
 
@@ -15,4 +17,4 @@ def helloHandler():
         return 'Hello EcSP8266'
 
 
-from app.routes import home, users, react_test
+from app.routes import home, users, react_test, rankings, game

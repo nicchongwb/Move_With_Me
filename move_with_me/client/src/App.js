@@ -6,28 +6,13 @@ import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
+import Results from "./components/GameManagement/Results";
+import Game from "./components/GameManagement/Game";
+import GameUI from "./components/GameManagement/GameUI";
 
 import "tailwindcss/tailwind.css";
 
 function App() {
-  {
-    /* const [data, setData] = useState([{}]);
-
-  useEffect(() => {
-    fetch("/members")
-      .then(
-        // Response from /members will be json
-        (res) => res.json()
-      )
-      .then(
-        // set data inside json to variable named data
-        (data) => {
-          setData(data);
-          console.log(data);
-        }
-      );
-  }, []); */
-  }
   return (
     <div>
       <h1 class="text-yellow-400">test</h1>
@@ -68,6 +53,7 @@ function App() {
           exact
           component={Challenge}
         ></Route>
+        <Route exact key="game" path="/game" exact component={Game}></Route>
       </Router>
     </div>
   );
