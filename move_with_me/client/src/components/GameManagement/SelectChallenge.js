@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from 'antd';
 
 // const data = [
 //   {
@@ -26,15 +27,16 @@ import React, { useState } from "react";
 //   );
 // }
 
-const numbers = [1, 2, 3, 4, 5];
+const numbers = [1, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5];
 
 
 const SelectChallenge = () => {
   return (
-    <div class="text-center">
+    <div class="text-center container mx-auto px-4 space-x-32">
       <h2 class="text-4xl  font-semibold  pt-24">Select Your Challenge</h2>
+
       {/* <NumberList challenges={data}/> */}
-      <div class="space-x-32 pt-12">
+      <div class="grid grid-rows-3 grid-flow-row grid-cols-6 gap-4">
         {numbers.map((numbers) => (
           <Button
             type="primary"
