@@ -38,7 +38,7 @@ nvm alias default v14.17.0
 #### Start frontend : React
 ```bash
 cd ict2101_project/move_with_me
-npx create-react-app client # Creates react app into client folder
+npm install
 cd client
 npm start
 ```
@@ -163,11 +163,13 @@ Commands to use
 ```bash
 git branch # see which branch
 git checkout -b <branch name> # Create a new branch and switch to it
+git checkout -b <branch name> <branching from> # Create a new branch branching from a branch and switch to it 
 
 Example to create a feature branch:
 git switch dev
 git checkout -b dev/<component> # Create the compononet branch if not exist
 git checkout -b dev/<component>/<feature>
+git checkout -b dev/<component>/<feature> dev
 
 # Staging and commit
 git add . # this will add all changes, if you don't wish to do that, then don't use .
