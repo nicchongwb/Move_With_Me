@@ -10,6 +10,8 @@ import json
 @app.route("/api/game", methods=["POST"])
 def updateGame():
     json_data = request.json
-    # mongo.db.Rankings.insert(json_data)
+    
+    # json_data["position"][0]
     json_data["status"] = "completed"
+    # mongo.db.Rankings.insert(json_data)
     return jsonify(json_data)

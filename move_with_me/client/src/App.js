@@ -6,9 +6,7 @@ import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
-import Results from "./components/GameManagement/Results";
 import Game from "./components/GameManagement/Game";
-import GameUI from "./components/GameManagement/GameUI";
 
 import "tailwindcss/tailwind.css";
 
