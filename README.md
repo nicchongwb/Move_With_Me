@@ -24,12 +24,47 @@ git clone git@github.com:nicchongwb/ict2101_project.git
 cd ict2101_project/move_with_me
 ```
 
+#### Setup NodeJS environment
+```bash
+sudo apt update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+nvm --version # Check version ensure its v14.17.0
+nvm ls-remote # list all node versions from remote repo
+nvm install v14.17.0 # We all work on this version
+nvm alias default v14.17.0
+```
+
 #### Start frontend : React
 ```bash
 cd ict2101_project/move_with_me
-npx create-react-app client # Creates react app into client folder
+npm install
 cd client
 npm start
+```
+
+##### WSL - React troubleshoot
+For npx create-react-app client, if faced with a bash\r: no such file or directory 
+```bash
+sudo apt install nodejs npm
+sudo nano /etc/wsl.conf
+```
+
+While in the wsl.conf file
+```
+[interop]
+appendWindowsPath = false
+```
+
+While in command prompt
+```cmd
+wsl --shutdown
+Restart-Service LxssManager
+```
+
+Start the react app
+```bash
+npx create-react-app client
 ```
 
 #### Start backend : Flask
@@ -128,11 +163,13 @@ Commands to use
 ```bash
 git branch # see which branch
 git checkout -b <branch name> # Create a new branch and switch to it
+git checkout -b <branch name> <branching from> # Create a new branch branching from a branch and switch to it 
 
 Example to create a feature branch:
 git switch dev
 git checkout -b dev/<component> # Create the compononet branch if not exist
 git checkout -b dev/<component>/<feature>
+git checkout -b dev/<component>/<feature> dev
 
 # Staging and commit
 git add . # this will add all changes, if you don't wish to do that, then don't use .
@@ -154,3 +191,5 @@ Links - to be added to Wiki:
 - [React Setting up](https://www.youtube.com/watch?v=7LNl2JlZKHA)
 - [React VSCode plugin](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - [Gitignore templates](https://github.com/github/gitignore)
+- [Tailwind Guide](https://tailwindcomponents.com/cheatsheet/)
+- [Tailwind Components](https://merakiui.com/#main)
