@@ -20,7 +20,7 @@ const SetPlayerName = () => {
         },
         body: JSON.stringify(name),
       });
-      console.log("what is this", result.text());
+      console.log(result.text());
     } catch (error) {
       console.log(error);
     }

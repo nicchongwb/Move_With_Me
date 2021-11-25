@@ -20,7 +20,7 @@ def helloHandler():
         return 'Hello EcSP8266'
 
 @app.route("/saveUsers",methods=['POST', 'GET'])
-def save_player_names():
+def save_player_names(player_name):
         player_name = request.get_json()
         print('i am player name',player_name)
         if player_name:
