@@ -5,9 +5,11 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
 // import { savePlayerNames } from "../../api";
+import { useHistory } from "react-router-dom";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
+  const history = useHistory();
 
   const saveName = async (e) => {
     e.preventDefault();
@@ -24,23 +26,13 @@ const SetPlayerName = () => {
     } catch (error) {
       console.log(error);
     }
-
-    // fetch("http://localhost:5000/saveUsers", {
-    //   method: "POST",
-    //   cache: "no-cache",
-    //   headers: {
-    //     content_type: "application/json",
-    //   },
-    //   body: JSON.stringify({ name }),
-    // })
-    //   .then((response) => {
-    //     console.log("response json", response.json());
-    //   })
+    history.push({
+      pathname: "/challenge",
+      state: {
+        playerName: name,
+      },
+    });
   };
-
-  // useEffect(() => {
-  //   saveName();
-  // }, []);
 
   console.log("your name", name);
   return (

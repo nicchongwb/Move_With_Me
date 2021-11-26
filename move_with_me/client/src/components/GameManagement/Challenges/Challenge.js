@@ -9,7 +9,9 @@ import {
 } from "@ant-design/icons";
 import { Card } from "antd";
 
-const Challenge = () => {
+const Challenge = (props) => {
+  const pname = props.location.state?.playerName;
+  console.log("playerName", pname);
   //dragging item
   const draggingItem = useRef();
   //switch arrow position
@@ -51,7 +53,7 @@ const Challenge = () => {
         </h1>
       </div>
       <div class="float-right text-right mr-8">
-        <p class="text-xl">Hello Belle! </p>
+        <p class="text-xl">Hello {pname}! </p>
         <p class=" text-green-700"> Connection Status</p>
       </div>
       <div class="flex mt-20 justify-center">
