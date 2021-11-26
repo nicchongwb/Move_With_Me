@@ -18,10 +18,10 @@ const Challenge = (props) => {
   const dragOverItem = useRef();
   //list of arrows stored in state
   const [list, setList] = useState([
-    <ArrowUpOutlined />,
-    <ArrowDownOutlined />,
-    <ArrowLeftOutlined />,
-    <ArrowDownOutlined />,
+    { name: "Up", arrow: <ArrowUpOutlined />, category: "wip" },
+    { name: "Down", arrow: <ArrowDownOutlined />, category: "wip" },
+    { name: "Left", arrow: <ArrowLeftOutlined />, category: "wip" },
+    { name: "Left", arrow: <ArrowLeftOutlined />, category: "wip" },
   ]);
 
   const handleDragStart = (e, position) => {
