@@ -31,6 +31,7 @@ const numbers = [1, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 
 
 
 const SelectChallenge = () => {
+  //create restful api to read from backend
   return (
     <div class="text-center container mx-auto px-4 space-x-32">
       <h2 class="text-4xl  font-semibold  pt-24">Select Your Challenge</h2>
