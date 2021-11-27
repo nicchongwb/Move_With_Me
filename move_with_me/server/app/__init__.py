@@ -19,7 +19,6 @@ def helloHandler():
 def retrieve_challenge():
     challenges = []
     x =  db.map.find()
-    print('x',x)
     for data in x:
         data['_id'] = str(data['_id']) # This does the trick!
         challenges.append(data)
