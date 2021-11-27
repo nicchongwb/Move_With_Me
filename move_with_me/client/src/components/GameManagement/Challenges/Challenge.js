@@ -12,6 +12,7 @@ import { Card, Button } from "antd";
 class Challenge extends Component {
   constructor(props) {
     super(props);
+    //setting states
     this.state = {
       nextElementId: 0,
       elementData: {},
@@ -19,6 +20,7 @@ class Challenge extends Component {
     };
   }
 
+  //drag handler
   dragStart = (ev, type, redrag = false, elementId = null) => {
     ev.dataTransfer.setData("type", type);
     if (redrag) {
@@ -67,19 +69,19 @@ class Challenge extends Component {
     });
   };
 
-  dropOutside = (ev) => {
-    const { elementData } = this.state;
-    let elementId = ev.dataTransfer.getData("elementId");
-    if (elementId && elementData[elementId]) {
-      delete elementData[elementId];
-    }
+  // dropOutside = (ev) => {
+  //   const { elementData } = this.state;
+  //   let elementId = ev.dataTransfer.getData("elementId");
+  //   if (elementId && elementData[elementId]) {
+  //     delete elementData[elementId];
+  //   }
 
-    ev.dataTransfer.clearData();
+  //   ev.dataTransfer.clearData();
 
-    this.setState({
-      elementData,
-    });
-  };
+  //   this.setState({
+  //     elementData,
+  //   });
+  // };
 
   render() {
     const { elementData } = this.state;
@@ -105,7 +107,6 @@ class Challenge extends Component {
             <Card title="Controls" style={{ width: 500 }}>
               <div
                 className="components-list"
-                onDrop={this.dropOutside}
                 onDragOver={this.dragOver}
                 class="flex justify-center"
               >
