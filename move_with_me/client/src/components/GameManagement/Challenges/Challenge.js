@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-
+import React, { Component } from "react";
+import { getElementList } from "./utility";
 import "../../../assets/css/startGame.css";
 import {
   ArrowDownOutlined,
@@ -7,90 +7,163 @@ import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
-import { Card } from "antd";
+import { Card, Button } from "antd";
 
-const Challenge = (props) => {
-  const pname = props.location.state?.playerName;
-  console.log("playerName", pname);
-  //dragging item
-  const draggingItem = useRef();
-  //switch arrow position
-  const dragOverItem = useRef();
-  //list of arrows stored in state
-  const [list, setList] = useState([
-    { name: "Up", arrow: <ArrowUpOutlined />, category: "wip" },
-    { name: "Down", arrow: <ArrowDownOutlined />, category: "wip" },
-    { name: "Left", arrow: <ArrowLeftOutlined />, category: "wip" },
-    { name: "Left", arrow: <ArrowLeftOutlined />, category: "wip" },
-  ]);
+class Challenge extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nextElementId: 0,
+      elementData: {},
+      redrag: false,
+    };
+  }
 
-  const handleDragStart = (e, position) => {
-    //find current position of item
-    draggingItem.current = position;
-  };
-  const handleDragEnter = (e, position) => {
-    dragOverItem.current = position;
-  };
-  const handleDragEnd = (e) => {
-    const listCopy = [...list];
-    const draggingItemContent = listCopy[draggingItem.current];
-    listCopy.splice(draggingItem.current, 1);
-    listCopy.splice(dragOverItem.current, 0, draggingItemContent);
-
-    draggingItem.current = null;
-    dragOverItem.current = null;
-    //set the new position of arrows
-    setList(listCopy);
+  dragStart = (ev, type, redrag = false, elementId = null) => {
+    ev.dataTransfer.setData("type", type);
+    if (redrag) {
+      ev.dataTransfer.setData("elementId", elementId);
+    }
   };
 
-  const grids = [0, 1, 2, 4, 5];
+  dragOver = (ev) => {
+    ev.preventDefault();
+  };
 
-  return (
-    <div class=" background w-full min-h-screen opacity-80 text-center ">
-      <div class="pt-20 text-center">
-        <h1 className="text-5xl text-blue-800 mt-12 text-center font-bold  ">
-          Move With Me
-        </h1>
-      </div>
-      <div class="float-right text-right mr-8">
-        <p class="text-xl">Hello {pname}! </p>
-        <p class=" text-green-700"> Connection Status</p>
-      </div>
-      <div class="flex mt-20 justify-center">
-        <Card title="Navigate Map" style={{ width: 500 }}>
-          <div class="flex">
-            {grids.map(() => (
-              <div class="w-24 h-24 bg-gray-300 border-black  border-4"></div>
-            ))}
-          </div>
-          <div class="flex">
-            {grids.map(() => (
-              <div class="w-24 h-24 bg-gray-300 border-black  border-4"></div>
-            ))}
-          </div>
-        </Card>
+  drop = (ev) => {
+    ev.preventDefault();
+    const type = ev.dataTransfer.getData("type");
+    //get arrow direction
+    console.log(type);
 
-        <Card title="Controls" style={{ width: 500 }}>
-          {list &&
-            list.map((item, index) => (
+    const { elementData } = this.state;
+    let { nextElementId } = this.state;
+    const newElementData = {
+      type,
+      left: ev.clientX,
+      top: ev.clientY,
+    };
+
+    let elementId = ev.dataTransfer.getData("elementId");
+    if (elementId) {
+      // check if element is redragged and the ID exists in dataTransfer
+      elementId = parseInt(elementId);
+      elementData[elementId] = {
+        ...elementData[elementId],
+        left: ev.clientX,
+        top: ev.clientY,
+      };
+      parseInt(ev.dataTransfer.getData("elementId"));
+    } else {
+      elementData[nextElementId] = newElementData;
+      nextElementId = nextElementId + 1;
+    }
+
+    ev.dataTransfer.clearData();
+
+    this.setState({
+      elementData,
+      nextElementId,
+    });
+  };
+
+  dropOutside = (ev) => {
+    const { elementData } = this.state;
+    let elementId = ev.dataTransfer.getData("elementId");
+    if (elementId && elementData[elementId]) {
+      delete elementData[elementId];
+    }
+
+    ev.dataTransfer.clearData();
+
+    this.setState({
+      elementData,
+    });
+  };
+
+  render() {
+    const { elementData } = this.state;
+    const elements = [...getElementList(elementData, this.dragStart)];
+    const pname = this.props.location.state?.playerName;
+    console.log("playerName", pname);
+
+    return (
+      <div class=" background w-full min-h-screen opacity-80 text-center  ">
+        <div class="pt-20 text-center">
+          <h1 className="text-5xl text-blue-800 mt-12 text-center font-bold  ">
+            Move With Me
+          </h1>
+        </div>
+        <div class="float-right text-right mr-8">
+          <p class="text-xl">Hello {pname}! </p>
+          <p class=" text-green-700"> Connection Status</p>
+        </div>
+        <div class="pt-48">
+          <div class="flex justify-center">
+            <Card title="Map" style={{ width: 500 }}></Card>
+
+            <Card title="Controls" style={{ width: 500 }}>
               <div
-                onDragStart={(e) => handleDragStart(e, index)}
-                onDragEnd={handleDragEnd}
-                key={index}
-                draggable
-                class="text-5xl"
+                className="components-list"
+                onDrop={this.dropOutside}
+                onDragOver={this.dragOver}
+                class="flex justify-center"
               >
-                {item}
+                <div
+                  draggable={true}
+                  onDragStart={(ev) => {
+                    this.dragStart(ev, "left");
+                  }}
+                >
+                  <ArrowLeftOutlined style={{ fontSize: "40px" }} />
+                </div>
+                <div
+                  draggable={true}
+                  onDragStart={(ev) => {
+                    this.dragStart(ev, "right");
+                  }}
+                >
+                  <ArrowRightOutlined style={{ fontSize: "40px" }} />
+                </div>
+                <div
+                  draggable={true}
+                  onDragStart={(ev) => {
+                    this.dragStart(ev, "up");
+                  }}
+                >
+                  <ArrowUpOutlined style={{ fontSize: "40px" }} />
+                </div>
+                <div
+                  draggable={true}
+                  onDragStart={(ev) => {
+                    this.dragStart(ev, "down");
+                  }}
+                >
+                  <ArrowDownOutlined style={{ fontSize: "40px" }} />
+                </div>
               </div>
-            ))}
-        </Card>
+            </Card>
+          </div>
+
+          <div class="flex justify-center">
+            <Card title="Command Tray" style={{ width: 1000 }}>
+              <div
+                class=" h-72 bg-gray-200"
+                onDrop={this.drop}
+                onDragOver={this.dragOver}
+              >
+                <p class="text-xl pt-8"> Drop Area</p>
+                {elements}
+              </div>
+            </Card>
+          </div>
+        </div>
+        <div class="mt-12">
+          <Button type="primary">I am Done!</Button>
+        </div>
       </div>
-      <div class="flex justify-center">
-        <Card title="Command Tray" style={{ width: 1000 }}>
-          <div></div>
-        </Card>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
+
 export default Challenge;

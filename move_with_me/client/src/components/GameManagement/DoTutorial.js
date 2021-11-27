@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-
+import image from "../../assets/images/sprites/rpg-nature-tileset/spring.png";
 const DoTutorial = () => {
-  return <div>This is do tutorial</div>;
+  return (
+    <div>
+      <img src={image} class="w-12 h-12"></img>
+    </div>
+  );
 };
 export default DoTutorial;
