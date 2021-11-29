@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
 
 function Game() {
     // eg. step = state, setStep = function to update state

@@ -5,15 +5,17 @@ import SetPlayerName from "./components/GameManagement/SetPlayerName";
 import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
-import Challenge from "./components/GameManagement/Challenge";
+import Challenge from "./components/GameManagement/Challenges/Challenge";
 import Game from "./components/GameManagement/Game";
+import GameMap from "./components/GameManagement/GameMap";
+import CreateMap from "./components/GameManagement/CreateMap";
 
 import "tailwindcss/tailwind.css";
+import "antd/dist/antd.css";
 
 function App() {
   return (
     <div>
-      <h1 class="text-yellow-400">test</h1>
       <Router>
         <Route
           exact
@@ -52,6 +54,14 @@ function App() {
           component={Challenge}
         ></Route>
         <Route exact key="game" path="/game" exact component={Game}></Route>
+        <Route
+          exact
+          key="gameMap"
+          path="/GameMap"
+          exact
+          component={GameMap}
+        ></Route>
+        <Route exact key="createMap" path="/CreateMap" exact component={CreateMap}></Route>
       </Router>
     </div>
   );

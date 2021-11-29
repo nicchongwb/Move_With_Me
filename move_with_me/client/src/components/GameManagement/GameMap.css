@@ -1,0 +1,50 @@
+#board {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    width: 500px;
+    height: 500px;
+    background-color: blue;
+}
+
+#board .tile {
+    width: 50px;
+    height: 50px;
+}
+
+#board .black-tile {
+    background-color: #779556;
+}
+
+#board .white-tile {
+    background-color: #ebecd0;
+    border: 1px solid rgb(100, 100, 100);
+}
+
+#board .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+#board .button1 {
+    background-color: white; 
+    color: black; 
+    border: 1px solid #4CAF50;
+}
+
+#board .button1:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#board .button1clicked {
+    background-color: #4CAF50; 
+    color: white;
+}
