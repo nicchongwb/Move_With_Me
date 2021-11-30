@@ -18,7 +18,7 @@ const SelectChallenge = () => {
   };
   const test = (e) => {
     history.push({
-      pathname: "/challenges",
+      pathname: "/challenge",
       state: {
         challengeInfo: selectedChallenge,
       },
@@ -45,6 +45,7 @@ const SelectChallenge = () => {
                 height: "10rem",
                 fontSize: "5rem",
               }}
+              value={console.log(data)}
               onClick={((e) => setSelectedChallenge(data), test)}
             >
               <p> {data.challengeID}</p>
