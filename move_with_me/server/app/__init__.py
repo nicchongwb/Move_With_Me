@@ -7,7 +7,7 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb+srv://admin:ICT2x01isgreat@cluster0.ciqn1.mongodb.net/mvm_db?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
 db = mongo.db
 
@@ -22,8 +22,8 @@ def retrieve_challenge():
     challenges = []
     x =  db.map.find()
     for data in x:
-        data['_id'] = str(data['_id']) # This does the trick!
+        data['_id'] = str(data['_id']) 
         challenges.append(data)
-    return jsonify(challenges)
+        return jsonify(challenges)
 
 from app.routes import home, users, react_test
