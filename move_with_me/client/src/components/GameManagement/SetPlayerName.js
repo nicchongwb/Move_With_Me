@@ -4,43 +4,22 @@ import { Link } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
-// import { savePlayerNames } from "../../api";
+import { savePlayerNames } from "../../api";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
 
-  const saveName = async (e) => {
-    e.preventDefault();
-    setName(e.target.value);
-    try {
-      const result = await fetch("http://localhost:5000/saveUsers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(name),
-      });
-      console.log(result.text());
-    } catch (error) {
-      console.log(error);
+  const saveName = async () => {
+    const res1 = await savePlayerNames(name);
+    if (res1.status == 200) {
+      console.log("status 200");
     }
-
-    // fetch("http://localhost:5000/saveUsers", {
-    //   method: "POST",
-    //   cache: "no-cache",
-    //   headers: {
-    //     content_type: "application/json",
-    //   },
-    //   body: JSON.stringify({ name }),
-    // })
-    //   .then((response) => {
-    //     console.log("response json", response.json());
-    //   })
+    console.log("res1", res1);
   };
 
-  // useEffect(() => {
-  //   saveName();
-  // }, []);
+  useEffect(() => {
+    saveName();
+  }, []);
 
   console.log("your name", name);
   return (
