@@ -6,9 +6,11 @@ import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
 import { savePlayerNames } from "../../api";
 // import { savePlayerNames } from "../../api";
+import { useHistory } from "react-router-dom";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
+  const history = useHistory();
 
   const saveName = async () => {
     const res1 = await savePlayerNames(name);
@@ -21,6 +23,15 @@ const SetPlayerName = () => {
   useEffect(() => {
     saveName();
   }, []);
+
+  const retrieveName = () => {
+    history.push({
+      pathname: "/challenge",
+      state: {
+        playerName: name,
+      },
+    });
+  };
 
   console.log("your name", name);
   return (
@@ -60,7 +71,11 @@ const SetPlayerName = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" onClick={saveName}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={(saveName, retrieveName)}
+            >
               Let's Go
             </Button>
           </Form.Item>
@@ -69,5 +84,4 @@ const SetPlayerName = () => {
     </div>
   );
 };
-
 export default SetPlayerName;
