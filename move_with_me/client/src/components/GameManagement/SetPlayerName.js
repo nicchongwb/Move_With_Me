@@ -5,6 +5,7 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
 import { savePlayerNames } from "../../api";
+// import { savePlayerNames } from "../../api";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
@@ -68,4 +69,5 @@ const SetPlayerName = () => {
     </div>
   );
 };
+
 export default SetPlayerName;
