@@ -7,6 +7,8 @@ import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import "tailwindcss/tailwind.css";
+import admLogin from "./components/AccountManagement/adminLogin";
+import login from "./components/AccountManagement/normalLogin";
 
 function App() {
   {
@@ -65,6 +67,20 @@ function App() {
           path="/challenge"
           exact
           component={Challenge}
+        ></Route>
+        <Route
+          exact
+          key="admlogin"
+          path="/admlogin"
+          exact
+          component={admLogin}
+        ></Route>
+        <Route
+          exact
+          key="login"
+          path="/login"
+          exact
+          component={login}
         ></Route>
       </Router>
     </div>
