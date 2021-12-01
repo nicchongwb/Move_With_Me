@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { getElementList } from "./Challenges/utility.js";
+import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
 import {
   ArrowDownOutlined,
@@ -16,7 +15,7 @@ const Challenge = (props) => {
   const [elementData, setElementData] = useState({});
   const [redrag, setRedrag] = useState(false);
   const [arrow, setArrow] = useState("");
-  // const [data, setData] = useState();
+  const elements = [];
 
   const dragHandler = (e, type) => {
     // setArrow(type);
@@ -33,12 +32,19 @@ const Challenge = (props) => {
   //datatransfer help to hold data that is being dragged during drag and drop
   const drop = (e) => {
     e.preventDefault();
-    // console.log("test");
-    // console.log("this is type", arrow);
-
     const type = e.dataTransfer.getData("type");
     console.log("type", type);
+
+    elements.push(type);
+    console.log("elements", elements);
+    setElementData(elements);
+    console.log("state", elementData);
   };
+  useEffect(() => {
+    // dragHandler();
+    // dragOver();
+    // drop();
+  }, []);
 
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
@@ -97,7 +103,8 @@ const Challenge = (props) => {
               onDrop={(e) => drop(e)}
             >
               <p class="text-xl pt-8">Drop Area</p>
-              {/* {elements} */}
+              Hello, drop your arrows here!
+              {elements}
             </div>
           </Card>
         </div>
