@@ -5,6 +5,7 @@ import {
   ArrowUpOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  BoxPlotFilled,
 } from "@ant-design/icons";
 import { Card, Button } from "antd";
 import Element from "antd/lib/skeleton/Element";
@@ -13,15 +14,20 @@ const Challenge = (props) => {
   // const data = props.location.state?.challengeInfo;
   // console.log("data", data);
   const [elementData, setElementData] = useState([]);
-  const elements = [];
+  const [dragId, setDragId] = useState("");
+  const [newElementData, setNewElementData] = useState([]);
 
   const dragHandler = (e, type) => {
     e.dataTransfer.setData("type", type);
-    console.log(type);
+    console.log("this is type", type);
+    setDragId(type);
+    console.log("currentTarget", dragId);
   };
 
   const dragOver = (e) => {
     e.preventDefault();
+    // const elementId = e.target.value;
+    // console.log("this is elementid", elementId);
   };
 
   //datatransfer help to hold data that is being dragged during drag and drop
@@ -30,19 +36,44 @@ const Challenge = (props) => {
     const type = e.dataTransfer.getData("type");
     console.log("type", type);
     setElementData((elementData) => [...elementData, type]);
+    console.log("test", elementData);
+
+    const newBoxState = elementData.map((element) => {
+      //previous arrow
+      console.log("element", element);
+      console.log(dragId);
+      //new element being dragged currently
+      console.log("elementData State", elementData);
+      if (element == dragId) {
+        //swap elements
+        let temp = elementData[dragId];
+        elementData[dragId] = elementData[element];
+        elementData[element] = temp;
+        console.log("temp", temp);
+      }
+    });
+    setNewElementData(newBoxState);
   };
 
+  const remove = (e) => {
+    // console.log("remove function");
+    // const elementId = e.dataTransfer.getData("elementId");
+    // console.log(elementId);
+  };
 
   const renderElements = () => {
     var elements = [];
+    //my elements
     console.log(elementData);
-    elementData.forEach(element => {
+
+    elementData.forEach((element) => {
       if (element == "up") {
         elements.push(
           <ArrowUpOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "up")}
+            onDragStart={(e) => dragHandler(e, "up", true)}
+            id="up"
           />
         );
       } else if (element == "down") {
@@ -50,7 +81,8 @@ const Challenge = (props) => {
           <ArrowDownOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "up")}
+            onDragStart={(e) => dragHandler(e, "down", true)}
+            id="down"
           />
         );
       } else if (element == "left") {
@@ -58,7 +90,8 @@ const Challenge = (props) => {
           <ArrowLeftOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "up")}
+            onDragStart={(e) => dragHandler(e, "left", true)}
+            id="left"
           />
         );
       } else if (element == "right") {
@@ -66,14 +99,14 @@ const Challenge = (props) => {
           <ArrowRightOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "up")}
+            onDragStart={(e) => dragHandler(e, "right", true)}
+            id="down"
           />
         );
       }
-
     });
-    return (<div>{elements}</div>);
-  }
+    return <div>{elements}</div>;
+  };
 
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
@@ -138,7 +171,8 @@ const Challenge = (props) => {
           </Card>
         </div>
       </div>
-      <div class="mt-12"> 
+
+      <div class="mt-12">
         <Button type="primary">I am Done!</Button>
       </div>
     </div>
