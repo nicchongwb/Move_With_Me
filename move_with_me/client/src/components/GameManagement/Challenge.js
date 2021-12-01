@@ -19,21 +19,25 @@ const Challenge = (props) => {
   // const [data, setData] = useState();
 
   const dragHandler = (e, type) => {
-    setArrow(type);
-    console.log("this is arrow", arrow);
-    // e.dataTransfer.setData("type", type);
-    // console.log(e.dataTransfer.setData("type", type));
+    // setArrow(type);
+    //able to retrieve arrrow
+    // console.log("this is arrow", type);
+    e.dataTransfer.setData("type", type);
+    console.log(type);
+  };
+
+  const dragOver = (e) => {
+    e.preventDefault();
   };
 
   //datatransfer help to hold data that is being dragged during drag and drop
   const drop = (e) => {
     e.preventDefault();
-    console.log("test");
-    console.log("this is type", arrow);
+    // console.log("test");
+    // console.log("this is type", arrow);
 
-    // e.preventDefault();
-    // const type = e.dataTransfer.getData("type");
-    // console.log(type);
+    const type = e.dataTransfer.getData("type");
+    console.log("type", type);
   };
 
   return (
@@ -87,7 +91,11 @@ const Challenge = (props) => {
 
         <div class="flex justify-center">
           <Card title="Command Tray" style={{ width: 1000 }}>
-            <div class=" h-72 bg-gray-200" onDragOver={drop}>
+            <div
+              class=" h-72 bg-gray-200"
+              onDragOver={(e) => dragOver(e)}
+              onDrop={(e) => drop(e)}
+            >
               <p class="text-xl pt-8">Drop Area</p>
               {/* {elements} */}
             </div>
