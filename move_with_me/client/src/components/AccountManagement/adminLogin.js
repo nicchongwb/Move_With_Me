@@ -37,6 +37,7 @@ const AdmLogin = () => {
         <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Login to your admin account</p>
 
         <form>
+          
           <div className="w-full mt-4">
             <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" type="text" placeholder="Username" aria-label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
@@ -46,7 +47,7 @@ const AdmLogin = () => {
           </div>
 
           <div className="flex items-center justify-between mt-4">
-            <a href="#" className="text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500">Forget Password?</a>
+            <a href="#" className="text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500">Forgot password?</a>
 
             <button className="px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none" type="button" onClick={clickHandler}>Login</button>
           </div>
