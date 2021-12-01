@@ -5,8 +5,9 @@ import SetPlayerName from "./components/GameManagement/SetPlayerName";
 import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
-import Challenge from "./components/GameManagement/Challenge";
+import Challenge from "./components/GameManagement/Challenges/Challenge";
 import "tailwindcss/tailwind.css";
+import "antd/dist/antd.css";
 import admLogin from "./components/AccountManagement/adminLogin";
 import login from "./components/AccountManagement/normalLogin";
 
