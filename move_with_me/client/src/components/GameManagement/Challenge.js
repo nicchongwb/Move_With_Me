@@ -7,6 +7,7 @@ import {
   ArrowRightOutlined,
 } from "@ant-design/icons";
 import { Card, Button } from "antd";
+import Element from "antd/lib/skeleton/Element";
 
 const Challenge = (props) => {
   // const data = props.location.state?.challengeInfo;
@@ -15,9 +16,6 @@ const Challenge = (props) => {
   const elements = [];
 
   const dragHandler = (e, type) => {
-    // setArrow(type);
-    //able to retrieve arrrow
-    // console.log("this is arrow", type);
     e.dataTransfer.setData("type", type);
     console.log(type);
   };
@@ -26,34 +24,56 @@ const Challenge = (props) => {
     e.preventDefault();
   };
 
-
   //datatransfer help to hold data that is being dragged during drag and drop
   const drop = (e) => {
     e.preventDefault();
     const type = e.dataTransfer.getData("type");
     console.log("type", type);
-
-    // console.log("elements", elements);
-    //appends to the array
-    // let tempArr = [...elements];
-    // console.log('this is temp', tempArr);
-    // tempArr.forEach(data => {
-    //   console.log('foreach',data);
-    // })
-      // setElementData(tempArr);
-      // console.log(elementData);
-    // setElementData(tempArr)
-    const newState = [...elements,     elements.push(type)]
-    setElementData(newState);
-    console.log(elementData)
+    setElementData((elementData) => [...elementData, type]);
   };
 
 
-  useEffect(() => {
-    // dragHandler();
-    // dragOver();
-    // drop();
-  }, []);
+  const renderElements = () => {
+    var elements = [];
+    console.log(elementData);
+    elementData.forEach(element => {
+      if (element == "up") {
+        elements.push(
+          <ArrowUpOutlined
+            style={{ fontSize: "40px" }}
+            draggable={true}
+            onDragStart={(e) => dragHandler(e, "up")}
+          />
+        );
+      } else if (element == "down") {
+        elements.push(
+          <ArrowDownOutlined
+            style={{ fontSize: "40px" }}
+            draggable={true}
+            onDragStart={(e) => dragHandler(e, "up")}
+          />
+        );
+      } else if (element == "left") {
+        elements.push(
+          <ArrowLeftOutlined
+            style={{ fontSize: "40px" }}
+            draggable={true}
+            onDragStart={(e) => dragHandler(e, "up")}
+          />
+        );
+      } else if (element == "right") {
+        elements.push(
+          <ArrowRightOutlined
+            style={{ fontSize: "40px" }}
+            draggable={true}
+            onDragStart={(e) => dragHandler(e, "up")}
+          />
+        );
+      }
+
+    });
+    return (<div>{elements}</div>);
+  }
 
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
@@ -113,15 +133,15 @@ const Challenge = (props) => {
             >
               <p class="text-xl pt-8">Drop Area</p>
               Hello, drop your arrows here!
-              {elementData}
+              {renderElements()}
             </div>
           </Card>
         </div>
       </div>
-      <div class="mt-12">
+      <div class="mt-12"> 
         <Button type="primary">I am Done!</Button>
       </div>
     </div>
   );
-};;
+};;;
 export default Challenge;
