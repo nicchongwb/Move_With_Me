@@ -11,10 +11,7 @@ import { Card, Button } from "antd";
 const Challenge = (props) => {
   // const data = props.location.state?.challengeInfo;
   // console.log("data", data);
-  const [elementId, setElementId] = useState(0);
-  const [elementData, setElementData] = useState({});
-  const [redrag, setRedrag] = useState(false);
-  const [arrow, setArrow] = useState("");
+  const [elementData, setElementData] = useState([]);
   const elements = [];
 
   const dragHandler = (e, type) => {
@@ -29,17 +26,29 @@ const Challenge = (props) => {
     e.preventDefault();
   };
 
+
   //datatransfer help to hold data that is being dragged during drag and drop
   const drop = (e) => {
     e.preventDefault();
     const type = e.dataTransfer.getData("type");
     console.log("type", type);
 
-    elements.push(type);
-    console.log("elements", elements);
-    setElementData(elements);
-    console.log("state", elementData);
+    // console.log("elements", elements);
+    //appends to the array
+    // let tempArr = [...elements];
+    // console.log('this is temp', tempArr);
+    // tempArr.forEach(data => {
+    //   console.log('foreach',data);
+    // })
+      // setElementData(tempArr);
+      // console.log(elementData);
+    // setElementData(tempArr)
+    const newState = [...elements,     elements.push(type)]
+    setElementData(newState);
+    console.log(elementData)
   };
+
+
   useEffect(() => {
     // dragHandler();
     // dragOver();
@@ -104,7 +113,7 @@ const Challenge = (props) => {
             >
               <p class="text-xl pt-8">Drop Area</p>
               Hello, drop your arrows here!
-              {elements}
+              {elementData}
             </div>
           </Card>
         </div>
@@ -114,5 +123,5 @@ const Challenge = (props) => {
       </div>
     </div>
   );
-};
+};;
 export default Challenge;

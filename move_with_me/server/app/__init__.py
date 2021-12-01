@@ -34,6 +34,6 @@ def retrieve_challenge():
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
-        return jsonify(challenges)
+    return jsonify(challenges)
 
 from app.routes import home, users, react_test
