@@ -29,4 +29,4 @@ def save_player_names(player_name):
 
         return 'Unsuccessful!'
 
-from app.routes import home, users, react_test, rankings, game
+from app.routes import home, users, react_test, rankings, game, map
