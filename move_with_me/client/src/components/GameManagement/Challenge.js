@@ -54,9 +54,18 @@ const Challenge = (props) => {
         console.log("splicing");
         console.log(dragId);
         if (typeof dragId === "string") {
-          elementData.splice(i, 0, type);
-          console.log(elementData);
-          setElementData((elementData) => [...elementData]);
+          console.log('dragid inside if else', dragId)
+          console.log(i)
+          // if (i === -1) {
+          //   console.log('test')
+             elementData.splice(i, 0, type);
+             console.log(elementData);
+             setElementData((elementData) => [...elementData]);
+          // }
+          // else {
+
+          // }
+         
         } else {
           //where u want to drop
           console.log("elementdata i", elementData[i]);
@@ -65,8 +74,12 @@ const Challenge = (props) => {
             "dragId",
             elementData.splice(elementData[i], 0, elementData[dragId])
           );
-          setElementData((elementData) => [...elementData]);
+          elementData.pop(elementData[i]);
+
           //remove element[i]
+
+          setElementData((elementData) => [...elementData]);
+
           console.log("after removal", elementData);
         }
       }
