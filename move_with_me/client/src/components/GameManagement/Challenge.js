@@ -11,11 +11,10 @@ import { Card, Button } from "antd";
 import Element from "antd/lib/skeleton/Element";
 
 const Challenge = (props) => {
-  // const data = props.location.state?.challengeInfo;
-  // console.log("data", data);
+  const data = props.location.state?.challengeInfo;
+  console.log("data", data);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
-  const [newElementData, setNewElementData] = useState([]);
 
   const dragHandler = (e, type, index = -1) => {
     e.dataTransfer.setData("type", type);
@@ -54,18 +53,17 @@ const Challenge = (props) => {
         console.log("splicing");
         console.log(dragId);
         if (typeof dragId === "string") {
-          console.log('dragid inside if else', dragId)
-          console.log(i)
+          console.log("dragid inside if else", dragId);
+          console.log(i);
           // if (i === -1) {
           //   console.log('test')
-             elementData.splice(i, 0, type);
-             console.log(elementData);
-             setElementData((elementData) => [...elementData]);
+          elementData.splice(i, 0, type);
+          console.log(elementData);
+          setElementData((elementData) => [...elementData]);
           // }
           // else {
 
           // }
-         
         } else {
           //where u want to drop
           console.log("elementdata i", elementData[i]);
