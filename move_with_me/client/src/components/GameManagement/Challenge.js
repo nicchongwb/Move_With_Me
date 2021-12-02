@@ -17,10 +17,16 @@ const Challenge = (props) => {
   const [dragId, setDragId] = useState("");
   const [newElementData, setNewElementData] = useState([]);
 
-  const dragHandler = (e, type) => {
+  const dragHandler = (e, type, index = -1) => {
     e.dataTransfer.setData("type", type);
     console.log("this is type", type);
-    setDragId(type);
+    //current arrow being dragged
+    if (index === -1) {
+      setDragId(type);
+    } else {
+      setDragId(index);
+    }
+
     console.log("currentTarget", dragId);
   };
 
@@ -31,49 +37,64 @@ const Challenge = (props) => {
   };
 
   //datatransfer help to hold data that is being dragged during drag and drop
-  const drop = (e) => {
-    e.preventDefault();
-    const type = e.dataTransfer.getData("type");
-    console.log("type", type);
-    setElementData((elementData) => [...elementData, type]);
-    console.log("test", elementData);
+  const drop = (e, dropType, i = -1) => {
+    // console.log(dragId);
+    if (e && e.stopPropagation) e.stopPropagation();
 
-    const newBoxState = elementData.map((element) => {
-      //previous arrow
-      console.log("element", element);
-      console.log(dragId);
-      //new element being dragged currently
-      console.log("elementData State", elementData);
-      if (element == dragId) {
-        //swap elements
-        let temp = elementData[dragId];
-        elementData[dragId] = elementData[element];
-        elementData[element] = temp;
-        console.log("temp", temp);
+    // e.preventDefault();
+    console.log(dropType);
+    if (dropType == "newDrop") {
+      const type = e.dataTransfer.getData("type");
+      setElementData((elementData) => [...elementData, type]);
+    } else {
+      const type = e.dataTransfer.getData("type");
+
+      if (i !== -1) {
+        //only able to splice backwards
+        console.log("splicing");
+        console.log(dragId);
+        if (typeof dragId === "string") {
+          elementData.splice(i, 0, type);
+          console.log(elementData);
+          setElementData((elementData) => [...elementData]);
+        } else {
+          //where u want to drop
+          console.log("elementdata i", elementData[i]);
+          console.log("dragId", elementData[dragId]);
+          console.log(
+            "dragId",
+            elementData.splice(elementData[i], 0, elementData[dragId])
+          );
+          setElementData((elementData) => [...elementData]);
+          //remove element[i]
+          console.log("after removal", elementData);
+        }
       }
-    });
-    setNewElementData(newBoxState);
+    }
   };
 
   const remove = (e) => {
-    // console.log("remove function");
-    // const elementId = e.dataTransfer.getData("elementId");
-    // console.log(elementId);
+    console.log("remove function");
+    const elementId = e.dataTransfer.getData("elementId");
+    if (elementId && elementData[elementId]) {
+      delete elementData[elementId];
+    }
   };
 
   const renderElements = () => {
     var elements = [];
     //my elements
     console.log(elementData);
+    let id;
 
-    elementData.forEach((element) => {
+    elementData.forEach((element, index) => {
       if (element == "up") {
         elements.push(
           <ArrowUpOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "up", true)}
-            id="up"
+            onDragStart={(e) => dragHandler(e, "up", index)}
+            onDrop={(e) => drop(e, "insertDrop", index)}
           />
         );
       } else if (element == "down") {
@@ -81,8 +102,8 @@ const Challenge = (props) => {
           <ArrowDownOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "down", true)}
-            id="down"
+            onDragStart={(e) => dragHandler(e, "down", index)}
+            onDrop={(e) => drop(e, "insertDrop", index)}
           />
         );
       } else if (element == "left") {
@@ -90,8 +111,8 @@ const Challenge = (props) => {
           <ArrowLeftOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "left", true)}
-            id="left"
+            onDragStart={(e) => dragHandler(e, "left", index)}
+            onDrop={(e) => drop(e, "insertDrop", index)}
           />
         );
       } else if (element == "right") {
@@ -99,8 +120,8 @@ const Challenge = (props) => {
           <ArrowRightOutlined
             style={{ fontSize: "40px" }}
             draggable={true}
-            onDragStart={(e) => dragHandler(e, "right", true)}
-            id="down"
+            onDragStart={(e) => dragHandler(e, "right", index)}
+            onDrop={(e) => drop(e, "insertDrop", index)}
           />
         );
       }
@@ -162,7 +183,7 @@ const Challenge = (props) => {
             <div
               class=" h-72 bg-gray-200"
               onDragOver={(e) => dragOver(e)}
-              onDrop={(e) => drop(e)}
+              onDrop={(e) => drop(e, "newDrop")}
             >
               <p class="text-xl pt-8">Drop Area</p>
               Hello, drop your arrows here!
