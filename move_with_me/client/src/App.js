@@ -5,7 +5,7 @@ import SetPlayerName from "./components/GameManagement/SetPlayerName";
 import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
-import Challenge from "./components/GameManagement/Challenges/Challenge";
+import Challenge from "./components/GameManagement/Challenge";
 import Game from "./components/GameManagement/Game";
 import GameMap from "./components/GameManagement/GameMap";
 import CreateMap from "./components/GameManagement/CreateMap";

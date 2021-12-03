@@ -9,7 +9,7 @@ export const savePlayerNames = (name) => {
   };
 
   var body = JSON.stringify(name);
-  console.log("/saveUsers", body);
+  console.log("saveUsers", body);
   return API.post("/saveUsers", body, config);
 };
 

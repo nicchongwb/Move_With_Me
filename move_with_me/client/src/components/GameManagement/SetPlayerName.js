@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
-import { Link } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
 import { savePlayerNames } from "../../api";
-// import { savePlayerNames } from "../../api";
 import { useHistory } from "react-router-dom";
 
 const SetPlayerName = () => {
@@ -14,6 +12,7 @@ const SetPlayerName = () => {
 
   const saveName = async () => {
     const res1 = await savePlayerNames(name);
+
     if (res1.status == 200) {
       console.log("status 200");
     }
@@ -23,6 +22,7 @@ const SetPlayerName = () => {
   useEffect(() => {
     saveName();
   }, []);
+  console.log("name", name);
 
   const retrieveName = () => {
     history.push({
@@ -71,11 +71,7 @@ const SetPlayerName = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={(saveName, retrieveName)}
-            >
+            <Button type="primary" htmlType="submit" onClick={saveName}>
               Let's Go
             </Button>
           </Form.Item>

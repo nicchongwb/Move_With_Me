@@ -16,13 +16,14 @@ const SelectChallenge = () => {
     const data = res1.data;
     setChallengesNo(data);
   };
-  const test = (e) => {
+  const retrieveSelectedChallenge = (e, challengesNo) => {
     history.push({
       pathname: "/challenge",
       state: {
-        challengeInfo: selectedChallenge,
+        challengeInfo: challengesNo,
       },
     });
+    console.log(" state", challengesNo);
   };
   console.log("challengesNo state", challengesNo);
   console.log("selected challenge state", selectedChallenge);
@@ -46,7 +47,7 @@ const SelectChallenge = () => {
                 fontSize: "5rem",
               }}
               value={console.log(data)}
-              onClick={((e) => setSelectedChallenge(data), test)}
+              onClick={(e) => retrieveSelectedChallenge(e, data)}
             >
               <p> {data.challengeID}</p>
             </Button>
