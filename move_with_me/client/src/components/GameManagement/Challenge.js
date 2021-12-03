@@ -8,6 +8,7 @@ import {
   BoxPlotFilled,
 } from "@ant-design/icons";
 import { Card, Button } from "antd";
+import { saveCommands } from "../../api";
 import Element from "antd/lib/skeleton/Element";
 
 const Challenge = (props) => {
@@ -15,6 +16,16 @@ const Challenge = (props) => {
   console.log("data", data);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
+
+  const commands = async () => {
+    const res1 = await saveCommands(elementData);
+    console.log(res1);
+
+    if (res1.status == 200) {
+      console.log("status 200");
+    }
+    console.log("res1", res1);
+  };
 
   const dragHandler = (e, type, index = -1) => {
     e.dataTransfer.setData("type", type);
@@ -39,8 +50,6 @@ const Challenge = (props) => {
   const drop = (e, dropType, i = -1) => {
     // console.log(dragId);
     if (e && e.stopPropagation) e.stopPropagation();
-
-    // e.preventDefault();
     console.log(dropType);
     if (dropType == "newDrop") {
       const type = e.dataTransfer.getData("type");
@@ -81,14 +90,6 @@ const Challenge = (props) => {
           console.log("after removal", elementData);
         }
       }
-    }
-  };
-
-  const remove = (e) => {
-    console.log("remove function");
-    const elementId = e.dataTransfer.getData("elementId");
-    if (elementId && elementData[elementId]) {
-      delete elementData[elementId];
     }
   };
 
@@ -205,7 +206,9 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Button type="primary">I am Done!</Button>
+        <Button type="primary" onClick={commands}>
+          I am Done!
+        </Button>
       </div>
     </div>
   );

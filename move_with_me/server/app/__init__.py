@@ -17,15 +17,30 @@ def helloHandler():
     if request.method == 'GET':
         return 'Hello EcSP8266'
 
-@app.route("/saveUsers",methods=['GET', 'POST'])
+@app.route("/saveCommands", methods=['GET', 'POST'])
+def car_commands():
+    commandTray = request.get_json()
+    
+    print('commands',commandTray)
+    return 'Successful'
+
+@app.route("/saveUsers",methods=['GET'])
 def save_player_names():
     player_name = request.get_json()
     print('i am player name',player_name)
     if player_name:
         db.users.insert_one({'playerName': player_name})
-        return 'Successful'
-    else:
-        return 'Unsuccessful'
+        print('Successful')
+    
+@app.route("/usersList",methods=['GET', 'POST'])
+def users_list():
+    usernames = []
+    x =  db.users.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        usernames.append(data)
+    return jsonify(usernames)
+
         
 @app.route("/challenges",methods=[ 'GET'])
 def retrieve_challenge():
@@ -34,6 +49,6 @@ def retrieve_challenge():
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
-        return jsonify(challenges)
+    return jsonify(challenges)
 
 from app.routes import home, users, react_test
