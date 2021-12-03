@@ -22,9 +22,21 @@ def helloHandler():
 def car_commands():
     commandTray = request.get_json()
     print('commands',commandTray)
-    return 'Successful'
+    if commandTray:
+        for x in commandTray: 
+            db.commandTray.insert_one({'movement': x})
+            print('Successful')    
+    return 'Success'
+  
 
-
+@app.route("/retrieveCommands", methods=['GET'])
+def retrieve_car_commands():
+    commands = []
+    x =  db.commandTray.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        commands.append(data)
+    return jsonify(commands)
 
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
@@ -33,7 +45,7 @@ def save_player_names():
     if player_name:
         db.users.insert_one({'playerName': player_name})
         print('Successful')
-        return 'success'
+    return 'Success'
     
 @app.route("/usersList",methods=['GET'])
 def users_list():
