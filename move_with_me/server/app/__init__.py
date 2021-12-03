@@ -12,6 +12,7 @@ mongo = PyMongo(app)
 db = mongo.db
 
 
+
 @app.route("/helloesp", methods=['GET'])
 def helloHandler():
     if request.method == 'GET':
@@ -20,7 +21,6 @@ def helloHandler():
 @app.route("/saveCommands", methods=['GET', 'POST'])
 def car_commands():
     commandTray = request.get_json()
-    
     print('commands',commandTray)
     return 'Successful'
 
