@@ -24,15 +24,18 @@ def car_commands():
     print('commands',commandTray)
     return 'Successful'
 
-@app.route("/saveUsers",methods=['GET'])
+
+
+@app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
     player_name = request.get_json()
     print('i am player name',player_name)
     if player_name:
         db.users.insert_one({'playerName': player_name})
         print('Successful')
+        return 'success'
     
-@app.route("/usersList",methods=['GET', 'POST'])
+@app.route("/usersList",methods=['GET'])
 def users_list():
     usernames = []
     x =  db.users.find()
