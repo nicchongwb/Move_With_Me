@@ -3,7 +3,9 @@ import { Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { challenges } from "../../api";
 
-const SelectChallenge = () => {
+const SelectChallenge = (props) => {
+  const data = props.location.state?.playerName;
+  console.log("data", data);
   const history = useHistory();
 
   const [challengesNo, setChallengesNo] = useState([]);
@@ -21,6 +23,7 @@ const SelectChallenge = () => {
       pathname: "/challenge",
       state: {
         challengeInfo: challengesNo,
+        name: data,
       },
     });
     console.log(" state", challengesNo);
