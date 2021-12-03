@@ -16,7 +16,6 @@ const Challenge = (props) => {
   console.log("name", name);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
-  const [deleteElement, setDeleteElement] = useState([]);
 
   const commands = async () => {
     const res1 = await saveCommands(elementData);
@@ -87,7 +86,6 @@ const Challenge = (props) => {
     console.log(e);
 
     if (dropType == "delete") {
-      // setDeleteElement()
       console.log("test");
       //array to delete arrow from
       console.log(elementData);
@@ -157,9 +155,9 @@ const Challenge = (props) => {
       </div>
       <div class="pt-48">
         <div class="flex justify-center">
-          <Card title="Game Map" style={{ width: 500 }}></Card>
+          <Card title="Game Map" style={{ width: 600 }}></Card>
 
-          <Card title="Controls" style={{ width: 500 }}>
+          <Card title="Controls" style={{ width: 600 }}>
             <div className="components-list" class="flex justify-center">
               <div>
                 <ArrowLeftOutlined
