@@ -72,11 +72,7 @@ const SetPlayerName = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={(saveName, retrieveName)}
-            >
+            <Button type="primary" htmlType="submit" onClick={saveName}>
               Let's Go
             </Button>
           </Form.Item>
