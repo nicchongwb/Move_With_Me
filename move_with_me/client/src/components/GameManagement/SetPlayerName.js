@@ -26,7 +26,7 @@ const SetPlayerName = () => {
 
   const retrieveName = () => {
     history.push({
-      pathname: "/challenge",
+      pathname: "/selectchallenge",
       state: {
         playerName: name,
       },
@@ -71,7 +71,11 @@ const SetPlayerName = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" onClick={saveName}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={(saveName, retrieveName)}
+            >
               Let's Go
             </Button>
           </Form.Item>

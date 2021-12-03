@@ -14,6 +14,8 @@ import Element from "antd/lib/skeleton/Element";
 const Challenge = (props) => {
   const data = props.location.state?.challengeInfo;
   console.log("data", data);
+  const name = props.location.state?.name;
+  console.log("name", name);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
 
@@ -149,7 +151,7 @@ const Challenge = (props) => {
         </h1>
       </div>
       <div class="float-right text-right mr-8">
-        <p class="text-xl">Hello </p>
+        <p class="text-xl">Hello {name} </p>
         <p class=" text-green-700"> Connection Status</p>
       </div>
       <div class="pt-48">
