@@ -37,7 +37,7 @@ const SetPlayerName = () => {
   return (
     <div class="background w-full min-h-screen opacity-80 text-center ">
       <div class="pt-96 ">
-        <h1 class="font-semibold text-5xl  text-white p-12 ">
+        <h1 class="font-semibold text-6xl text-white pb-12">
           What's your Name?
         </h1>
       </div>

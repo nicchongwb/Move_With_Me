@@ -145,7 +145,7 @@ const Challenge = (props) => {
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
       <div class="pt-20 text-center">
-        <h1 className="text-5xl text-blue-800 mt-12 text-center font-bold  ">
+        <h1 className="text-6xl text-blue-800 mt-12 text-center font-bold  ">
           Move With Me
         </h1>
       </div>

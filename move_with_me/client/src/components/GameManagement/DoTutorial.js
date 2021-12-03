@@ -7,10 +7,8 @@ const DoTutorial = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
       <div class="pt-72 text-center">
-        <h1 class="font-semibold text-8xl text-white">Move with Me</h1>
-        <h2 class="font-medium text-lg  text-black pt-12  ">
-          Welcome to Move with Me tutorial!
-        </h2>
+        <h1 class="font-semibold text-8xl text-white">Tutorial</h1>
+
         <div class="flex justify-evenly pt-24">
           <Card title="1 - Game Map" style={{ width: 300 }}>
             <p class="text-gray-800">Follow game map route to obtain points</p>
@@ -31,10 +29,15 @@ const DoTutorial = () => {
           </Card>
         </div>
 
-        <div class="pt-12">
+        <div class="pt-12 ">
+          <Link to="/">
+            <div class="mt-12">
+              <Button type="secondary">Back</Button>
+            </div>
+          </Link>
           <Link to="/setPlayerName">
             <div class="mt-12">
-              <Button type="primary">Let's Go!</Button>
+              <Button type="primary">I am Ready</Button>
             </div>
           </Link>
         </div>

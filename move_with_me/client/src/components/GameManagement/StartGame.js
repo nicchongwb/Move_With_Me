@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import "../../assets/css/startGame.css";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-
+import "../../assets/css/button.css";
 const StartGame = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
@@ -11,7 +11,12 @@ const StartGame = () => {
         <div class="pt-12">
           <Link to="/tutorial">
             <div class="mt-12">
-              <Button type="primary">I want to Start!</Button>
+              <Button type="primary">Start Game</Button>
+            </div>
+          </Link>
+          <Link to="/carspecifications">
+            <div class="mt-12">
+              <Button type="primary">All Specifications</Button>
             </div>
           </Link>
         </div>
