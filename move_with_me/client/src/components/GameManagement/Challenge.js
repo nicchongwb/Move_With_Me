@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Card, Button } from "antd";
 import { saveCommands } from "../../api";
+import "../../assets/css/button.css";
 
 const Challenge = (props) => {
   const data = props.location.state?.challengeInfo;
@@ -145,7 +146,7 @@ const Challenge = (props) => {
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
       <div class="pt-20 text-center">
-        <h1 className="text-6xl text-blue-800 mt-12 text-center font-bold  ">
+        <h1 className="text-6xl text-gray-800  mt-12 text-center font-bold  ">
           Move With Me
         </h1>
       </div>

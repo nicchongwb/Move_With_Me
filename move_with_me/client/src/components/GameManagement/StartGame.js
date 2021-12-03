@@ -7,7 +7,9 @@ const StartGame = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
       <div class="pt-96 text-center">
-        <h1 class="font-semibold text-8xl  text-white p-12 ">Move with Me</h1>
+        <h1 class="font-semibold text-8xl  text-gray-800  p-12 ">
+          Move with Me
+        </h1>
         <div class="pt-12">
           <Link to="/tutorial">
             <div class="mt-12">

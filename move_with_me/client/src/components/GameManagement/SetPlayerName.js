@@ -5,6 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 import "../../assets/css/setPlayerName.css";
 import { savePlayerNames } from "../../api";
 import { useHistory } from "react-router-dom";
+import "../../assets/css/button.css";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ const SetPlayerName = () => {
   return (
     <div class="background w-full min-h-screen opacity-80 text-center ">
       <div class="pt-96 ">
-        <h1 class="font-semibold text-6xl text-white pb-12">
+        <h1 class="font-semibold text-6xl text-gray-800 pb-12">
           What's your Name?
         </h1>
       </div>

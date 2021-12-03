@@ -7,6 +7,7 @@ import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import CarSpecs from "./components/GameManagement/CarSpecs";
+import Ranking from "./components/GameManagement/Ranking";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
@@ -77,6 +78,13 @@ function App() {
           path="/challenge"
           exact
           component={Challenge}
+        ></Route>
+        <Route
+          exact
+          key="ranking"
+          path="/ranking"
+          exact
+          component={Ranking}
         ></Route>
       </Router>
     </div>

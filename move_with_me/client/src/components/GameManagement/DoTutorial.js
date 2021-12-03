@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import "../../assets/css/startGame.css";
 import { Link } from "react-router-dom";
 import { Card, Button } from "antd";
+import "../../assets/css/button.css";
 
 const DoTutorial = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
       <div class="pt-72 text-center">
-        <h1 class="font-semibold text-8xl text-white">Tutorial</h1>
+        <h1 class="font-semibold text-8xl text-gray-800">Tutorial</h1>
 
         <div class="flex justify-evenly pt-24">
           <Card title="1 - Game Map" style={{ width: 300 }}>
