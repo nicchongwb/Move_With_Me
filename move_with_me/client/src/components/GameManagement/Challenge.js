@@ -5,11 +5,9 @@ import {
   ArrowUpOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
-  BoxPlotFilled,
 } from "@ant-design/icons";
 import { Card, Button } from "antd";
 import { saveCommands } from "../../api";
-import Element from "antd/lib/skeleton/Element";
 
 const Challenge = (props) => {
   const data = props.location.state?.challengeInfo;
@@ -18,6 +16,7 @@ const Challenge = (props) => {
   console.log("name", name);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
+  const [deleteElement, setDeleteElement] = useState([]);
 
   const commands = async () => {
     const res1 = await saveCommands(elementData);
@@ -32,25 +31,21 @@ const Challenge = (props) => {
   const dragHandler = (e, type, index = -1) => {
     e.dataTransfer.setData("type", type);
     console.log("this is type", type);
-    //current arrow being dragged
+    //new arrow dragged into control
     if (index === -1) {
       setDragId(type);
-    } else {
+    }
+    //arrow dragged within control
+    else {
       setDragId(index);
     }
-
     console.log("currentTarget", dragId);
   };
 
   const dragOver = (e) => {
     e.preventDefault();
-    // const elementId = e.target.value;
-    // console.log("this is elementid", elementId);
   };
-
-  //datatransfer help to hold data that is being dragged during drag and drop
   const drop = (e, dropType, i = -1) => {
-    // console.log(dragId);
     if (e && e.stopPropagation) e.stopPropagation();
     console.log(dropType);
     if (dropType == "newDrop") {
@@ -58,7 +53,6 @@ const Challenge = (props) => {
       setElementData((elementData) => [...elementData, type]);
     } else {
       const type = e.dataTransfer.getData("type");
-
       if (i !== -1) {
         //only able to splice backwards
         console.log("splicing");
@@ -76,7 +70,6 @@ const Challenge = (props) => {
 
           // }
         } else {
-          //where u want to drop
           console.log("elementdata i", elementData[i]);
           console.log("dragId", elementData[dragId]);
           console.log(
@@ -84,23 +77,31 @@ const Challenge = (props) => {
             elementData.splice(elementData[i], 0, elementData[dragId])
           );
           elementData.pop(elementData[i]);
-
-          //remove element[i]
-
           setElementData((elementData) => [...elementData]);
-
           console.log("after removal", elementData);
         }
       }
     }
   };
+  const dropOutside = (e, dropType) => {
+    console.log(e);
+
+    if (dropType == "delete") {
+      // setDeleteElement()
+      console.log("test");
+      //array to delete arrow from
+      console.log(elementData);
+      console.log("delete drag", dragId);
+      elementData.pop(elementData[dragId]);
+      console.log(elementData);
+      setElementData((elementData) => [...elementData]);
+      console.log(elementData);
+    }
+  };
 
   const renderElements = () => {
     var elements = [];
-    //my elements
     console.log(elementData);
-    let id;
-
     elementData.forEach((element, index) => {
       if (element == "up") {
         elements.push(
@@ -156,7 +157,7 @@ const Challenge = (props) => {
       </div>
       <div class="pt-48">
         <div class="flex justify-center">
-          <Card title="Map" style={{ width: 500 }}></Card>
+          <Card title="Game Map" style={{ width: 500 }}></Card>
 
           <Card title="Controls" style={{ width: 500 }}>
             <div className="components-list" class="flex justify-center">
@@ -202,6 +203,15 @@ const Challenge = (props) => {
               <p class="text-xl pt-8">Drop Area</p>
               Hello, drop your arrows here!
               {renderElements()}
+            </div>
+          </Card>
+          <Card title="Delete Tray" style={{ width: 200 }}>
+            <div
+              class=" h-72 bg-gray-200"
+              onDragOver={(e) => dragOver(e)}
+              onDrop={(e) => dropOutside(e, "delete")}
+            >
+              <p class="text-xl pt-8">Delete Area</p>
             </div>
           </Card>
         </div>
