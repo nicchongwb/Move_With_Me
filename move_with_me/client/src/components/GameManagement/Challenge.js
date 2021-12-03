@@ -10,6 +10,7 @@ import { Card, Button } from "antd";
 import { saveCommands } from "../../api";
 import "../../assets/css/button.css";
 import axios from 'axios';
+import GameMap from "./Map/GameMap";
 
 const Challenge = (props) => {
   const data = props.location.state?.challengeInfo;
@@ -26,6 +27,7 @@ const Challenge = (props) => {
   const [score, setScore] = useState(0);
   const [challenge, setChallenge] = useState(1);
   const [chStatus, setChStatus] = useState('Running')
+
 
   // Game Functions
   function updateCarPos(newX, newY){
@@ -204,7 +206,12 @@ const Challenge = (props) => {
       </div>
       <div class="pt-48">
         <div class="flex justify-center">
-          <Card title="Game Map" style={{ width: 600 }}></Card>
+          <Card title="Game Map" style={{ width: 600 }}>
+            <GameMap 
+              x={position.x}
+              y={position.y}  
+            />
+            </Card>
 
           <Card title="Controls" style={{ width: 600 }}>
             <div className="components-list" class="flex justify-center">

@@ -6,9 +6,6 @@ import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
-import Game from "./components/GameManagement/Game";
-import GameMap from "./components/GameManagement/GameMap";
-import CreateMap from "./components/GameManagement/CreateMap";
 import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
 
@@ -64,15 +61,6 @@ function App() {
           exact
           component={Challenge}
         ></Route>
-        <Route exact key="game" path="/game" exact component={Game}></Route>
-        <Route
-          exact
-          key="gameMap"
-          path="/GameMap"
-          exact
-          component={GameMap}
-        ></Route>
-        <Route exact key="createMap" path="/CreateMap" exact component={CreateMap}></Route>
         <Route
           exact
           key="ranking"
