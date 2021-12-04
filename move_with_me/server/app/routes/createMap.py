@@ -9,12 +9,30 @@ from flask_cors import cross_origin
 import json
 
 # MOVE API function
-@app.route("/api/createMap", methods=["POST"])
+@app.route("/api/createChallenge", methods=["POST"])
 @cross_origin()
 def createMap():
     json_data = request.json
-    print(json_data["selTile"])
-    
-    # json_data["chStatus"] = chStatus
+    mongoPayload = {}
 
-    return jsonify(json_data)
+    # print(json_data["name"])
+    # print(json_data["difficulty"])
+    # print(json_data["selTile"])
+
+    # Get document with largest 'challengeID' and +1 => assign to chID
+    _maxChIDDocument = mongo.db.Challenges.find().sort("challenge",-1).limit(1)
+    for doc in _maxChIDDocument:
+        mongoPayload["challenge"] = doc["challenge"] + 1
+    mongoPayload["name"] = json_data["name"]
+    mongoPayload["difficulty"] = json_data["difficulty"]
+    mongoPayload["tiles"] = json_data["selTile"]
+    print(mongoPayload)
+
+    try:
+        _insert = mongo.db.Challenges.insert(mongoPayload)
+    except:
+        print("Mongo insert went wrong...")
+
+    respond = {"isSubmitted":True} # Respond back to frontend that submitted is successful
+
+    return jsonify(respond)
