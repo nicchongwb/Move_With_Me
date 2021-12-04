@@ -6,7 +6,7 @@ import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
 } from "@ant-design/icons";
-import { Card, Button } from "antd";
+import { Card, Button, Modal } from "antd";
 import { saveCommands } from "../../api";
 import "../../assets/css/button.css";
 import axios from 'axios';
@@ -24,10 +24,11 @@ const Challenge = (props) => {
   const [position, setPosition] = useState({ x: 0, y: 0})
   const x = position.x;
   const y = position.y;
-  const [score, setScore] = useState(0);
-  const [challenge, setChallenge] = useState(1);
-  const [chStatus, setChStatus] = useState('Running')
-
+  const [score, setScore] = useState(0); // State for score
+  const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
+  const [chStatus, setChStatus] = useState('Running'); // State for challenge status
+  const [isComplete, setIsComplete] = useState(false); // State for end game summary modal
+  const [isModalClose, setIsModalClose] = useState(false); // State for modalClose
 
   // Game Functions
   function updateCarPos(newX, newY){
@@ -62,6 +63,25 @@ const Challenge = (props) => {
         setChStatus(prevChStatus => response.data.chStatus)      
     });
   }
+
+  // Modal function when OK/Confirm is clicked
+  const handleOk = () => {
+    setIsComplete(false);
+    setIsModalClose(true);
+  }
+
+  // Effect Hook to keep a look out when challenge is completed and then pop out modal
+  useEffect(() => {
+    if (chStatus == 'Completed'){
+      console.log('Challenge Status is changed to ' + chStatus);
+      setIsComplete(true);
+    }    
+  }, [chStatus])
+
+  // Effect Hook when Modal is close and to redirect user to next page
+  useEffect(() => {
+    console.log("Modal Closed...redirecting to...")
+  }, [isModalClose])
 
   // UI Functions
   const commands = async () => {
@@ -281,7 +301,15 @@ const Challenge = (props) => {
           I am Done!
         </Button>
       </div>
-    </div>
+
+      <div class="mt-12">
+        <Modal title={"Congratulations " + name + "!!"} visible={isComplete} 
+          onOk={handleOk} okText="Confirm" cancelButtonProps={{ style: {display: 'none'} }}>
+          <p class="text-xl pt-8">Your Score is : {score}</p>
+        </Modal>
+      </div>
+      {console.log(chStatus)}
+    </div>    
   );
 };;;
 export default Challenge;

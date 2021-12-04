@@ -40,6 +40,12 @@ def isCompleted(curPos):
     else:
         return False
 
+# Set challenge status
+def setChStatus(chStatus):
+    print('Challenge completed')
+    print(chStatus)
+    return chStatus
+
 # MOVE API function
 @app.route("/api/move", methods=["POST"])
 @cross_origin()
@@ -51,7 +57,7 @@ def move():
     challengeTiles = []
     for doc in _challenge:
         challengeTiles = doc["tiles"]
-    print(challengeTiles)
+    # print(challengeTiles)
 
     # Set challenge Status
     chStatus = json_data["chStatus"]
@@ -65,8 +71,8 @@ def move():
     for cmd in json_data["commands"]:
         # Always check if curPos is already at end tile of challenge [9,9]
         if isCompleted(curPos):
-            print('Challenge completed')
-            chStatus = 'Completed'
+            chStatus = setChStatus('Completed')
+            print(curPos)
             break # Break out of iteration
         else:
             # IF LEFT
@@ -109,10 +115,14 @@ def move():
                     print('NOT OUT OF BOUND')
                     score = updateScore(newPos, challengeTiles, score)
                     curPos = newPos # Update curPos
+            # Check if win
+            if isCompleted(curPos):
+                chStatus = setChStatus('Completed')
+                print(curPos)
+                break # Break out of iteration
+            print(curPos)
             print('Challenge not completed')
-
-    print(curPos)
-    print(score)
+        print(score)
 
     # Update json data to respond to React
     json_data["position"] = {'x':curPos[0], 'y':curPos[1]}

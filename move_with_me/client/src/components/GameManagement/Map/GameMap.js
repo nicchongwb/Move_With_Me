@@ -26,10 +26,6 @@ const GameMap = (props) => {
         return contains;
     }
 
-    const renderCar = () => {
-        return true;
-    };
-
     const [loading, setLoading] = useState(false);
 
     const renderMap = () => {
