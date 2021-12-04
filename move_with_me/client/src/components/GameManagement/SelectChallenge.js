@@ -3,7 +3,9 @@ import { Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { challenges } from "../../api";
 
-const SelectChallenge = () => {
+const SelectChallenge = (props) => {
+  const data = props.location.state?.playerName;
+  console.log("data", data);
   const history = useHistory();
 
   const [challengesNo, setChallengesNo] = useState([]);
@@ -16,13 +18,15 @@ const SelectChallenge = () => {
     const data = res1.data;
     setChallengesNo(data);
   };
-  const test = (e) => {
+  const retrieveSelectedChallenge = (e, challengesNo) => {
     history.push({
       pathname: "/challenge",
       state: {
-        challengeInfo: selectedChallenge,
+        challengeInfo: challengesNo,
+        name: data,
       },
     });
+    console.log(" state", challengesNo);
   };
   console.log("challengesNo state", challengesNo);
   console.log("selected challenge state", selectedChallenge);
@@ -46,7 +50,7 @@ const SelectChallenge = () => {
                 fontSize: "5rem",
               }}
               value={console.log(data)}
-              onClick={((e) => setSelectedChallenge(data), test)}
+              onClick={(e) => retrieveSelectedChallenge(e, data)}
             >
               <p> {data.challengeID}</p>
             </Button>

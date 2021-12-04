@@ -5,7 +5,10 @@ import SetPlayerName from "./components/GameManagement/SetPlayerName";
 import DoTutorial from "./components/GameManagement/DoTutorial";
 import SelectChallenge from "./components/GameManagement/SelectChallenge";
 import Map from "./components/GameManagement/Map";
-import Challenge from "./components/GameManagement/Challenges/Challenge";
+import Challenge from "./components/GameManagement/Challenge";
+import CarSpecs from "./components/GameManagement/CarSpecs";
+import Ranking from "./components/GameManagement/Ranking";
+
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import admLogin from "./components/AccountManagement/adminLogin";
@@ -43,10 +46,10 @@ function App() {
         ></Route>
         <Route
           exact
-          key="setPlayerName"
-          path="/setPlayerName"
+          key="carSpecs"
+          path="/carSpecifications"
           exact
-          component={SetPlayerName}
+          component={CarSpecs}
         ></Route>
         <Route
           exact
@@ -55,6 +58,15 @@ function App() {
           exact
           component={DoTutorial}
         ></Route>
+
+        <Route
+          exact
+          key="setPlayerName"
+          path="/setPlayerName"
+          exact
+          component={SetPlayerName}
+        ></Route>
+
         <Route
           exact
           key="selectChallenge"
@@ -69,6 +81,13 @@ function App() {
           path="/challenge"
           exact
           component={Challenge}
+        ></Route>
+        <Route
+          exact
+          key="ranking"
+          path="/ranking"
+          exact
+          component={Ranking}
         ></Route>
         {/* <Route
           exact

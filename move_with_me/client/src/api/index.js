@@ -9,10 +9,22 @@ export const savePlayerNames = (name) => {
   };
 
   var body = JSON.stringify(name);
-  console.log("/saveUsers", body);
+  console.log("saveUsers", body);
   return API.post("/saveUsers", body, config);
 };
 
+export const saveCommands = (array) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  var body = JSON.stringify(array);
+  console.log("saveCommands", array);
+  return API.post("/saveCommands", body, config);
+};
+
+// export const saveCommands = () => API.get("/saveCommands");
 
 export const challenges = () => API.get("/challenges");
 

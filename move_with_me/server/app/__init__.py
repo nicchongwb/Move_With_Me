@@ -18,10 +18,31 @@ mongo = PyMongo(app)
 db = mongo.db
 
 
+
 @app.route("/helloesp", methods=['GET'])
 def helloHandler():
     if request.method == 'GET':
         return 'Hello EcSP8266'
+
+@app.route("/saveCommands", methods=['GET', 'POST'])
+def car_commands():
+    commandTray = request.get_json()
+    print('commands',commandTray)
+    if commandTray:
+        for x in commandTray: 
+            db.commandTray.insert_one({'movement': x})
+            print('Successful')    
+    return 'Success'
+  
+
+@app.route("/retrieveCommands", methods=['GET'])
+def retrieve_car_commands():
+    commands = []
+    x =  db.commandTray.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        commands.append(data)
+    return jsonify(commands)
 
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
@@ -29,9 +50,18 @@ def save_player_names():
     print('i am player name',player_name)
     if player_name:
         db.users.insert_one({'playerName': player_name})
-        return 'Successful'
-    else:
-        return 'Unsuccessful'
+        print('Successful')
+    return 'Success'
+    
+@app.route("/usersList",methods=['GET'])
+def users_list():
+    usernames = []
+    x =  db.users.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        usernames.append(data)
+    return jsonify(usernames)
+
         
 @app.route("/challenges",methods=[ 'GET'])
 def retrieve_challenge():
@@ -40,7 +70,7 @@ def retrieve_challenge():
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
-        return jsonify(challenges)
+    return jsonify(challenges)
 
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
