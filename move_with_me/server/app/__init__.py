@@ -85,4 +85,4 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-from app.routes import home, users, react_test
+from app.routes import home, users, react_test, rankings, game, map, move

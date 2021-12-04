@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { challenges } from "../../api";
+import "../../assets/css/startGame.css";
 
 const SelectChallenge = (props) => {
   const data = props.location.state?.playerName;
@@ -36,7 +37,7 @@ const SelectChallenge = (props) => {
   }, []);
 
   return (
-    <div class="text-center container mx-auto px-4 space-x-32">
+    <div class="background w-full min-h-screen opacity-80 text-center ">
       <h2 class="text-4xl  font-semibold  pt-24">Select Your Challenge</h2>
       <div class="grid grid-rows-3 grid-flow-row grid-cols-6 gap-4">
         {challengesNo.map((data, index) => (

@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.17.2",
     "axios": "^0.24.0",
     "antd": "^4.16.13",
     "immutability-helper": "^3.1.1",
