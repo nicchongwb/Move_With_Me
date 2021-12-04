@@ -17,7 +17,7 @@ const GameMap = (props) => {
         "challenge": props.challenge
     };
 
-    function isArayInArray(arr, item){
+    function isArrayInArray(arr, item){
         var item_as_string = JSON.stringify(item);
 
         var contains = arr.some(function(e){
@@ -46,7 +46,7 @@ const GameMap = (props) => {
                         {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
                         setBoard(board => [...board, htmlTile]);
                 } else {
-                    if (isArayInArray(tiles, cTile)){
+                    if (isArrayInArray(tiles, cTile)){
                         //console.log(cTile + " found");
                         const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button greenTile"}>
                         {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>

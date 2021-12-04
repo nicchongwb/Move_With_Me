@@ -25,11 +25,30 @@ const CreateMap = () => {
         let eid = e.target.getAttribute("id");
         console.log(eid);
         console.log(idToArr(eid)); // check if id is converted to array
-        setSelTile(selTile => [...selTile, idToArr(eid)]);
-        // Get e bg color
-        let ebgcolor = (window.getComputedStyle(e.target, null).getPropertyValue("background-color"));
-        console.log(e.currentTarget.style.backgroundColor);
-        document.getElementById(eid).style.backgroundColor = '#4CAF50';
+        //console.log(JSON.stringify(array));
+
+        // Check if e [x,y] exist in selTile 
+        if (isArrayInArray(selTile, idToArr(eid))){
+            console.log("[" + JSON.stringify(idToArr(eid)) + "]" + "already exist");
+            // Remore the selTile to the setTile array
+            const newArr = [...selTile]; // Set up new array
+            var index = getIndexOf(selTile, idToArr(eid));
+            newArr.splice(index, 1); // Remove element at index n
+            setSelTile(newArr); // Update SelTile state with new array after removing
+            // console.log("Searching through : " + JSON.stringify(selTile));
+            // console.log("Index of match element : " + getIndexOf(selTile, idToArr(eid)));
+            
+            // Modify DOM by Getting e's background color and set it to white
+            let ebgcolor = (window.getComputedStyle(e.target, null).getPropertyValue("background-color"));
+            document.getElementById(eid).style.backgroundColor = 'white';
+        } else {
+            console.log("Element does not exist")
+            // add the selTile to the setTile array
+            setSelTile(selTile => [...selTile, idToArr(eid)]);
+            // Modify DOM by Getting e's background color and set it to green
+            let ebgcolor = (window.getComputedStyle(e.target, null).getPropertyValue("background-color"));
+            document.getElementById(eid).style.backgroundColor = '#4CAF50';            
+        }     
     }
 
     // Function to convert HTML id x0y1 to [0,1]
@@ -37,6 +56,23 @@ const CreateMap = () => {
         var id = id.replace(/\D/g, "");
         var arr = Array.from(id, Number);
         return arr;
+    }
+
+    // Check if array in array
+    function isArrayInArray(arr, item){
+        var item_as_string = JSON.stringify(item);
+        var contains = arr.some(function(e){
+            return JSON.stringify(e) === item_as_string;
+        });
+        return contains;
+    }
+
+    // Get Index of item found in array
+    function getIndexOf(arr, item){
+        var itemStr = JSON.stringify(item);
+        var index = arr.findIndex(element => JSON.stringify(element) === JSON.stringify(item));
+        //console.log("Index found at " + index);        
+        return index;
     }
 
     for (let j = verticalAxis.length - 1; j >= 0; j--){

@@ -8,6 +8,7 @@ import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
+import CreateMap from "./components/GameManagement/Map/CreateMap";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
@@ -68,6 +69,7 @@ function App() {
           exact
           component={Ranking}
         ></Route>
+        <Route exact key="createMap" path="/createMap" exact component={CreateMap}></Route>
       </Router>
     </div>
   );
