@@ -1,15 +1,15 @@
 #board {
     display: grid;
-    grid-template-columns: repeat(10, 50px);
-    grid-template-rows: repeat(10, 50px);
-    width: 500px;
-    height: 500px;
-    background-color: blue;
+    grid-template-columns: repeat(10, 25px);
+    grid-template-rows: repeat(10, 25px);
+    width: 250px;
+    height: 250px;
+    background-color: #ebecd0;
 }
 
 #board .tile {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
 }
 
 #board .black-tile {
@@ -52,5 +52,23 @@
 #board .button2 {
     background-color: white; 
     color: black; 
+    border: 1px solid #4CAF50;
+}
+
+#board .greenTile {
+    background-color: #60d864e8; 
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+#board .whiteTile {
+    background-color: white; 
+    color: black; 
+    border: 1px solid #4CAF50;
+}
+
+#board .orangeTile {
+    background-color: #ee932b;
+    color: white;
     border: 1px solid #4CAF50;
 }

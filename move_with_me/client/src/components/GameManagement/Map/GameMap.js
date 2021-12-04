@@ -12,26 +12,9 @@ const GameMap = (props) => {
     const [tiles, setTiles] = useState([]) // to keep track of tiles of challenge for render
     const [carPosition, setCarPos] = useState([props.x, props.y]) // State of car position from props
 
-    const handleMouseIn = () => {
-        setHover(true);
-    };
-
-    const handleMouseOut = () => {
-        setHover(false);
-    };
-
-    const handleClick = (e) => {
-        //console.log(e.target.getAttribute("id"));
-        let eid = e.target.getAttribute("id");
-        console.log(eid);
-        // Get e bg color
-        let ebgcolor = (window.getComputedStyle(e.target, null).getPropertyValue("background-color"));
-        console.log(e.currentTarget.style.backgroundColor);
-        document.getElementById(eid).style.backgroundColor = '#4CAF50';
-    }
-
+    // JSON Payload for AXIOS
     const payload = {
-        "challenge": 1
+        "challenge": props.challenge
     };
 
     function isArayInArray(arr, item){
@@ -47,26 +30,38 @@ const GameMap = (props) => {
         return true;
     };
 
-    //const tileLoaded = useRef(false) // ref for async trigger
     const [loading, setLoading] = useState(false);
 
     const renderMap = () => {
         //console.log("TILES " + tiles);
+        let cCar = [props.x, props.y];
         for (let j = verticalAxis.length - 1; j >= 0; j--){
             for (let i = 0; i < horizontalAxis.length; i++){
                 var cTile = [i, j]
+                let keyID = 'x' + i + 'y' + j;
+                // console.log("cCar :" + JSON.stringify(cCar));
+                // console.log("cTile : " + JSON.stringify(cTile));
 
-                if (isArayInArray(tiles, cTile)){
-                    //console.log(cTile + " found");
-                    const htmlTile = <React.Fragment><span id={'x' + i + 'y' + j} className="tile button button1clicked">
-                    [{horizontalAxis[i]},{verticalAxis[j]}]</span></React.Fragment>
-                    setBoard(board => [...board, htmlTile]);
+                // Check if tile HTML element match with Car position
+                // If Match, render orange else ( green || white )
+                if (JSON.stringify(cTile) == JSON.stringify(cCar)){
+                    console.log("cTile match cCar at " + cCar);
+                    const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button orangeTile"}>
+                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
+                        setBoard(board => [...board, htmlTile]);
                 } else {
-                    //console.log(cTile + " not found");
-                    const htmlTile = <React.Fragment><span id={'x' + i + 'y' + j} className="tile button button2">
-                    [{horizontalAxis[i]},{verticalAxis[j]}]</span></React.Fragment>
-                    setBoard(board => [...board, htmlTile]);
-                }
+                    if (isArayInArray(tiles, cTile)){
+                        //console.log(cTile + " found");
+                        const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button greenTile"}>
+                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
+                        setBoard(board => [...board, htmlTile]);
+                    } else {
+                        //console.log(cTile + " not found");
+                        const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button whiteTile"}>
+                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
+                        setBoard(board => [...board, htmlTile]);
+                    }
+                }                
             }
         }
     }
@@ -81,37 +76,29 @@ const GameMap = (props) => {
         setLoading(true);
     }
 
-    const tileLoaded = useRef(true); // ref hook
-    // Render map data only after challenge data is fetched | has to be ontop
+    const tileLoaded = useRef(true); // Ref Hook for boolean condition and to not rerender during change in state
+
+    // Render Map only AFTER first render and when tiles have been loaded from AXIOS
     useEffect(() => {
-        let targetID = 'x' + props.x + 'y' + props.y;
         if (!tileLoaded.current){
             renderMap();
+            console.log("Map RENDERED...");
         }
     }, [tiles]);
 
-    // Re-render map when car position updates
-    useEffect(() =>{
-        renderCar();
-    }, [carPosition]);
-
-    // Option B
-    // useEffect(() => {
-    //     let targetID = 'x' + props.x + 'y' + props.y;
-    //     if (!tileLoaded.current){
-    //         renderMap();
-    //         renderCar();
-    //     }
-    // }, [tiles, carPosition]);
-
-    // Get the challenge data from mongo
+    // Get the challenge data from mongo via AXIOS to load into tiles STATE
     useEffect(() => {
         getChallenge();
         tileLoaded.current = false;
-    }, []);
+
+        console.log("CarPosition Updated...");
+        // Clearboard to clean up DOM before rerender
+        setBoard([]); // Reset Board
+        console.log('Board State is cleared...')
+    }, [props.x, props.y]);
 
     // return <div id="board">{board}{tiles}{props.x}{props.y}</div>;
-    return <div id="board">{board}{props.x}{props.y}</div>;
+    return <div id="board">{board}</div>;
 }
 
 export default GameMap;

@@ -207,11 +207,16 @@ const Challenge = (props) => {
       <div class="pt-48">
         <div class="flex justify-center">
           <Card title="Game Map" style={{ width: 600 }}>
-            <GameMap 
-              x={position.x}
-              y={position.y}  
-            />
-            </Card>
+            <div className="components-list" class="flex justify-center">
+              <div>
+                <GameMap
+                  x={position.x}
+                  y={position.y}
+                  challenge={challenge}
+                />
+              </div>
+            </div>
+          </Card>
 
           <Card title="Controls" style={{ width: 600 }}>
             <div className="components-list" class="flex justify-center">
