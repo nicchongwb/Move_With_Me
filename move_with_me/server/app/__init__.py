@@ -47,11 +47,14 @@ jwt = JWTManager(app)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-@app.route("/token", methods=["POST"])
+@app.route("/token", methods=["GET", "POST"])
 def tokenCreation():
-    username = request.json.get("username", None)
-    password = request.json.get("password", None)
-    if username != "test" or password != "test":
+    # username = request.json.get("username", None)
+    username = request.get_json("username")
+    # password = request.json.get("password", None)
+    password = request.get_json("password")
+    #if username != "test" or password != "test":
+    if username != db.users.find(username) or password != db.users.find(password):
         return jsonify({"msg": "Bad username or password"}), 401
 
     access_token = create_access_token(identity=username)

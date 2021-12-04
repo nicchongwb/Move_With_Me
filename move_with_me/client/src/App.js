@@ -9,6 +9,7 @@ import Challenge from "./components/GameManagement/Challenges/Challenge";
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
 import admLogin from "./components/AccountManagement/adminLogin";
+// import admLogin from "./components/AccountManagement/testeradminLogin";
 import login from "./components/AccountManagement/normalLogin";
 
 function App() {
@@ -69,6 +70,13 @@ function App() {
           exact
           component={Challenge}
         ></Route>
+        {/* <Route
+          exact
+          key="admlogin"
+          path="/admlogin"
+          exact
+          component={admLogin}
+        ></Route> */}
         <Route
           exact
           key="admlogin"
