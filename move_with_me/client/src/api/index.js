@@ -29,17 +29,25 @@ export const saveCommands = (array) => {
 
 export const challenges = () => API.get("/challenges");
 
-export const ghLogin = user => {
-  return axios
-      .post("/users/login", {
-          username: user.username,
-          password: user.password
-      })
-      .then(response => {
-          localStorage.setItem('usertoken', response.data.token)
-          return response.data.token
-      })
-      .catch(err => {
-          console.log(err)
-      })
-}
+export const ghLogin = (adminDetails) => {
+  // return axios
+  //     .post("/users/login", {
+  //         username: user.username,
+  //         password: user.password
+  //     })
+  //     .then(response => {
+  //         localStorage.setItem('usertoken', response.data.token)
+  //         return response.data.token
+  //     })
+  //     .catch(err => {
+  //         console.log(err)
+  //     })
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  var body = JSON.stringify(adminDetails);
+  console.log("admin", adminDetails);
+  return API.post("/token", body, config);
+};

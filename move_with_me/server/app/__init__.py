@@ -72,33 +72,40 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
-jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
+# app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
+# jwt = JWTManager(app)
+# bcrypt = Bcrypt(app)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 
 ## TO LOGIN
-@app.route('/token', methods=['POST'])
+@app.route('/token', methods=['GET','POST'])
 def login():
-    users = mongo.db.users 
-    username = request.get_json()['username']
-    password = request.get_json()['password']
-    result = ""
+    x =  db.admin.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        data['username'] = str(data['username']) 
+        if(str(data['username']) == 'admin'): 
+            print(data)
+            return jsonify(data)
 
-    response = users.find_one({'username': username})
+    # users = mongo.db.users 
+    # username = request.get_json()['username']
+    # password = request.get_json()['password']
+    # result = ""
 
-    if response:
-        if bcrypt.check_password_hash(response['password'], password):
-            access_token = create_access_token(identity = {
-                'username': response['username']
-            })
-            result = jsonify({'token':access_token})
-        else:
-            result = jsonify({"error":"Invalid username and password"})
-    else:
-        result = jsonify({"result":"No results found"})
-    return result 
+    # response = users.find_one({'username': username})
+
+    # if response:
+    #     if bcrypt.check_password_hash(response['password'], password):
+    #         access_token = create_access_token(identity = {
+    #             'username': response['username']
+    #         })
+    #         result = jsonify({'token':access_token})
+    #     else:
+    #         result = jsonify({"error":"Invalid username and password"})
+    # else:
+    #     result = jsonify({"result":"No results found"})
 
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking

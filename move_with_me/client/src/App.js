@@ -10,6 +10,7 @@ import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
 import CreateMap from "./components/GameManagement/Map/CreateMap";
 import admLogin from "./components/AccountManagement/admLogin";
+import ProtectedRoute from "./components/AccountManagement/ProtectedRoute";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
@@ -36,13 +37,13 @@ function App() {
   return (
     <div>
       <Router>
-        <Route
+        <ProtectedRoute
           exact
           key="startGame"
           path="/"
           exact
           component={StartGame}
-        ></Route>
+        ></ProtectedRoute>
         <Route
           exact
           key="carSpecs"
@@ -88,20 +89,14 @@ function App() {
           exact
           component={Ranking}
         ></Route>
-        <Route
+        <ProtectedRoute
           exact
           key="createMap"
           path="/createMap"
           exact
           component={CreateMap}
-        ></Route>
-        {/* <Route
-          exact
-          key="admlogin"
-          path="/admlogin"
-          exact
-          component={admLogin}
-        ></Route> */}
+        ></ProtectedRoute>
+
         <Route
           exact
           key="admlogin"
