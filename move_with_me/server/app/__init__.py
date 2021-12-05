@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 import pymongo
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
+  
 
 app = Flask(__name__)
 CORS(app)
@@ -65,5 +66,10 @@ def retrieve_challenge():
         data['_id'] = str(data['_id']) 
         challenges.append(data)
     return jsonify(challenges)
+
+    # Select Challenge route
+@app.route("/selectchallenge", methods=["GET"])
+def displayChallengeList():
+    return render_template()
 
 from app.routes import home, users, react_test, rankings, game, map, move

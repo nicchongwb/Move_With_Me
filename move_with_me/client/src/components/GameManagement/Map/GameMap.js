@@ -19,10 +19,12 @@ const GameMap = (props) => {
 
     function isArrayInArray(arr, item){
         var item_as_string = JSON.stringify(item);
+        console.log("test", item_as_string);
 
-        var contains = arr.some(function(e){
-            return JSON.stringify(e) === item_as_string;
+        var contains = arr.some(function (e) {
+          return JSON.stringify(e) === item_as_string;
         });
+        console.log(contains);
         return contains;
     }
 
