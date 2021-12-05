@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
 import { useHistory } from "react-router-dom";
-
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -246,7 +245,7 @@ const Challenge = (props) => {
           </div>
           <div>
             <div class="flex justify-center">
-              <Card title="Controls" style={{ width: 800 }}>
+              <Card title="Controls" style={{ width: 750 }}>
                 <div className="components-list" class="flex justify-center">
                   <div>
                     <ArrowLeftOutlined
@@ -291,7 +290,7 @@ const Challenge = (props) => {
                   {renderElements()}
                 </div>
               </Card>
-              <Card title="Delete Tray" style={{ width: 200 }}>
+              <Card title="Delete Tray" style={{ width: 150 }}>
                 <div
                   class=" h-72 bg-gray-200"
                   onDragOver={(e) => dragOver(e)}
@@ -306,7 +305,7 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Button type="primary" onClick={(handleSubmit, commands)}>
+        <Button type="primary" onClick={handleSubmit}>
           I am Done!
         </Button>
       </div>
