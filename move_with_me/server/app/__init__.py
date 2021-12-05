@@ -89,4 +89,4 @@ def users_list():
 
 
 
-from app.routes import home, users, react_test, rankings, game, map, move, map
+from app.routes import home, users, react_test, rankings, game, map, move, createMap

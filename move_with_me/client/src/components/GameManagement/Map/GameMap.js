@@ -17,9 +17,12 @@ const GameMap = (props) => {
         "challenge": props.challenge
     };
 
-    function isArrayInArray(arr, item) {
-      var item_as_string = JSON.stringify(item);
-      console.log("test", arr);
+    const headers = {
+        'Access-Control-Allow-Origin':'http://localhost:5000'
+      }
+
+    function isArrayInArray(arr, item){
+        var item_as_string = JSON.stringify(item);
 
       console.log("test", item_as_string);
 
@@ -95,12 +98,13 @@ const GameMap = (props) => {
 
     // AXIOS
     const getChallenge = () => {
-      axios.get("/api/map", payload).then(function (response) {
-        console.log("response_data".response.data);
-        setTiles(response.data.tiles);
-      });
-      setLoading(true);
-    };
+        axios.post('/api/map', payload, headers)
+        .then(function(response){
+            console.log(response.data)
+            setTiles(response.data.tiles)
+        });
+        setLoading(true);
+    }
 
     const tileLoaded = useRef(true); // Ref Hook for boolean condition and to not rerender during change in state
 
