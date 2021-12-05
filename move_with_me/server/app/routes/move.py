@@ -72,57 +72,57 @@ def move():
         # Always check if curPos is already at end tile of challenge [9,9]
         if isCompleted(curPos):
             chStatus = setChStatus('Completed')
-            print(curPos)
+            # print(curPos)
             break # Break out of iteration
         else:
             # IF LEFT
             if cmd == 'left':
                 newPos = [curPos[0]-1, curPos[1]]
                 if isOutOfBound(newPos):
-                    print('OUT OF BOUND')
+                    # print('OUT OF BOUND')
                     score = addScore(score, -1)
                 else:
-                    print('NOT OUT OF BOUND')
+                    # print('NOT OUT OF BOUND')
                     score = updateScore(newPos, challengeTiles, score)
                     curPos = newPos # Update curPos
             # IF RIGHT
             elif cmd == 'right':
                 newPos = [curPos[0]+1, curPos[1]]
                 if isOutOfBound(newPos):
-                    print('OUT OF BOUND')
+                    # print('OUT OF BOUND')
                     score = addScore(score, -1)
                 else:
-                    print('NOT OUT OF BOUND')
+                    # print('NOT OUT OF BOUND')
                     score = updateScore(newPos, challengeTiles, score)
                     curPos = newPos # Update curPos
             # IF UP
             elif cmd == 'up':
                 newPos = [curPos[0], curPos[1]+1]
                 if isOutOfBound(newPos):
-                    print('OUT OF BOUND')
+                    # print('OUT OF BOUND')
                     score = addScore(score, -1)
                 else:
-                    print('NOT OUT OF BOUND')
+                    # print('NOT OUT OF BOUND')
                     score = updateScore(newPos, challengeTiles, score)
                     curPos = newPos # Update curPos
             # IF DOWN
             elif cmd == 'down':
                 newPos = [curPos[0], curPos[1]-1]
                 if isOutOfBound(newPos):
-                    print('OUT OF BOUND')
+                    # print('OUT OF BOUND')
                     score = addScore(score, -1)
                 else:
-                    print('NOT OUT OF BOUND')
+                    # print('NOT OUT OF BOUND')
                     score = updateScore(newPos, challengeTiles, score)
                     curPos = newPos # Update curPos
             # Check if win
             if isCompleted(curPos):
                 chStatus = setChStatus('Completed')
-                print(curPos)
+                # print(curPos)
                 break # Break out of iteration
-            print(curPos)
-            print('Challenge not completed')
-        print(score)
+            # print(curPos)
+            # print('Challenge not completed')
+        # print(score)
 
     # Update json data to respond to React
     json_data["position"] = {'x':curPos[0], 'y':curPos[1]}

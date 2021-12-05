@@ -6,8 +6,10 @@ import axios from 'axios';
 import "../../assets/css/ranking.css"
 
 const ChallengeResult = (props) => {
-  // const rankID = props.location.state.rankingID;
-  const rankID = 2;
+  console.log(props.location.state)
+  const rankID = props.location.state?.rID;
+  console.log("Ranking ID of player is " + rankID);
+  //const rankID = 2;
   const [recordArr, setRecordArr] = useState([]); // State to store our record after fetching
 
   // Event Handler for Sending commands to FLASK API - POST request to /api/challengeRanking

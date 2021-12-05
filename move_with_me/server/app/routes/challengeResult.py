@@ -13,33 +13,38 @@ import json
 @cross_origin()
 def challengeResult():
     json_data = request.json
-    # print(json_data)
+    print(json_data)
 
     # Fetch user rankID row
     rankingID = json_data["rankID"]
     _userRankDocument = mongo.db.Rankings.find({"id":rankingID})
     userRankDoc = {}
+    chID = 0
+    chName = ''
+
     for doc in _userRankDocument:
         userRankDoc["id"] = doc["id"]
         userRankDoc["name"] = doc["name"]
         userRankDoc["score"] = doc["score"]
         userRankDoc["challenge"] = doc["challenge"]
-    # print(userRankDoc)
+        chID = doc["challenge"] # Get challenge ID before querying top n scorers
 
-    # Get challenge ID before querying top n scorers
-    chID = userRankDoc["challenge"]
-    
+    print(userRankDoc)
+    print(chID)
+
     # Get challenge Name and append to userRankDoc subsequently topThreeRankDocArr
     _challengeName = mongo.db.Challenges.find({"challenge":chID}).limit(1)
     for doc in _challengeName:
         chName = doc["name"] # Get challengeName  
+
+    print(chName)
 
     # Fetch top 3 scorers of the challenge
     _topThreeRankDocs = mongo.db.Rankings.find({"challenge":chID}).sort("score",-1).limit(3)
     topThreeRankDocArr = []
     for doc in _topThreeRankDocs:
         topThreeRankDocArr.append(doc)
-    # print(topThreeRankDocArr)
+    print(topThreeRankDocArr)
 
     # Clean up topThreeRankDocArr to remove "_id" key
     for element in topThreeRankDocArr:
@@ -50,7 +55,7 @@ def challengeResult():
     # Check if userRank is in top 3
     if userRankDoc not in topThreeRankDocArr:
         returnRecords.append(userRankDoc)
-    # print(returnRecords)
+    print(returnRecords)
 
     # Add challengeName key/value into returnRecords list
     for record in returnRecords:
@@ -59,6 +64,6 @@ def challengeResult():
     response = { 
         "rankingData":returnRecords
     }
-    # print(response)
+    print(response)
 
     return jsonify(response)

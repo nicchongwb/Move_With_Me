@@ -12,28 +12,29 @@ import json
 @app.route("/api/storeRanking", methods=["POST"])
 @cross_origin()
 def storeRanking():
-    json_data = request.json
-    mongoPayload = {} # Payload for api response
-    print("Received score below: ")
-    print(json_data)
+    if request.method == 'POST':
+        json_data = request.json
+        mongoPayload = {} # Payload for api response
+        print("Received score below: ")
+        print(json_data)
 
-    # Get document with largest 'ranking ID' and +1
-    _maxRankIDDocument = mongo.db.Rankings.find().sort("id",-1).limit(1)
-    for doc in _maxRankIDDocument:
-        mongoPayload["id"] = doc["id"] + 1    
-    mongoPayload["name"] = json_data["name"]
-    mongoPayload["score"] = json_data["score"]
-    mongoPayload["challenge"] = json_data["challengeID"]
-    print(mongoPayload)
+        # Get document with largest 'ranking ID' and +1
+        _maxRankIDDocument = mongo.db.Rankings.find().sort("id",-1).limit(1)
+        for doc in _maxRankIDDocument:
+            mongoPayload["id"] = doc["id"] + 1    
+        mongoPayload["name"] = json_data["name"]
+        mongoPayload["score"] = json_data["score"]
+        mongoPayload["challenge"] = json_data["challengeID"]
+        print("Storing the following to mongo")
+        print(mongoPayload)
 
-    try:
         _insert = mongo.db.Rankings.insert(mongoPayload)
-    except:
-        print("Mongo insert went wrong...")
 
-    response = { 
-        "toRedirect":True,
-        "rankingID":mongoPayload["id"]
-    }
+        response = { 
+            "toRedirect":True,
+            "rankingID":mongoPayload["id"]
+        }
 
-    return jsonify(response)
+        print(response)
+
+        return jsonify(response)

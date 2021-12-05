@@ -24,7 +24,7 @@ const GameMap = (props) => {
     function isArrayInArray(arr, item){
         var item_as_string = JSON.stringify(item);
 
-      console.log("test", item_as_string);
+      //console.log("test", item_as_string);
 
       var contains = arr.some(function (e) {
         return JSON.stringify(e) === item_as_string;
@@ -48,7 +48,7 @@ const GameMap = (props) => {
           // Check if tile HTML element match with Car position
           // If Match, render orange else ( green || white )
           if (JSON.stringify(cTile) == JSON.stringify(cCar)) {
-            console.log("cTile match cCar at " + cCar);
+            //console.log("cTile match cCar at " + cCar);
             const htmlTile = (
               <React.Fragment>
                 <span
@@ -112,7 +112,7 @@ const GameMap = (props) => {
     useEffect(() => {
         if (!tileLoaded.current){
             renderMap();
-            console.log("Map RENDERED...");
+            //console.log("Map RENDERED...");
         }
     }, [tiles]);
 
@@ -121,10 +121,10 @@ const GameMap = (props) => {
         getChallenge();
         tileLoaded.current = false;
 
-        console.log("CarPosition Updated...");
+        //console.log("CarPosition Updated...");
         // Clearboard to clean up DOM before rerender
         setBoard([]); // Reset Board
-        console.log('Board State is cleared...')
+        //console.log('Board State is cleared...')
     }, [props.x, props.y]);
 
     // return <div id="board">{board}{tiles}{props.x}{props.y}</div>;
