@@ -10,7 +10,8 @@ import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
 import CreateMap from "./components/GameManagement/Map/CreateMap";
 import Admin from "./components/GameManagement/Admin/Admin";
-import Home from "./components/GameManagement/Admin/Home";
+import AdminHome from "./components/GameManagement/Admin/AdminHome";
+import Home from "./components/GameManagement/Home";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
@@ -22,7 +23,7 @@ function App() {
         <Route
           exact
           key="startGame"
-          path="/"
+          path="/start"
           exact
           component={StartGame}
         ></Route>
@@ -79,7 +80,15 @@ function App() {
           component={CreateMap}
         ></Route>
         <Route exact key="admin" path="/admin" exact component={Admin}></Route>
-        <Route exact key="home" path="/home" exact component={Home}></Route>
+        <Route
+          exact
+          key="home"
+          path="/home"
+          exact
+          component={AdminHome}
+        ></Route>
+
+        <Route exact key="home" path="/" exact component={Home}></Route>
       </Router>
     </div>
   );
