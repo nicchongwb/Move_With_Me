@@ -17,6 +17,10 @@ const GameMap = (props) => {
         "challenge": props.challenge
     };
 
+    const headers = {
+        'Access-Control-Allow-Origin':'http://localhost:5000'
+      }
+
     function isArrayInArray(arr, item){
         var item_as_string = JSON.stringify(item);
 
@@ -64,7 +68,7 @@ const GameMap = (props) => {
 
     // AXIOS
     const getChallenge = () => {
-        axios.get('/api/map', payload)
+        axios.post('/api/map', payload, headers)
         .then(function(response){
             console.log(response.data)
             setTiles(response.data.tiles)
