@@ -3,7 +3,6 @@ import { Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { challenges } from "../../api";
 import "../../assets/css/startGame.css";
-
 const SelectChallenge = (props) => {
   const data = props.location.state?.playerName;
   console.log("data", data);
@@ -50,14 +49,15 @@ const SelectChallenge = (props) => {
               type="primary"
               key={index}
               style={{
-                width: "10rem",
-                height: "10rem",
-                fontSize: "5rem",
+                width: "8rem",
+                height: "8rem",
+                fontSize: "1.5rem",
               }}
-              value={console.log(data)}
+              value={("data", console.log(data))}
               onClick={(e) => retrieveSelectedChallenge(e, data)}
             >
-              <p> {data.challengeID}</p>
+              <p> {data.difficulty}</p>
+              <p> {data.challenge}</p>
             </Button>
           </div>
         ))}

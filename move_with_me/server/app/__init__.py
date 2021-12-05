@@ -79,7 +79,7 @@ def users_list():
 @app.route("/challenges",methods=[ 'GET'])
 def retrieve_challenge():
     challenges = []
-    x =  db.map.find()
+    x =  db.Challenges.find()
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
