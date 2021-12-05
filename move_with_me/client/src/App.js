@@ -8,11 +8,13 @@ import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
+import Register from "./components/AccountManagement/register";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
-import admLogin from "./components/AccountManagement/adminLogin";
+// import admLogin from "./components/AccountManagement/adminLogin";
 // import admLogin from "./components/AccountManagement/testeradminLogin";
+import GhLogin from "./components/AccountManagement/ghLogin";
 import login from "./components/AccountManagement/normalLogin";
 
 function App() {
@@ -98,10 +100,10 @@ function App() {
         ></Route> */}
         <Route
           exact
-          key="admlogin"
-          path="/admlogin"
+          key="ghLogin"
+          path="/ghLogin"
           exact
-          component={admLogin}
+          component={GhLogin}
         ></Route>
         <Route
           exact

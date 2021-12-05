@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, json
 from flask_cors import CORS, cross_origin
 
 import pymongo
 import os
+
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
@@ -74,20 +76,70 @@ def retrieve_challenge():
 
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-@app.route("/token", methods=["GET", "POST"])
-def tokenCreation():
-    # username = request.json.get("username", None)
-    username = request.get_json("username")
-    # password = request.json.get("password", None)
-    password = request.get_json("password")
-    #if username != "test" or password != "test":
-    if username != db.users.find(username) or password != db.users.find(password):
-        return jsonify({"msg": "Bad username or password"}), 401
+# @app.route("/token", methods=["GET", "POST"])
+# def tokenCreation():
+#     # username = request.json.get("username", None)
+#     username = request.get_json("username")
+#     # password = request.json.get("password", None)
+#     password = request.get_json("password")
+#     #if username != "test" or password != "test":
+#     if username != db.users.find({username: "username"}) and password != db.users.find({password: "password"}):
+#         return jsonify({"msg": "Bad username or password"}), 401
+    
+#     access_token = create_access_token(identity=username)
+#     return jsonify(access_token=access_token)
 
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
+# @app.route("/token", methods=['GET', 'POST'])
+# def tokenCreation():
+#     username = request.json.get("username", None)
+#     password = request.json.get("password", None)
+#     if username != db.users.find({username: "username"}) and password != db.users.find({password: "password"}):
+#         return jsonify({"msg": "Bad username or password"}), 401
+
+#     access_token = create_access_token(identity=username)
+#     return jsonify(access_token=access_token)
+
+# @app.route("/token", methods=['GET', 'POST'])
+# def tokenCreation():
+#     if request.method == 'POST':
+#         username = request.json.get("username")
+#         password = request.json.get("password")
+
+#         dbChecker = db.users.find_one({"username": username})
+#         if dbChecker:
+#             username_val = dbChecker['username']
+#             passwd_val = dbChecker['password']
+
+#     return render_template('admLogin.html')
+
+
+
+## TO LOGIN
+@app.route('/token', methods=['POST'])
+def login():
+    users = mongo.db.users 
+    username = request.get_json()['username']
+    password = request.get_json()['password']
+    result = ""
+
+    response = users.find_one({'username': username})
+
+    if response:
+        if bcrypt.check_password_hash(response['password'], password):
+            access_token = create_access_token(identity = {
+                'username': response['username']
+            })
+            result = jsonify({'token':access_token})
+        else:
+            result = jsonify({"error":"Invalid username and password"})
+    else:
+        result = jsonify({"result":"No results found"})
+    return result 
+
+
 
 from app.routes import home, users, react_test
