@@ -41,13 +41,13 @@ export const GhLogin = () => {
         //     })
         // COPIED TO FLUX.JS
     };
-    return ( 
-        <div>
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
-                            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                            {token && token != "" && token != undefined ? (
+    return (
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 mt-5 mx-auto">
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              {/* {token && token != "" && token != undefined ? (
                                 "Logged in with " + token 
                             ) : ( 
                               <div>  
@@ -73,11 +73,11 @@ export const GhLogin = () => {
                                     Sign in
                                 </button>
                             </div>
-                        )}
-                    </div>
-                </div>
+                        )} */}
             </div>
+          </div>
         </div>
+      </div>
     );
 };
 export default GhLogin;

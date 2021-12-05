@@ -74,7 +74,6 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-<<<<<<< HEAD
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
@@ -143,7 +142,5 @@ def login():
 
 
 
-from app.routes import home, users, react_test
-=======
+# from app.routes import home, users, react_test
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking
->>>>>>> 82139770f021ee763bd1b3f4db9a57728c717e6b
