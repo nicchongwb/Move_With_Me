@@ -15,23 +15,25 @@ const DoTutorial = () => {
             <p class="text-gray-800">Follow game map route to obtain points</p>
           </Card>
           <Card title="2 - Controls" style={{ width: 300 }}>
-            <p class="text-gray-800">
+            <p class="text-gray-800 text-base">
               Try out the controls to manoeuvre your car
             </p>
           </Card>
           <Card title="3 - Drop Commands Tray" style={{ width: 300 }}>
-            <p class="text-gray-800">Drop your commands to finish your route</p>
+            <p class="text-gray-800 text-base">
+              Drop your commands to finish your route
+            </p>
           </Card>
 
           <Card title="4 - Delete Commands Tray" style={{ width: 300 }}>
-            <p class="text-gray-800">
+            <p class="text-gray-800 text-base">
               Delete commands if you want to try a different command
             </p>
           </Card>
         </div>
 
         <div class="pt-12 ">
-          <Link to="/">
+          <Link to="/start">
             <div class="mt-12">
               <Button type="secondary">Back</Button>
             </div>

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
+import { useHistory } from "react-router-dom";
+
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  SmileTwoTone,
 } from "@ant-design/icons";
 import { Card, Button, Modal } from "antd";
 import { saveCommands } from "../../api";
 import "../../assets/css/button.css";
-import axios from 'axios';
+import axios from "axios";
 import GameMap from "./Map/GameMap";
 
 const Challenge = (props) => {
@@ -17,24 +20,25 @@ const Challenge = (props) => {
   console.log("data", data);
   const name = props.location.state?.name;
   console.log("name", name);
+  let history = useHistory();
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
 
   // Game states
-  const [position, setPosition] = useState({ x: 0, y: 0})
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const x = position.x;
   const y = position.y;
   const [score, setScore] = useState(0); // State for score
   const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
-  const [chStatus, setChStatus] = useState('Running'); // State for challenge status
+  const [chStatus, setChStatus] = useState("Running"); // State for challenge status
   const [isComplete, setIsComplete] = useState(false); // State for end game summary modal
   const [isModalClose, setIsModalClose] = useState(false); // State for modalClose
 
   // Game Functions
-  function updateCarPos(newX, newY){
-    setPosition(prevPosition => {
-      return { x: newX, y: newY }
-    })
+  function updateCarPos(newX, newY) {
+    setPosition((prevPosition) => {
+      return { x: newX, y: newY };
+    });
   }
 
   // Function to handle form submission to FLASK
@@ -42,46 +46,46 @@ const Challenge = (props) => {
     e.preventDefault();
     // Package json payload from states, don't need to JSONStringify as Axios will serialize for us
     const payload = {
-        "commands":elementData,
-        "score":score,
-        "challengeID":challenge,
-        "position":position,
-        "chStatus":chStatus
+      commands: elementData,
+      score: score,
+      challengeID: challenge,
+      position: position,
+      chStatus: chStatus,
     };
 
     const headers = {
-      'Access-Control-Allow-Origin':'http://localhost:5000'
-    }
+      "Access-Control-Allow-Origin": "http://localhost:5000",
+    };
 
     // AXIOS to send a post req to api endpoint in FLASK
     // response.data.<key>
-    return axios.post('/api/move', payload, headers)
-    .then(function(response){
-        console.log(response.data)
-        setScore(response.data.score)
-        updateCarPos(response.data.position['x'], response.data.position['y'])
-        setChStatus(prevChStatus => response.data.chStatus)      
+    return axios.post("/api/move", payload, headers).then(function (response) {
+      console.log(response.data);
+      setScore(response.data.score);
+      updateCarPos(response.data.position["x"], response.data.position["y"]);
+      setChStatus((prevChStatus) => response.data.chStatus);
     });
-  }
+  };
 
   // Modal function when OK/Confirm is clicked
   const handleOk = () => {
     setIsComplete(false);
     setIsModalClose(true);
-  }
+    history.push("/ranking");
+  };
 
   // Effect Hook to keep a look out when challenge is completed and then pop out modal
   useEffect(() => {
-    if (chStatus == 'Completed'){
-      console.log('Challenge Status is changed to ' + chStatus);
+    if (chStatus == "Completed") {
+      console.log("Challenge Status is changed to " + chStatus);
       setIsComplete(true);
-    }    
-  }, [chStatus])
+    }
+  }, [chStatus]);
 
   // Effect Hook when Modal is close and to redirect user to next page
   useEffect(() => {
-    console.log("Modal Closed...redirecting to...")
-  }, [isModalClose])
+    console.log("Modal Closed...redirecting to...");
+  }, [isModalClose]);
 
   // UI Functions
   const commands = async () => {
@@ -216,83 +220,88 @@ const Challenge = (props) => {
           Move With Me
         </h1>
       </div>
-      <div class="float-right text-right mr-8">
+
+      <div class="float-right text-right mr-16">
         <p class="text-xl">Hello {name} </p>
         <p class=" text-green-700"> Connection Status</p>
       </div>
-      <div class="float-left text-left mr-8">
-        <p class="text-x1">Score: {score}</p>
+      <div class="float-left text-left ml-8">
+        <p class="text-xl">Score: {score}</p>
         <p class=" text-green-700"> Challenge Status: {chStatus}</p>
       </div>
-      <div class="pt-48">
-        <div class="flex justify-center">
-          <Card title="Game Map" style={{ width: 600 }}>
-            <div className="components-list" class="flex justify-center">
-              <div>
-                <GameMap
-                  x={position.x}
-                  y={position.y}
-                  challenge={challenge}
-                />
+      <div>
+        <div class="pt-24 flex">
+          <div>
+            <Card title="Game Map" style={{ width: 700, height: 700 }}>
+              <div className="components-list" class="">
+                <div>
+                  <GameMap
+                    x={position.x}
+                    y={position.y}
+                    challenge={challenge}
+                  />
+                </div>
               </div>
+            </Card>
+          </div>
+          <div>
+            <div class="flex justify-center">
+              <Card title="Controls" style={{ width: 1200 }}>
+                <div className="components-list" class="flex justify-center">
+                  <div>
+                    <ArrowLeftOutlined
+                      style={{ fontSize: "40px" }}
+                      draggable={true}
+                      onDragStart={(e) => dragHandler(e, "left")}
+                    />
+                  </div>
+                  <div>
+                    <ArrowRightOutlined
+                      style={{ fontSize: "40px" }}
+                      draggable={true}
+                      onDragStart={(e) => dragHandler(e, "right")}
+                    />
+                  </div>
+                  <div>
+                    <ArrowUpOutlined
+                      style={{ fontSize: "40px" }}
+                      draggable={true}
+                      onDragStart={(e) => dragHandler(e, "up")}
+                    />
+                  </div>
+                  <div>
+                    <ArrowDownOutlined
+                      style={{ fontSize: "40px" }}
+                      draggable={true}
+                      onDragStart={(e) => dragHandler(e, "down")}
+                    />
+                  </div>
+                </div>
+              </Card>
             </div>
-          </Card>
-
-          <Card title="Controls" style={{ width: 600 }}>
-            <div className="components-list" class="flex justify-center">
-              <div>
-                <ArrowLeftOutlined
-                  style={{ fontSize: "40px" }}
-                  draggable={true}
-                  onDragStart={(e) => dragHandler(e, "left")}
-                />
-              </div>
-              <div>
-                <ArrowRightOutlined
-                  style={{ fontSize: "40px" }}
-                  draggable={true}
-                  onDragStart={(e) => dragHandler(e, "right")}
-                />
-              </div>
-              <div>
-                <ArrowUpOutlined
-                  style={{ fontSize: "40px" }}
-                  draggable={true}
-                  onDragStart={(e) => dragHandler(e, "up")}
-                />
-              </div>
-              <div>
-                <ArrowDownOutlined
-                  style={{ fontSize: "40px" }}
-                  draggable={true}
-                  onDragStart={(e) => dragHandler(e, "down")}
-                />
-              </div>
+            <div class="flex justify-center">
+              <Card title="Command Tray" style={{ width: 1000, height: 550 }}>
+                <div
+                  class=" h-72 bg-gray-200"
+                  onDragOver={(e) => dragOver(e)}
+                  onDrop={(e) => drop(e, "newDrop")}
+                >
+                  <p class="text-xl pt-8">Drop Area</p>
+                  Hello, drop your arrows here!
+                  {renderElements()}
+                </div>
+              </Card>
+              <Card title="Delete Tray" style={{ width: 200 }}>
+                <div
+                  class=" h-72 bg-gray-200"
+                  onDragOver={(e) => dragOver(e)}
+                  onDrop={(e) => dropOutside(e, "delete")}
+                >
+                  <p class="text-xl pt-8">Delete Area</p>
+                </div>
+              </Card>
             </div>
-          </Card>
-        </div>
-
-        <div class="flex justify-center">
-          <Card title="Command Tray" style={{ width: 1000 }}>
-            <div
-              class=" h-72 bg-gray-200"
-              onDragOver={(e) => dragOver(e)}
-              onDrop={(e) => drop(e, "newDrop")}
-            >
-              <p class="text-xl pt-8">Drop Area</p>
-              Hello, drop your arrows here!
-              {renderElements()}
-            </div>
-          </Card>
-          <Card title="Delete Tray" style={{ width: 200 }}>
-            <div
-              class=" h-72 bg-gray-200"
-              onDragOver={(e) => dragOver(e)}
-              onDrop={(e) => dropOutside(e, "delete")}
-            >
-              <p class="text-xl pt-8">Delete Area</p>
-            </div>
-          </Card>
+          </div>
         </div>
       </div>
 
@@ -303,13 +312,29 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Modal title={"Congratulations " + name + "!!"} visible={isComplete} 
-          onOk={handleOk} okText="Confirm" cancelButtonProps={{ style: {display: 'none'} }}>
-          <p class="text-xl pt-8">Your Score is : {score}</p>
+        <Modal
+          title={"Congratulations " + name + "!"}
+          visible={isComplete}
+          onOk={handleOk}
+          okText="Confirm"
+          cancelButtonProps={{ style: { display: "none" } }}
+          style={{ top: 250, textAlign: "center" }}
+        >
+          <div class="text-center">
+            <SmileTwoTone style={{ fontSize: 100 }} />
+
+            <h2 class="text-gray-700 font-semibold text-xl mt-6">
+              You've completed your challenge successfully!
+            </h2>
+            <div class="text-lg mt-8">
+              <span class=" font-semibold"> Your Score: </span>
+              <span class="font-normal"> {score}</span>
+            </div>
+          </div>
         </Modal>
       </div>
       {console.log(chStatus)}
-    </div>    
+    </div>
   );
 };;;
 export default Challenge;
