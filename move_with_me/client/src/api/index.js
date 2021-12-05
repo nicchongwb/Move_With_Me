@@ -24,6 +24,6 @@ export const saveCommands = (array) => {
   return API.post("/saveCommands", body, config);
 };
 
-// export const saveCommands = () => API.get("/saveCommands");
+export const retrieveCommands = () => API.get("/retrieveCommands");
 
 export const challenges = () => API.get("/challenges");

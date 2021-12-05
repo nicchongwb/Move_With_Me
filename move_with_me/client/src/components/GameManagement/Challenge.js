@@ -230,7 +230,7 @@ const Challenge = (props) => {
         <p class=" text-green-700"> Challenge Status: {chStatus}</p>
       </div>
       <div>
-        <div class="pt-24 flex">
+        <div class="pt-24 flex justify-center">
           <div>
             <Card title="Game Map" style={{ width: 700, height: 700 }}>
               <div className="components-list" class="">
@@ -246,7 +246,7 @@ const Challenge = (props) => {
           </div>
           <div>
             <div class="flex justify-center">
-              <Card title="Controls" style={{ width: 1200 }}>
+              <Card title="Controls" style={{ width: 800 }}>
                 <div className="components-list" class="flex justify-center">
                   <div>
                     <ArrowLeftOutlined
@@ -280,7 +280,7 @@ const Challenge = (props) => {
               </Card>
             </div>
             <div class="flex justify-center">
-              <Card title="Command Tray" style={{ width: 1000, height: 550 }}>
+              <Card title="Command Tray" style={{ width: 600, height: 550 }}>
                 <div
                   class=" h-72 bg-gray-200"
                   onDragOver={(e) => dragOver(e)}
@@ -306,7 +306,7 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Button type="primary" onClick={handleSubmit}>
+        <Button type="primary" onClick={(handleSubmit, commands)}>
           I am Done!
         </Button>
       </div>
