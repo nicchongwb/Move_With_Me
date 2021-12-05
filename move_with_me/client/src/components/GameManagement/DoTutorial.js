@@ -31,7 +31,7 @@ const DoTutorial = () => {
         </div>
 
         <div class="pt-12 ">
-          <Link to="/">
+          <Link to="/start">
             <div class="mt-12">
               <Button type="secondary">Back</Button>
             </div>

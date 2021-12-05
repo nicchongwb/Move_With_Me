@@ -82,8 +82,8 @@ function App() {
         <Route exact key="admin" path="/admin" exact component={Admin}></Route>
         <Route
           exact
-          key="home"
-          path="/home"
+          key="adminHome"
+          path="/adminHome"
           exact
           component={AdminHome}
         ></Route>

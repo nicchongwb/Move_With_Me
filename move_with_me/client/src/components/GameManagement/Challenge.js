@@ -220,8 +220,8 @@ const Challenge = (props) => {
         <p class="text-xl">Hello {name} </p>
         <p class=" text-green-700"> Connection Status</p>
       </div>
-      <div class="float-left text-left mr-8">
-        <p class="text-x1">Score: {score}</p>
+      <div class="float-left text-left ml-8">
+        <p class="text-xl">Score: {score}</p>
         <p class=" text-green-700"> Challenge Status: {chStatus}</p>
       </div>
       <div class="pt-48">
@@ -229,11 +229,7 @@ const Challenge = (props) => {
           <Card title="Game Map" style={{ width: 600 }}>
             <div className="components-list" class="flex justify-center">
               <div>
-                <GameMap
-                  x={position.x}
-                  y={position.y}
-                  challenge={challenge}
-                />
+                <GameMap x={position.x} y={position.y} challenge={challenge} />
               </div>
             </div>
           </Card>
@@ -303,13 +299,18 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Modal title={"Congratulations " + name + "!!"} visible={isComplete} 
-          onOk={handleOk} okText="Confirm" cancelButtonProps={{ style: {display: 'none'} }}>
+        <Modal
+          title={"Congratulations " + name + "!!"}
+          visible={isComplete}
+          onOk={handleOk}
+          okText="Confirm"
+          cancelButtonProps={{ style: { display: "none" } }}
+        >
           <p class="text-xl pt-8">Your Score is : {score}</p>
         </Modal>
       </div>
       {console.log(chStatus)}
-    </div>    
+    </div>
   );
 };;;
 export default Challenge;

@@ -19,6 +19,11 @@ const SetPlayerName = () => {
       console.log("status 200");
     }
     console.log("res1", res1);
+      history.push({
+        state: {
+          playerName: name,
+        },
+      });
   };
 
   useEffect(() => {
@@ -26,14 +31,14 @@ const SetPlayerName = () => {
   }, []);
   console.log("name", name);
 
-  const retrieveName = () => {
-    history.push({
-      pathname: "/selectChallenge",
-      state: {
-        playerName: name,
-      },
-    });
-  };
+  // const retrieveName = () => {
+  //   history.push({
+  //     pathname: "/selectChallenge",
+  //     state: {
+  //       playerName: name,
+  //     },
+  //   });
+  // };
 
   console.log("your name", name);
   return (
@@ -74,7 +79,11 @@ const SetPlayerName = () => {
           </Form.Item>
           <Form.Item>
             <Link to="/selectChallenge">
-              <Button type="primary" htmlType="submit" onClick={saveName}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={saveName}
+              >
                 Let's Go
               </Button>
             </Link>
@@ -83,5 +92,5 @@ const SetPlayerName = () => {
       </div>
     </div>
   );
-};
+};;
 export default SetPlayerName;

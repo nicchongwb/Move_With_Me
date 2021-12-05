@@ -12,7 +12,7 @@ const Home = () => {
         <div class="flex justify-evenly pt-24"></div>
 
         <div class="pt-12  flex justify-center">
-          <Link to="/admin">
+          <Link to="/adminHome">
             <div class="mt-12 pr-24">
               <Button
                 type="primary"
