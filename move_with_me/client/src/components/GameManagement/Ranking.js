@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../../assets/css/startGame.css";
 import { Link } from "react-router-dom";
 import { Card, Button, Table } from "antd";
-import Car from "../../assets/images/car.png";
 
 const Ranking = () => {
   const columns = [
@@ -26,7 +25,7 @@ const Ranking = () => {
         </div>
 
         <div class="pt-12">
-          <Link to="/">
+          <Link to="/start">
             <div class="mt-12">
               <Button type="secondary">Back</Button>
             </div>

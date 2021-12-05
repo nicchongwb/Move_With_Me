@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
+import { useHistory } from "react-router-dom";
+
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -18,6 +20,7 @@ const Challenge = (props) => {
   console.log("data", data);
   const name = props.location.state?.name;
   console.log("name", name);
+  let history = useHistory();
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
 
@@ -68,6 +71,7 @@ const Challenge = (props) => {
   const handleOk = () => {
     setIsComplete(false);
     setIsModalClose(true);
+    history.push("/ranking");
   };
 
   // Effect Hook to keep a look out when challenge is completed and then pop out modal
