@@ -1,54 +1,48 @@
 {
     "id":1,
     "name":"Belle",
-    "challenge":"1",
-    "score":"20"
+    "challenge":1,
+    "score":3
+}
+{
+    "id":2,
+    "name":"Nic",
+    "challenge":1,
+    "score":4
 }
 {
     "id":3,
-    "name":"Nicholas",
-    "challenge":"1",
-    "score":"26"
+    "name":"Belle",
+    "challenge":1,
+    "score":5
 }
 {
     "id":4,
-    "name":"Sadiq",
-    "challenge":"1",
-    "score":"27"
+    "name":"Nic",
+    "challenge":1,
+    "score":2
 }
 {
     "id":5,
     "name":"Belle",
-    "challenge":"1",
-    "score":"28"
+    "challenge":2,
+    "score":3
 }
 {
     "id":6,
-    "name":"Nicholas",
-    "challenge":"1",
-    "score":"29"
+    "name":"Nic",
+    "challenge":2,
+    "score":4
 }
 {
     "id":7,
-    "name":"Nicholas",
-    "challenge":"1",
-    "score":"30"
+    "name":"Belle",
+    "challenge":2,
+    "score":5
 }
 {
     "id":8,
-    "name":"Sadiq",
-    "challenge":"1",
-    "score":"31"
-}
-{
-    "id":9,
-    "name":"Belle",
-    "challenge":"1",
-    "score":"32"
-}
-{
-    "id":10,
-    "name":"Belle",
-    "challenge":"1",
-    "score":"33"
+    "name":"Nic",
+    "challenge":2,
+    "score":6
 }

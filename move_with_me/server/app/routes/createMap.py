@@ -13,7 +13,7 @@ import json
 @cross_origin()
 def createMap():
     json_data = request.json
-    mongoPayload = {}
+    mongoPayload = {} # Payload for api response
 
     # print(json_data["name"])
     # print(json_data["difficulty"])
