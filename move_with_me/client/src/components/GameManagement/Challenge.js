@@ -11,33 +11,42 @@ import { saveCommands } from "../../api";
 import "../../assets/css/button.css";
 import axios from 'axios';
 import GameMap from "./Map/GameMap";
+import { useHistory } from "react-router-dom";
 
 const Challenge = (props) => {
+  // UI States
   const data = props.location.state?.challengeInfo;
   console.log("data", data);
-  const name = props.location.state?.name;
+  //const name = props.location.state?.name;
+  const name = "Belle"
   console.log("name", name);
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
 
-  // Game states
+  // Game States
   const [position, setPosition] = useState({ x: 0, y: 0})
   const x = position.x;
   const y = position.y;
   const [score, setScore] = useState(0); // State for score
   const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
   const [chStatus, setChStatus] = useState('Running'); // State for challenge status
+  
+  // After Game completed States
   const [isComplete, setIsComplete] = useState(false); // State for end game summary modal
   const [isModalClose, setIsModalClose] = useState(false); // State for modalClose
+  const [toRedirect, setToRedirect] = useState(false); // State to check if to redirect to /ChallengeReult
+  const [rankingID, setRankingID] = useState(0); // State to set rankingID after successful storing in mongo
+  const history = useHistory(); // History hook for redirecting user
 
-  // Game Functions
+  /*================================ (START) GAME FUNCTIONS ================================*/
+  // Update Car Position State
   function updateCarPos(newX, newY){
     setPosition(prevPosition => {
       return { x: newX, y: newY }
     })
   }
 
-  // Function to handle form submission to FLASK
+  // Event Handler for Sending commands to FLASK API - POST request to /api/move
   const handleSubmit = (e) => {
     e.preventDefault();
     // Package json payload from states, don't need to JSONStringify as Axios will serialize for us
@@ -53,8 +62,7 @@ const Challenge = (props) => {
       'Access-Control-Allow-Origin':'http://localhost:5000'
     }
 
-    // AXIOS to send a post req to api endpoint in FLASK
-    // response.data.<key>
+    // AXIOS to send a post req to api endpoint in FLASK - response.data.<key>
     return axios.post('/api/move', payload, headers)
     .then(function(response){
         console.log(response.data)
@@ -64,13 +72,7 @@ const Challenge = (props) => {
     });
   }
 
-  // Modal function when OK/Confirm is clicked
-  const handleOk = () => {
-    setIsComplete(false);
-    setIsModalClose(true);
-  }
-
-  // Effect Hook to keep a look out when challenge is completed and then pop out modal
+  // EffectHook triggers when challenge is completed -> to Pop out Modal
   useEffect(() => {
     if (chStatus == 'Completed'){
       console.log('Challenge Status is changed to ' + chStatus);
@@ -78,12 +80,55 @@ const Challenge = (props) => {
     }    
   }, [chStatus])
 
-  // Effect Hook when Modal is close and to redirect user to next page
+  // Modal function for 'OK' button
+  const handleOk = () => {
+    setIsComplete(false);
+    setIsModalClose(true);
+  }  
+
+  // EffectHook to submit final score to /api/storeRanking WHEN user close Modal
   useEffect(() => {
-    console.log("Modal Closed...redirecting to...")
+    const payload = {
+      "name":name,
+      "score":score,
+      "challengeID":challenge
+    }
+
+    const headers = {
+      'Access-Control-Allow-Origin':'http://localhost:5000'
+    }
+
+    // AXIOS to send a post req to api endpoint in FLASK
+    return axios.post('/api/storeRanking', payload, headers)
+    .then(function(response){
+      console.log(response.data)
+      setToRedirect(response.data.toRedirect) // Set toRedirect state to true
+      setRankingID(response.data.rankingID) // Set rankingID state to pass to redirect of /ChallengeResult
+    })
   }, [isModalClose])
 
-  // UI Functions
+  // EffectHook when Modal is close and to redirect user to next page
+  useEffect(() => {
+    console.log("Modal Closed...Redirecting to /ChallengeResults")
+    if (toRedirect === true){
+      retrieveChResults();
+    }
+  }, [isModalClose])
+
+  // History Function to redirect user to /ChallengeResult passing necessary props
+  const retrieveChResults = () => {
+    console.log("Score IS " + score)
+    console.log("NAME IS " + name)
+    history.push({
+      pathname: "/ChallengeResult",
+      state: {
+        rankingID:rankingID
+      }
+    });
+  }
+  /*================================ (END) GAME FUNCTIONS ================================*/
+
+  /*================================ (START) UI FUNCTIONS ================================*/
   const commands = async () => {
     const res1 = await saveCommands(elementData);
     console.log(res1);
@@ -209,6 +254,9 @@ const Challenge = (props) => {
     return <div>{elements}</div>;
   };
 
+  /*================================ (END) UI FUNCTIONS ================================*/
+
+  /*================================ (START) DOM RENDER ================================*/
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
       <div class="pt-20 text-center">
@@ -309,7 +357,8 @@ const Challenge = (props) => {
         </Modal>
       </div>
       {console.log(chStatus)}
-    </div>    
+    </div>
+    /*================================ (END) DOM RENDER ================================*/ 
   );
 };;;
 export default Challenge;
