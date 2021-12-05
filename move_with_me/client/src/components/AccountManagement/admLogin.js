@@ -16,21 +16,17 @@ export const GhLogin = () => {
     
     const authAdmin = async () => {
         const res1 = await ghLogin();
+        let authentication;
         //this is the data
         const data = res1.data;
-        console.log(data)
-        console.log(data.password)
-        if (data.username = username && data.password == password) {
-              const authentication = sessionStorage.setItem(
-                "isAuthenticated",
-                true
-              );
-            history.push("/");
-            
-
-        }
-       else {
+        console.log("data", data);
+        console.log(data.password);
+        if ((data.username = username && data.password == password)) {
+          history.push("/");
+          authentication = sessionStorage.setItem("isAuthenticated", true);
+        } else {
           history.push("/admLogin");
+          authentication = sessionStorage.setItem("isAuthenticated", false);
         }
     };
   
