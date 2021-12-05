@@ -76,14 +76,14 @@ def users_list():
     return jsonify(usernames)
 
         
-# @app.route("/challenges",methods=[ 'GET'])
-# def retrieve_challenge():
-#     challenges = []
-#     x =  db.map.find()
-#     for data in x:
-#         data['_id'] = str(data['_id']) 
-#         challenges.append(data)
-#     return jsonify(challenges)
+@app.route("/challenges",methods=[ 'GET'])
+def retrieve_challenge():
+    challenges = []
+    x =  db.map.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        challenges.append(data)
+    return jsonify(challenges)
 
 
 

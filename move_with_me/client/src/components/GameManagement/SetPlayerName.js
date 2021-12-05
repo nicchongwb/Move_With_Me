@@ -6,6 +6,7 @@ import "../../assets/css/setPlayerName.css";
 import { savePlayerNames } from "../../api";
 import { useHistory } from "react-router-dom";
 import "../../assets/css/button.css";
+import { Link } from "react-router-dom";
 
 const SetPlayerName = () => {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ const SetPlayerName = () => {
 
   const retrieveName = () => {
     history.push({
-      pathname: "/selectchallenge",
+      pathname: "/selectChallenge",
       state: {
         playerName: name,
       },
@@ -72,9 +73,11 @@ const SetPlayerName = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" onClick={saveName}>
-              Let's Go
-            </Button>
+            <Link to="/selectChallenge">
+              <Button type="primary" htmlType="submit" onClick={saveName}>
+                Let's Go
+              </Button>
+            </Link>
           </Form.Item>
         </Form>
       </div>
