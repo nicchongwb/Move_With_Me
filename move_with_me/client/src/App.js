@@ -11,6 +11,7 @@ import Ranking from "./components/GameManagement/Ranking";
 import CreateMap from "./components/GameManagement/Map/CreateMap";
 import admLogin from "./components/AccountManagement/admLogin";
 import ProtectedRoute from "./components/AccountManagement/ProtectedRoute";
+import loginLand from "./components/AccountManagement/loginland";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
@@ -103,6 +104,13 @@ function App() {
           path="/admlogin"
           exact
           component={admLogin}
+        ></Route>
+        <Route
+          exact
+          key="loginland"
+          path="/loginland"
+          exact
+          component={loginLand}
         ></Route>
       </Router>
     </div>

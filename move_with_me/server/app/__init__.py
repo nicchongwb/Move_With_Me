@@ -72,9 +72,9 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-# app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
-# jwt = JWTManager(app)
-# bcrypt = Bcrypt(app)
+app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
@@ -82,7 +82,7 @@ def retrieve_challenge():
 ## TO LOGIN
 @app.route('/token', methods=['GET','POST'])
 def login():
-    x =  db.admin.find()
+    x =  db.adminUsers.find()
     for data in x:
         data['_id'] = str(data['_id']) 
         data['username'] = str(data['username']) 
@@ -107,5 +107,27 @@ def login():
     #         result = jsonify({"error":"Invalid username and password"})
     # else:
     #     result = jsonify({"result":"No results found"})
+
+## TO LOGIN
+# @app.route('/token', methods=['GET','POST'])
+# def login():
+#     users = mongo.db.users 
+#     username = request.get_json()['username']
+#     password = request.get_json()['password']
+#     result = ""
+
+#     response = users.find_one({'username': username})
+
+#     if response:
+#         if bcrypt.check_password_hash(response['password'], password):
+#             access_token = create_access_token(identity = {
+#                 'username': response['username']
+#             })
+#             result = jsonify({'token':access_token})
+#         else:
+#             result = jsonify({"error":"Invalid username and password"})
+#     else:
+#         result = jsonify({"result":"No results found"})
+#     return result
 
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking
