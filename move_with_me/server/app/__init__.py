@@ -19,8 +19,6 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
 db = mongo.db
 
-
-
 @app.route("/helloesp", methods=['GET'])
 def helloHandler():
     if request.method == 'GET':
@@ -74,50 +72,12 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-<<<<<<< HEAD
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
-# @app.route("/token", methods=["GET", "POST"])
-# def tokenCreation():
-#     # username = request.json.get("username", None)
-#     username = request.get_json("username")
-#     # password = request.json.get("password", None)
-#     password = request.get_json("password")
-#     #if username != "test" or password != "test":
-#     if username != db.users.find({username: "username"}) and password != db.users.find({password: "password"}):
-#         return jsonify({"msg": "Bad username or password"}), 401
-    
-#     access_token = create_access_token(identity=username)
-#     return jsonify(access_token=access_token)
-
-# @app.route("/token", methods=['GET', 'POST'])
-# def tokenCreation():
-#     username = request.json.get("username", None)
-#     password = request.json.get("password", None)
-#     if username != db.users.find({username: "username"}) and password != db.users.find({password: "password"}):
-#         return jsonify({"msg": "Bad username or password"}), 401
-
-#     access_token = create_access_token(identity=username)
-#     return jsonify(access_token=access_token)
-
-# @app.route("/token", methods=['GET', 'POST'])
-# def tokenCreation():
-#     if request.method == 'POST':
-#         username = request.json.get("username")
-#         password = request.json.get("password")
-
-#         dbChecker = db.users.find_one({"username": username})
-#         if dbChecker:
-#             username_val = dbChecker['username']
-#             passwd_val = dbChecker['password']
-
-#     return render_template('admLogin.html')
-
-
 
 ## TO LOGIN
 @app.route('/token', methods=['POST'])
@@ -141,9 +101,4 @@ def login():
         result = jsonify({"result":"No results found"})
     return result 
 
-
-
-from app.routes import home, users, react_test
-=======
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking
->>>>>>> 82139770f021ee763bd1b3f4db9a57728c717e6b
