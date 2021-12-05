@@ -24,7 +24,7 @@ const Ranking = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
       <div class="pt-72 text-center">
-        <h1 class="font-semibold text-6xl text-gray-800">Ranking</h1>
+        <h1 class="font-semibold text-8xl text-gray-800">Ranking</h1>
         <div class="w-4/6 m-auto pt-24">
           <Table columns={columns} />
         </div>

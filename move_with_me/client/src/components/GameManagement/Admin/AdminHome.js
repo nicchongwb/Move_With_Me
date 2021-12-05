@@ -13,18 +13,17 @@ const Home = () => {
 
         <div class="flex justify-evenly pt-24">
           <Card title="1 - Create map" style={{ width: 300 }}>
-            <p class="text-gray-800">Select tiles to plot</p>
-            <p class="text-gray-800">
-              Try out the controls to manoeuvre your car
-            </p>
+            <p class="text-gray-800 text-base">Select tiles to plot</p>
           </Card>
           <Card title="2 - Add difficulty level" style={{ width: 300 }}>
-            <p class="text-gray-800">
+            <p class="text-gray-800 text-base">
               You can choose between Easy, Medium, Difficulty
             </p>
           </Card>
           <Card title="3 - Input challenge name" style={{ width: 300 }}>
-            <p class="text-gray-800">Add in approriate challenge name!</p>
+            <p class="text-gray-800 text-base">
+              Add in approriate challenge name!
+            </p>
           </Card>
         </div>
 
