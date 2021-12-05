@@ -7,7 +7,8 @@ from app import app, mongo
 from flask import jsonify, redirect, url_for, request
 import json
 
-@app.route("/api/map", methods=["GET"])
+@app.route("/api/map", methods=["GET", "POST"])
+@cross_origin()
 def getMap():
     chid = 1 # ChallengeID, placeholder to get from react api call
     json_data = request.json
