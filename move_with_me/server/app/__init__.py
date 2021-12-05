@@ -34,9 +34,28 @@ def retrieve_car_commands():
     commands = []
     x =  db.commandTray.find()
     for data in x:
+        # print('data',data)
         data['_id'] = str(data['_id']) 
-        commands.append(data)
-    return jsonify(commands)
+        print(str(data['movement']) )
+        commands.append(str(data['movement']))
+        # commands.append(data)
+    #removal 
+    print(commands)
+    command = 0
+    if len(commands) > 0:
+        if commands[0] == 'left':
+            command = 1
+        elif commands[0] == 'right':
+            command = 2
+        elif commands[0] == 'up':
+            command = 3
+        elif commands[0] == 'down':
+            command = 4
+        db.commandTray.remove({'movement': commands.pop(0)})
+        print(commands)
+
+    return f'{command}\0'
+    # return jsonify(commands)
 
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
@@ -66,4 +85,4 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking
+from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult

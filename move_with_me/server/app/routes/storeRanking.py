@@ -14,6 +14,7 @@ import json
 def storeRanking():
     json_data = request.json
     mongoPayload = {} # Payload for api response
+    print("Received score below: ")
     print(json_data)
 
     # Get document with largest 'ranking ID' and +1
