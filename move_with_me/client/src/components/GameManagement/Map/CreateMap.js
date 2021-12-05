@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { Card, Button, Modal, Select, Input } from "antd";
 import { CarFilled } from "@ant-design/icons";
 import "../../../assets/css/button.css";
@@ -10,6 +11,8 @@ const verticalAxis = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const horizontalAxis = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 const CreateMap = (props) => {
+  let history = useHistory();
+
   // Button States
   const { Option } = Select;
   const [difficulty, setDifficulty] = useState("Easy");
@@ -30,7 +33,9 @@ const CreateMap = (props) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    history.push("/home");
   };
+
   // Function to handle form submission to FLASK
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -172,6 +177,13 @@ const CreateMap = (props) => {
               style={{ width: 300 }}
               onChange={handleChange}
               placeholder="Select  difficulty level"
+              name="difficulty"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select a diffiuclty level",
+                },
+              ]}
             >
               <Option value="Easy">Easy</Option>
               <Option value="Medium">Medium</Option>
@@ -184,6 +196,13 @@ const CreateMap = (props) => {
               <Input
                 placeholder="Enter challenge name"
                 style={{ width: 300 }}
+                name="difficulty"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select a diffiuclty level",
+                  },
+                ]}
                 onChange={(e) => handleInput(e.target.value)}
               />
             </div>
@@ -195,7 +214,9 @@ const CreateMap = (props) => {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-          style={{ top: 250 }}
+          okText="Create another challenge"
+          cancelText="Back"
+          style={{ top: 250, textAlign: "center" }}
         >
           <div class="text-center">
             <CarFilled style={{ fontSize: 100 }} />
@@ -225,8 +246,9 @@ const CreateMap = (props) => {
             {JSON.stringify(selTile)}
           </div>
           <div>{"Submitted/Stored to/in MONGO: " + isSubmitted}</div>
-        </div> */}
-        <div class="mt-12">
+        </div>
+        */}
+        <div class="mt-12 text-center">
           <Button type="primary" onClick={handleSubmit}>
             Create Game
           </Button>
