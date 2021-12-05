@@ -11,6 +11,11 @@ const Ranking = () => {
       key: "playerName",
     },
     {
+      title: "Challenge Name",
+      dataIndex: "challenge",
+      key: "challenge",
+    },
+    {
       title: "Score",
       dataIndex: "score",
       key: "score",
