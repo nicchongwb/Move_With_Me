@@ -72,4 +72,4 @@ def retrieve_challenge():
 def displayChallengeList():
     return render_template()
 
-from app.routes import home, users, react_test, rankings, game, map, move
+from app.routes import home, users, react_test, rankings, game, map, move, createMap
