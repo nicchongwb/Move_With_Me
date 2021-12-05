@@ -15,11 +15,13 @@ import axios from "axios";
 import GameMap from "./Map/GameMap";
 
 const Challenge = (props) => {
+  // UI States
   const data = props.location.state?.challengeInfo;
-  console.log("data", data);
+  console.log("data challengeInfo is", data["challenge"]);
   const name = props.location.state?.name;
+  //const name = "Belle"
   console.log("name", name);
-  let history = useHistory();
+  let history = useHistory(); // History hook for redirecting user
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
 
@@ -28,19 +30,25 @@ const Challenge = (props) => {
   const x = position.x;
   const y = position.y;
   const [score, setScore] = useState(0); // State for score
-  const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
-  const [chStatus, setChStatus] = useState("Running"); // State for challenge status
+  const [challenge, setChallenge] = useState(data["challenge"]); // data is defined above to store challengeInfo
+  //const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
+  const [chStatus, setChStatus] = useState('Running'); // State for challenge status
+  
+  // After Game completed States
   const [isComplete, setIsComplete] = useState(false); // State for end game summary modal
   const [isModalClose, setIsModalClose] = useState(false); // State for modalClose
+  const [toRedirect, setToRedirect] = useState(false); // State to check if to redirect to /ChallengeReult
+  const [rankingID, setRankingID] = useState(0); // State to set rankingID after successful storing in mongo
 
-  // Game Functions
-  function updateCarPos(newX, newY) {
-    setPosition((prevPosition) => {
-      return { x: newX, y: newY };
-    });
+  /*================================ (START) GAME FUNCTIONS ================================*/
+  // Update Car Position State
+  function updateCarPos(newX, newY){
+    setPosition(prevPosition => {
+      return { x: newX, y: newY }
+    })
   }
 
-  // Function to handle form submission to FLASK
+  // Event Handler for Sending commands to FLASK API - POST request to /api/move
   const handleSubmit = (e) => {
     e.preventDefault();
     // Package json payload from states, don't need to JSONStringify as Axios will serialize for us
@@ -56,24 +64,17 @@ const Challenge = (props) => {
       "Access-Control-Allow-Origin": "http://localhost:5000",
     };
 
-    // AXIOS to send a post req to api endpoint in FLASK
-    // response.data.<key>
-    return axios.post("/api/move", payload, headers).then(function (response) {
-      console.log(response.data);
-      setScore(response.data.score);
-      updateCarPos(response.data.position["x"], response.data.position["y"]);
-      setChStatus((prevChStatus) => response.data.chStatus);
+    // AXIOS to send a post req to api endpoint in FLASK - response.data.<key>
+    return axios.post('/api/move', payload, headers)
+    .then(function(response){
+        console.log(response.data)
+        setScore(response.data.score)
+        updateCarPos(response.data.position['x'], response.data.position['y'])
+        setChStatus(prevChStatus => response.data.chStatus)      
     });
   };
 
-  // Modal function when OK/Confirm is clicked
-  const handleOk = () => {
-    setIsComplete(false);
-    setIsModalClose(true);
-    history.push("/ranking");
-  };
-
-  // Effect Hook to keep a look out when challenge is completed and then pop out modal
+  // EffectHook triggers when challenge is completed -> to Pop out Modal
   useEffect(() => {
     if (chStatus == "Completed") {
       console.log("Challenge Status is changed to " + chStatus);
@@ -81,12 +82,59 @@ const Challenge = (props) => {
     }
   }, [chStatus]);
 
-  // Effect Hook when Modal is close and to redirect user to next page
-  useEffect(() => {
-    console.log("Modal Closed...redirecting to...");
-  }, [isModalClose]);
+  // Modal function for 'OK' button
+  const handleOk = () => {
+    setIsComplete(false);
+    setIsModalClose(true);
+  }  
 
-  // UI Functions
+  // EffectHook to submit final score to /api/storeRanking WHEN user close Modal
+  useEffect(() => {
+    if (isModalClose === true){
+      const payload = {
+        "name":name,
+        "score":score,
+        "challengeID":challenge
+      }
+  
+      const headers = {
+        'Access-Control-Allow-Origin':'http://localhost:5000'
+      }
+
+      // AXIOS to send a post req to api endpoint in FLASK
+      return axios.post('/api/storeRanking', payload, headers)
+      .then(function(response){
+        //console.log(response.data)
+        setRankingID(response.data.rankingID)
+        setToRedirect(response.data.toRedirect) // Set toRedirect state to true
+        //console.log("RankingID from /api/storeRanking is " + rankingID)
+        //console.log("POSTED TO STORE RANKING !!!")   
+      })
+    }    
+  }, [isModalClose])
+
+  useEffect(() => {
+    if (toRedirect === true){
+      //console.log("toRedirect is " + toRedirect)
+      retrieveChResults(); // Set rankingID state to pass to redirect of /ChallengeResult
+    }
+  }, [toRedirect, rankingID])
+
+  // History Function to redirect user to /ChallengeResult passing necessary props
+  const retrieveChResults = () => {
+    // console.log("Score IS " + score)
+    // console.log("NAME IS " + name)
+    // console.log("Ranking ID before history push is " + rankingID)
+    history.push({
+      pathname: "/ChallengeResult",
+      state: {
+        rID:rankingID
+      }
+    });
+  }
+  /*================================ (END) GAME FUNCTIONS ================================*/
+
+  /*================================ (START) UI FUNCTIONS ================================*/
   const commands = async () => {
     const res1 = await saveCommands(elementData);
     console.log(res1);
@@ -130,7 +178,6 @@ const Challenge = (props) => {
           console.log("dragid inside if else", dragId);
           console.log(i);
           // if (i === -1) {
-          //   console.log('test')
           elementData.splice(i, 0, type);
           console.log(elementData);
           setElementData((elementData) => [...elementData]);
@@ -156,7 +203,6 @@ const Challenge = (props) => {
     console.log(e);
 
     if (dropType == "delete") {
-      console.log("test");
       //array to delete arrow from
       console.log(elementData);
       console.log("delete drag", dragId);
@@ -212,6 +258,9 @@ const Challenge = (props) => {
     return <div>{elements}</div>;
   };
 
+  /*================================ (END) UI FUNCTIONS ================================*/
+
+  /*================================ (START) DOM RENDER ================================*/
   return (
     <div class=" background w-full min-h-screen opacity-80 text-center  ">
       <div class="pt-20 text-center">
@@ -332,8 +381,9 @@ const Challenge = (props) => {
           </div>
         </Modal>
       </div>
-      {console.log(chStatus)}
+      {/*console.log(chStatus)*/}
     </div>
+    /*================================ (END) DOM RENDER ================================*/ 
   );
 };;;
 export default Challenge;

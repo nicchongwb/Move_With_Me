@@ -39,7 +39,7 @@ const CreateMap = (props) => {
   // Function to handle form submission to FLASK
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setIsModalVisible(true);
+    setIsModalVisible(true);
 
     // Package json payload from states, don't need to JSONStringify as Axios will serialize for us
     const payload = {
@@ -153,7 +153,7 @@ const CreateMap = (props) => {
             handleClick(e);
           }}
         >
-          [{horizontalAxis[i]},{verticalAxis[j]}]
+          {/*[{horizontalAxis[i]},{verticalAxis[j]}]*/}
         </button>
       );
     }
@@ -164,7 +164,7 @@ const CreateMap = (props) => {
       <Card title="Create Map" style={{ width: 1000, height: 750 }}>
         <div id="board" class="  m-auto ">
           {board}
-          {selTile}
+          {/*selTile*/}
         </div>
       </Card>
 
