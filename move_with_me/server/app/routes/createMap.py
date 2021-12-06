@@ -26,12 +26,12 @@ def createMap():
     mongoPayload["name"] = json_data["name"]
     mongoPayload["difficulty"] = json_data["difficulty"]
     mongoPayload["tiles"] = json_data["selTile"]
-    print(mongoPayload)
+    # print(mongoPayload)
 
     try:
         _insert = mongo.db.Challenges.insert(mongoPayload)
     except:
-        print("Mongo insert went wrong...")
+        print("Mongo createMap insert went wrong...")
 
     respond = {"isSubmitted":True} # Respond back to frontend that submitted is successful
 

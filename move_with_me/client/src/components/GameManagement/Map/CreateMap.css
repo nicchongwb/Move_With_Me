@@ -1,15 +1,15 @@
 #board {
     display: grid;
-    grid-template-columns: repeat(10, 25px);
-    grid-template-rows: repeat(10, 25px);
-    width: 250px;
-    height: 250px;
-    background-color: #ebecd0;
+    grid-template-columns: repeat(10, 60px);
+    grid-template-rows: repeat(10, 60px);
+    width: 500px;
+    height: 500px;
+
 }
 
 #board .tile {
-    width: 25px;
-    height: 25px;
+    width: 70px;
+    height: 70px;
 }
 
 #board .black-tile {
@@ -22,7 +22,7 @@
 }
 
 #board .button {
-    background-color: #4CAF50; /* Green */
+    background-color: white; 
     border: none;
     color: white;
     text-align: center;
@@ -36,7 +36,8 @@
 #board .button1 {
     background-color: white; 
     color: black; 
-    border: 1px solid #4CAF50;
+    border: 2.3px solid #000000;
+
 }
 
 #board .button1:hover {

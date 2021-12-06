@@ -12,11 +12,10 @@ import json
 @cross_origin()
 def getMap():
     json_data = request.json
-    print("TESTING")
-    print(json_data["challenge"])
+    # print(json_data["challenge"])
     chid = json_data["challenge"]
     
-    print(json_data)
+    # print(json_data)
 
     jsonPayload = {}
 

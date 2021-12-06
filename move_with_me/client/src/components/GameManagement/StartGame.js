@@ -13,14 +13,23 @@ const StartGame = () => {
         <div class="pt-12">
           <Link to="/tutorial">
             <div class="mt-12">
-              <Button type="primary">Start Game</Button>
+              <Button type="primary" style={{ width: 430, height: 40 }}>
+                Start Game
+              </Button>
             </div>
           </Link>
-          <Link to="/carspecifications">
-            <div class="mt-12">
-              <Button type="primary">All Specifications</Button>
-            </div>
-          </Link>
+          <div class="flex justify-center">
+            <Link to="/carspecifications">
+              <div class="mt-12 pr-8">
+                <Button type="secondary">All Specifications</Button>
+              </div>
+            </Link>
+            <Link to="/ranking">
+              <div class="mt-12">
+                <Button type="secondary">Ranking</Button>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

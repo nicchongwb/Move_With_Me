@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, json
+from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
 import pymongo
@@ -6,10 +6,7 @@ import os
 
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
-from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
@@ -18,6 +15,8 @@ CORS(app)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mvm_db"
 mongo = PyMongo(app)
 db = mongo.db
+
+
 
 @app.route("/helloesp", methods=['GET'])
 def helloHandler():
@@ -40,9 +39,28 @@ def retrieve_car_commands():
     commands = []
     x =  db.commandTray.find()
     for data in x:
+        # print('data',data)
         data['_id'] = str(data['_id']) 
-        commands.append(data)
-    return jsonify(commands)
+        print(str(data['movement']) )
+        commands.append(str(data['movement']))
+        # commands.append(data)
+    #removal 
+    print(commands)
+    command = 0
+    if len(commands) > 0:
+        if commands[0] == 'left':
+            command = 1
+        elif commands[0] == 'right':
+            command = 2
+        elif commands[0] == 'up':
+            command = 3
+        elif commands[0] == 'down':
+            command = 4
+        db.commandTray.remove({'movement': commands.pop(0)})
+        print(commands)
+
+    return f'{command}\0'
+    # return jsonify(commands)
 
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
@@ -66,18 +84,15 @@ def users_list():
 @app.route("/challenges",methods=[ 'GET'])
 def retrieve_challenge():
     challenges = []
-    x =  db.map.find()
+    x =  db.Challenges.find()
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
     return jsonify(challenges)
 
+
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
-
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
 
 ## TO LOGIN
 @app.route('/token', methods=['GET','POST'])
@@ -96,85 +111,4 @@ def login():
         
 
 
-# @app.route('/token', methods=['GET','POST'])
-# def login():
-#     x =  db.users.find()
-#     for data in x:
-#         data['_id'] = str(data['_id']) 
-#         data['username'] = str(data['username']) 
-#         if(str(data['username']) == 'admin1'):
-#             access_token = create_access_token(identity= {
-#                 'username': data['username']
-#             }) 
-#             print(data)
-#             # jsonify(access_token=access_token)
-#             return jsonify(j=data, access_token=access_token)
-#             # return jsonify(access_token=access_token)
-
-# @app.route('/token', methods=['GET','POST'])
-# def login():
-#     x =  db.users.find()
-#     # print(x)
-#     for data in x:
-#         data['_id'] = str(data['_id']) 
-#         data['username'] = str(data['username'])
-#         # if(str(data['username']) == 'admin'):
-#         response = ({'username': data['username']})
-#         if response:
-#             # if bcrypt.check_password_hash(data['password'], "passw0rd1"):
-#             access_token = create_access_token(identity= {
-#                 'username': data['username']
-#             })
-#             result = jsonify({'token':access_token})
-#         else:
-#             result = jsonify({"error":"Invalid username and password"})
-#     else:
-#         result = jsonify({"result":"No results found"})
-#     print(data)
-#     return result
-                # return jsonify(data)
-
-    # users = mongo.db.users 
-    # # username = request.get_json()['username']
-    # username = str(users['username'])
-    # # password = request.get_json()['password']
-    # password = str(users['password'])
-    # result = ""
-
-    # response = users.find_one({'username': username})
-
-    # if response:
-    #     if bcrypt.check_password_hash(password, response['password']):
-    #         access_token = create_access_token(identity = {
-    #             'username': response['username']
-    #         })
-    #         result = jsonify({'token':access_token})
-    #     else:
-    #         result = jsonify({"error":"Invalid username and password"})
-    # else:
-    #     result = jsonify({"result":"No results found"})
-    # return result
-
-## TO LOGIN
-# @app.route('/token', methods=['GET','POST'])
-# def login():
-#     users = mongo.db.users 
-#     username = request.get_json()['username']
-#     password = request.get_json()['password']
-#     result = ""
-
-#     response = users.find_one({'username': username})
-
-#     if response:
-#         if bcrypt.check_password_hash(response['password'], password):
-#             access_token = create_access_token(identity = {
-#                 'username': response['username']
-#             })
-#             result = jsonify({'token':access_token})
-#         else:
-#             result = jsonify({"error":"Invalid username and password"})
-#     else:
-#         result = jsonify({"result":"No results found"})
-#     return result
-
-from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking
+from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult

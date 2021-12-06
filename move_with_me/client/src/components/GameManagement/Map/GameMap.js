@@ -24,47 +24,77 @@ const GameMap = (props) => {
     function isArrayInArray(arr, item){
         var item_as_string = JSON.stringify(item);
 
-        var contains = arr.some(function(e){
-            return JSON.stringify(e) === item_as_string;
-        });
-        return contains;
+      //console.log("test", item_as_string);
+
+      var contains = arr.some(function (e) {
+        return JSON.stringify(e) === item_as_string;
+      });
+
+      return contains;
     }
 
     const [loading, setLoading] = useState(false);
 
     const renderMap = () => {
-        //console.log("TILES " + tiles);
-        let cCar = [props.x, props.y];
-        for (let j = verticalAxis.length - 1; j >= 0; j--){
-            for (let i = 0; i < horizontalAxis.length; i++){
-                var cTile = [i, j]
-                let keyID = 'x' + i + 'y' + j;
-                // console.log("cCar :" + JSON.stringify(cCar));
-                // console.log("cTile : " + JSON.stringify(cTile));
+      //console.log("TILES " + tiles);
+      let cCar = [props.x, props.y];
+      for (let j = verticalAxis.length - 1; j >= 0; j--) {
+        for (let i = 0; i < horizontalAxis.length; i++) {
+          var cTile = [i, j];
+          let keyID = "x" + i + "y" + j;
+          // console.log("cCar :" + JSON.stringify(cCar));
+          // console.log("cTile : " + JSON.stringify(cTile));
 
-                // Check if tile HTML element match with Car position
-                // If Match, render orange else ( green || white )
-                if (JSON.stringify(cTile) == JSON.stringify(cCar)){
-                    console.log("cTile match cCar at " + cCar);
-                    const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button orangeTile"}>
-                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
-                        setBoard(board => [...board, htmlTile]);
-                } else {
-                    if (isArrayInArray(tiles, cTile)){
-                        //console.log(cTile + " found");
-                        const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button greenTile"}>
-                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
-                        setBoard(board => [...board, htmlTile]);
-                    } else {
-                        //console.log(cTile + " not found");
-                        const htmlTile = <React.Fragment><span key={keyID} id={keyID} className={"tile button whiteTile"}>
-                        {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}</span></React.Fragment>
-                        setBoard(board => [...board, htmlTile]);
-                    }
-                }                
+          // Check if tile HTML element match with Car position
+          // If Match, render orange else ( green || white )
+          if (JSON.stringify(cTile) == JSON.stringify(cCar)) {
+            //console.log("cTile match cCar at " + cCar);
+            const htmlTile = (
+              <React.Fragment>
+                <span
+                  key={keyID}
+                  id={keyID}
+                  className={"tile button orangeTile"}
+                >
+                  {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}
+                </span>
+              </React.Fragment>
+            );
+            setBoard((board) => [...board, htmlTile]);
+          } else {
+            if (isArrayInArray(tiles, cTile)) {
+              //console.log(cTile + " found");
+              const htmlTile = (
+                <React.Fragment>
+                  <span
+                    key={keyID}
+                    id={keyID}
+                    className={"tile button greenTile"}
+                  >
+                    {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}
+                  </span>
+                </React.Fragment>
+              );
+              setBoard((board) => [...board, htmlTile]);
+            } else {
+              //console.log(cTile + " not found");
+              const htmlTile = (
+                <React.Fragment>
+                  <span
+                    key={keyID}
+                    id={keyID}
+                    className={"tile button whiteTile"}
+                  >
+                    {/*"[" + horizontalAxis[i]},{verticalAxis[j] + "]"*/}
+                  </span>
+                </React.Fragment>
+              );
+              setBoard((board) => [...board, htmlTile]);
             }
+          }
         }
-    }
+      }
+    };
 
     // AXIOS
     const getChallenge = () => {
@@ -82,7 +112,7 @@ const GameMap = (props) => {
     useEffect(() => {
         if (!tileLoaded.current){
             renderMap();
-            console.log("Map RENDERED...");
+            //console.log("Map RENDERED...");
         }
     }, [tiles]);
 
@@ -91,10 +121,10 @@ const GameMap = (props) => {
         getChallenge();
         tileLoaded.current = false;
 
-        console.log("CarPosition Updated...");
+        //console.log("CarPosition Updated...");
         // Clearboard to clean up DOM before rerender
         setBoard([]); // Reset Board
-        console.log('Board State is cleared...')
+        //console.log('Board State is cleared...')
     }, [props.x, props.y]);
 
     // return <div id="board">{board}{tiles}{props.x}{props.y}</div>;
