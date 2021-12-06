@@ -13,27 +13,33 @@ db = mongo.db
 
 class FlaskTest(unittest.TestCase):
 
-    def test_storeRanking_success(self):
+    def test_createMap_success(self):
         client = app.test_client(self)
-        url = '/api/storeRanking'
+        url = '/api/createChallenge'
+
+        challengeName = "Whitebox-Testing"
+        difficulty = "Hard"
+        selTile = [ [ 0, 0 ], [ 0, 1 ], [ 1, 1 ], [ 2, 1 ], [ 2, 0 ], 
+                    [ 3, 0 ], [ 4, 0 ], [ 4, 1 ], [ 4, 2 ], [ 4, 4 ], 
+                    [ 4, 5 ], [ 3, 5 ], [ 2, 5 ], [ 1, 5 ], [ 1, 4 ], 
+                    [ 1, 3 ], [ 2, 3 ], [ 3, 3 ], [ 4, 3 ], [ 5, 3 ], 
+                    [ 6, 3 ], [ 6, 2 ], [ 6, 1 ], [ 6, 0 ], [ 7, 0 ], 
+                    [ 8, 0 ], [ 8, 1 ], [ 8, 2 ], [ 8, 3 ], [ 8, 4 ], 
+                    [ 8, 5 ], [ 7, 5 ], [ 7, 6 ], [ 7, 7 ], [ 6, 7 ], 
+                    [ 5, 7 ], [ 4, 7 ], [ 4, 8 ], [ 4, 9 ], [ 5, 9 ], 
+                    [ 6, 9 ], [ 8, 9 ], [ 7, 9 ], [ 9, 9 ] ]
 
         payload = {
-            "name":"Test III",
-            "score":99,
-            "challengeID":1
+            "name":challengeName,
+            "difficulty":difficulty,
+            "selTile":selTile
         }
-
-        rankID = 0
-        # Get expected rankID
-        _mongoQuery = mongo.db.Rankings.find().sort("id",-1).limit(1)
-        for doc in _mongoQuery:
-            rankID = doc["id"] + 1 
         
         response = client.post(url, json=payload)
-        expected_res = {"toRedirect":True, "rankingID":rankID}
+        expected_res = {"isSubmitted":True}
 
-        print("\nTesting test_storeRanking_success()")
-        print("POST /api/storeRanking")
+        print("\nTesting test_createMap()")
+        print("POST /api/createChallenge")
         print("Payload : " + json.dumps(payload))
         print("\nExpected Response : " + json.dumps(expected_res))
         print("Response : " + json.dumps(response.get_json()))
