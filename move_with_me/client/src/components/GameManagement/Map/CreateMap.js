@@ -33,7 +33,7 @@ const CreateMap = (props) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    history.push("/home");
+    history.push("/adminHome");
   };
 
   // Function to handle form submission to FLASK

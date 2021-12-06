@@ -31,7 +31,7 @@ export const GhLogin = () => {
               );
             //   const store_token = sessionStorage.setItem("token", data.access_token)
             // sessionStorage.setItem("token", data.access_token)
-            history.push("/loginland");
+            history.push("/adminHome");
             
 
         }

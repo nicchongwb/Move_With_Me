@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import "../../../assets/css/startGame.css";
 import { Link } from "react-router-dom";
 import { Card, Button } from "antd";
+import { useHistory } from "react-router";
 
 const Home = () => {
+
+  let history = useHistory();
+
+  const clickHandler = () => {
+    history.push('/');
+    sessionStorage.clear();
+    localStorage.clear();
+  }
+
   return (
     <div class="background w-full min-h-screen opacity-90">
       <div class="pt-72 text-center">
@@ -30,7 +40,7 @@ const Home = () => {
         <div class="pt-12 ">
           <Link to="/">
             <div class="mt-12">
-              <Button type="secondary">Log Out</Button>
+              <Button type="secondary" onClick = {clickHandler}>Log Out</Button>
             </div>
           </Link>
           <Link to="/admin">
