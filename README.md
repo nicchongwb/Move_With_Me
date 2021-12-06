@@ -125,6 +125,7 @@ git push
 
 
 ## Whitebox Testing
+![Whitebox Testing](media/whitebox_testing_gif.gif)
 
 ## M3 Overview
 ![M3 Burndown](media/M3_Burndown.png)
