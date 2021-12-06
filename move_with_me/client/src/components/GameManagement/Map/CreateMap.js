@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Card, Button, Modal, Select, Input } from "antd";
 import { CarFilled } from "@ant-design/icons";
 import "../../../assets/css/button.css";
@@ -253,6 +253,11 @@ const CreateMap = (props) => {
             Create Game
           </Button>
         </div>
+        <Link to="/adminHome">
+          <div class="mt-12 text-center">
+            <Button type="secondary">Back</Button>
+          </div>
+        </Link>
       </Card>
     </div>
   );

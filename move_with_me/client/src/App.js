@@ -24,6 +24,7 @@ function App() {
   return (
     <div>
       <Router>
+        <Route exact key="home" path="/" exact component={Home}></Route>
         <Route
           exact
           key="startGame"
@@ -76,25 +77,27 @@ function App() {
           exact
           component={Ranking}
         ></Route>
-        <Route exact key="challengeResult" path="/challengeResult" exact component={ChallengeResult}></Route>
-        <Route exact key="createMap" path="/createMap" exact component={CreateMap}></Route>
         <Route
+          exact
+          key="challengeResult"
+          path="/challengeResult"
+          exact
+          component={ChallengeResult}
+        ></Route>
+        <ProtectedRoute
           exact
           key="createMap"
           path="/createMap"
           exact
           component={CreateMap}
-        ></Route>
-        <Route exact key="admin" path="/admin" exact component={Admin}></Route>
-        <Route
+        ></ProtectedRoute>
+        <ProtectedRoute
           exact
-          key="adminHome"
-          path="/adminHome"
+          key="createMap"
+          path="/createMap"
           exact
-          component={AdminHome}
-        ></Route>
-
-        <Route exact key="home" path="/" exact component={Home}></Route>
+          component={CreateMap}
+        ></ProtectedRoute>
         <Route
           exact
           key="admlogin"
@@ -102,13 +105,28 @@ function App() {
           exact
           component={admLogin}
         ></Route>
-        <Route
+        <ProtectedRoute
+          exact
+          key="createGame"
+          path="/createGame"
+          exact
+          component={Admin}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          key="adminHome"
+          path="/adminHome"
+          exact
+          component={AdminHome}
+        ></ProtectedRoute>
+
+        {/* <Route
           exact
           key="loginland"
           path="/loginland"
           exact
           component={loginLand}
-        ></Route>
+        ></Route> */}
       </Router>
     </div>
   );

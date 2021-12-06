@@ -30,12 +30,7 @@ export const GhLogin = () => {
     console.log(data.password);
     sessionStorage.setItem("token", data.access_token);
     if ((data.username = username && data.password == password)) {
-      // if (data['Object'][0]['username'] = username && data['Object'][0]['password'] = password) {
-      // if (data['username'] && data['password'] && data.access_token) {
-      // if (data.username = username && data.password == password && data.access_token && data.access_token != "" && data.access_token != undefined) {
       const authentication = sessionStorage.setItem("isAuthenticated", true);
-      //   const store_token = sessionStorage.setItem("token", data.access_token)
-      // sessionStorage.setItem("token", data.access_token)
       history.push("/adminHome");
     } else {
       history.push("/admLogin");

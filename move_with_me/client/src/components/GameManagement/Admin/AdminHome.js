@@ -38,14 +38,16 @@ const Home = () => {
         </div>
 
         <div class="pt-12 ">
-          <Link to="/">
-            <div class="mt-12">
-              <Button type="secondary" onClick = {clickHandler}>Log Out</Button>
-            </div>
-          </Link>
-          <Link to="/admin">
+          <Link to="/createGame">
             <div class="mt-12">
               <Button type="primary">Create Challenge</Button>
+            </div>
+          </Link>
+          <Link to="/">
+            <div class="mt-12">
+              <Button type="secondary" onClick={clickHandler}>
+                Log Out
+              </Button>
             </div>
           </Link>
         </div>
