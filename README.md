@@ -137,6 +137,8 @@ Whitebox testing was mainly performed on the Flask API endpoints. For example, t
 |createMap|GameManagement|
 |challengeResult|RankingManagement|
 
+![Coverage Report](media/Coverage_Report.png)
+
 ### Running test cases
  - unittest was used to model the test cases.
  - coverage was used to generate coverage statistics of the test results.
