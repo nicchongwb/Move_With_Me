@@ -25,7 +25,7 @@ class FlaskTest(unittest.TestCase):
             'right', 'right', 'right',
             'right', 'right', 'right'
         ]
-        
+
         score = 0
         challenge = 1
         position = {"x":0, "y":0}
@@ -49,8 +49,8 @@ class FlaskTest(unittest.TestCase):
         
         response = client.post(url, json=payload)      
 
-        print("\nTesting test_storeRanking_success()")
-        print("POST /api/storeRanking")
+        print("\nTesting test_move_success()")
+        print("POST /api/move")
         print("Payload : " + json.dumps(payload))
         print("\nExpected Response : " + json.dumps(expected_res))
         print("Response : " + json.dumps(response.get_json()))
