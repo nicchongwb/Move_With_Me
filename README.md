@@ -122,12 +122,7 @@ git push
 ```
 
 ## UAT
-<iframe
-        width="640"
-        height="480"
-        src="https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be"
-        frameborder="0"
-></iframe>
+[![Move With Me](https://img.youtube.com/vi/7qmEdSadc5Y/default.jpg)](https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be)
 
 ## Whitebox Testing
 ![Whitebox Testing](media/whitebox_testing_gif.gif)
