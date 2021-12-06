@@ -46,7 +46,7 @@ const SelectChallenge = (props) => {
               color: "black",
             }}
           >
-            Change Player{" "}
+            Change Player
           </Button>
         </Link>
       </div>
