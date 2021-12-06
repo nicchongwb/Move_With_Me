@@ -305,7 +305,7 @@ const Challenge = (props) => {
       </div>
 
       <div class="mt-12">
-        <Button type="primary" onClick={handleSubmit}>
+        <Button type="primary" onClick={commands}>
           I am Done!
         </Button>
       </div>
