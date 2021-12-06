@@ -143,7 +143,9 @@ Whitebox testing was mainly performed on the Flask API endpoints. For example, t
  - unittest was used to model the test cases.
  - coverage was used to generate coverage statistics of the test results.
 ```bash
+# Ensure that you are in whitebox-testing branch
 . venv/bin/activate
+pip install -r requirements.txt
 python test_<name>.py # Run the respective testcase
 coverage run # Run coverage
 coverage report -m # Get report
