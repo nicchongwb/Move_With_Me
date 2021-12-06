@@ -82,23 +82,69 @@ bcrypt = Bcrypt(app)
 ## TO LOGIN
 @app.route('/token', methods=['GET','POST'])
 def login():
-    x =  db.adminUsers.find()
+    x =  db.users.find()
     for data in x:
         data['_id'] = str(data['_id']) 
         data['username'] = str(data['username']) 
-        if(str(data['username']) == 'admin'): 
+        if(str(data['username']) == 'admin1'):
+            data['access_token'] = create_access_token(identity={
+                'username': data['username']
+            }) 
             print(data)
-            return jsonify(data)
+            # return jsonify(a=data,access_token=access_token)
+            return(data)
+        
+
+
+# @app.route('/token', methods=['GET','POST'])
+# def login():
+#     x =  db.users.find()
+#     for data in x:
+#         data['_id'] = str(data['_id']) 
+#         data['username'] = str(data['username']) 
+#         if(str(data['username']) == 'admin1'):
+#             access_token = create_access_token(identity= {
+#                 'username': data['username']
+#             }) 
+#             print(data)
+#             # jsonify(access_token=access_token)
+#             return jsonify(j=data, access_token=access_token)
+#             # return jsonify(access_token=access_token)
+
+# @app.route('/token', methods=['GET','POST'])
+# def login():
+#     x =  db.users.find()
+#     # print(x)
+#     for data in x:
+#         data['_id'] = str(data['_id']) 
+#         data['username'] = str(data['username'])
+#         # if(str(data['username']) == 'admin'):
+#         response = ({'username': data['username']})
+#         if response:
+#             # if bcrypt.check_password_hash(data['password'], "passw0rd1"):
+#             access_token = create_access_token(identity= {
+#                 'username': data['username']
+#             })
+#             result = jsonify({'token':access_token})
+#         else:
+#             result = jsonify({"error":"Invalid username and password"})
+#     else:
+#         result = jsonify({"result":"No results found"})
+#     print(data)
+#     return result
+                # return jsonify(data)
 
     # users = mongo.db.users 
-    # username = request.get_json()['username']
-    # password = request.get_json()['password']
+    # # username = request.get_json()['username']
+    # username = str(users['username'])
+    # # password = request.get_json()['password']
+    # password = str(users['password'])
     # result = ""
 
     # response = users.find_one({'username': username})
 
     # if response:
-    #     if bcrypt.check_password_hash(response['password'], password):
+    #     if bcrypt.check_password_hash(password, response['password']):
     #         access_token = create_access_token(identity = {
     #             'username': response['username']
     #         })
@@ -107,6 +153,7 @@ def login():
     #         result = jsonify({"error":"Invalid username and password"})
     # else:
     #     result = jsonify({"result":"No results found"})
+    # return result
 
 ## TO LOGIN
 # @app.route('/token', methods=['GET','POST'])

@@ -17,15 +17,21 @@ export const GhLogin = () => {
     const authAdmin = async () => {
         const res1 = await ghLogin();
         //this is the data
-        const data = res1.data;
+        const data = res1.data
         console.log(data)
         console.log(data.password)
+        sessionStorage.setItem("token", data.access_token)
         if (data.username = username && data.password == password) {
+        // if (data['Object'][0]['username'] = username && data['Object'][0]['password'] = password) {
+        // if (data['username'] && data['password'] && data.access_token) {
+        // if (data.username = username && data.password == password && data.access_token && data.access_token != "" && data.access_token != undefined) {
               const authentication = sessionStorage.setItem(
                 "isAuthenticated",
                 true
               );
-            history.push("/");
+            //   const store_token = sessionStorage.setItem("token", data.access_token)
+            // sessionStorage.setItem("token", data.access_token)
+            history.push("/loginland");
             
 
         }
