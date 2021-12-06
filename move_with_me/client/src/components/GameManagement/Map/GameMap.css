@@ -1,15 +1,16 @@
 #board {
     display: grid;
-    grid-template-columns: repeat(10, 25px);
-    grid-template-rows: repeat(10, 25px);
-    width: 250px;
-    height: 250px;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    width: 400px;
+    height: 400px;
     background-color: #ebecd0;
+    margin: 0 auto;
 }
 
 #board .tile {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
 }
 
 #board .black-tile {
