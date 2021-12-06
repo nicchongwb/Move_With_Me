@@ -122,7 +122,12 @@ git push
 ```
 
 ## UAT
-![Whitebox Testing](https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be)
+<iframe
+        width="640"
+        height="480"
+        src="https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be"
+        frameborder="0"
+></iframe>
 
 ## Whitebox Testing
 ![Whitebox Testing](media/whitebox_testing_gif.gif)
@@ -151,6 +156,7 @@ coverage report -m # Get report
 
 ## M3 Overview
 ![M3 Burndown](media/M3_Burndown.png)
+![Update Class Diagram](media/Class_Diagram_Update.png)
 
 Due to the capability of the team and irregular schedule in timetables, the team did not manage to complete all the features. However, the team took the project to emulate a prototype lifecycle. Main features such as the Game, Score and User component were prioritized. After completing a vialbe product of the aforementioned features, the team went on to develop the Ranking component to complete the basic features of the application. The team then proceed to testing phase. 
 
