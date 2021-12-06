@@ -152,6 +152,8 @@ coverage report -m # Get report
 ## M3 Overview
 ![M3 Burndown](media/M3_Burndown.png)
 
+Due to the capability of the team and irregular schedule in timetables, the team did not manage to complete all the features. However, the team took the project to emulate a prototype lifecycle. Main features such as the Game, Score and User component were prioritized. After completing a vialbe product of the aforementioned features, the team went on to develop the Ranking component to complete the basic features of the application. The team then proceed to testing phase. 
+
 ## Other Links
 - [Troubleshoot](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Troubleshoot.md)
 - [Useful Links](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Useful_links.md)
