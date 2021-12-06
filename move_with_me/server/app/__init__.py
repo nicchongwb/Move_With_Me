@@ -3,7 +3,10 @@ from flask_cors import CORS, cross_origin
 import pymongo
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
-  
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import JWTManager
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -95,5 +98,23 @@ def retrieve_challenge():
         data['_id'] = str(data['_id']) 
         challenges.append(data)
     return jsonify(challenges)
+
+app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
+jwt = JWTManager(app)
+
+## TO LOGIN
+@app.route('/token', methods=['GET','POST'])
+def login():
+    x =  db.users.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        data['username'] = str(data['username']) 
+        if(str(data['username']) == 'admin1'):
+            data['access_token'] = create_access_token(identity={
+                'username': data['username']
+            }) 
+            print(data)
+            # return jsonify(a=data,access_token=access_token)
+            return(data)
 
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult
