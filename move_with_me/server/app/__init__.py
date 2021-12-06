@@ -21,12 +21,15 @@ def helloHandler():
 @app.route("/saveCommands", methods=['GET', 'POST'])
 def car_commands():
     commandTray = request.get_json()
-    print('commands',commandTray)
-    if commandTray:
-        for x in commandTray: 
-            db.commandTray.insert_one({'movement': x})
-            print('Successful')    
-    return 'Success'
+    reseult = []
+    try:
+        if commandTray:
+            for x in commandTray: 
+                result = db.commandTray.insert_one({'movement': x}).inserted_id
+            return "True"
+        return "True"
+    except Exception as e:
+        return "False"
   
 
 @app.route("/retrieveCommands", methods=['GET'])
@@ -85,4 +88,4 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult
+from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult, carspecs
