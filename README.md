@@ -12,6 +12,8 @@ This web application will run Python Flask for its backends and MVC structure. M
 |Flask|localhost|5000|\-|
 |MongoDB|localhost|27017|\-|
 
+**Entry Point** @ http://localhost:3000
+
 #### Cloning reposiotry
 ```bash
 # via HTTPS
@@ -38,51 +40,20 @@ nvm alias default v14.17.0
 #### Start frontend : React
 ```bash
 cd ict2101_project/move_with_me
+npx create-react-app client
 npm install
 cd client
 npm start
 ```
 
-##### WSL - React troubleshoot
-For npx create-react-app client, if faced with a bash\r: no such file or directory 
-```bash
-sudo apt install nodejs npm
-sudo nano /etc/wsl.conf
-```
-
-While in the wsl.conf file
-```
-[interop]
-appendWindowsPath = false
-```
-
-While in command prompt
-```cmd
-wsl --shutdown
-Restart-Service LxssManager
-```
-
-Start the react app
-```bash
-npx create-react-app client
-```
-
 #### Start backend : Flask
 ```bash
-#Windows Setup
 cd ict2101_project/move_with_me/server
 python3 -m venv venv # Create a python environmment
-. venv/bin/activate # Start python environment
+. venv/bin/activate # Start python environment (WSL/Linux)
+source venv/bin/activate # Start python environment (MAC OS)
 pip install -r requirements.txt
 FLASK_APP=app.py FLASK_ENV=development flask run # Run Flask in debug mode
-
-#Mac Setup
-cd ict2101_project/move_with_me/server
-python3 -m venv venv # Create a python environmment
-source venv/bin/activate # Start python environment
-pip install -r requirements.txt
-FLASK_APP=run.py FLASK_ENV=development flask run # Run Flask in debug mode
-```
 
 #### Starting backend : MongoDB
 ```bash
@@ -95,41 +66,13 @@ sudo mongod # Start mongodb
 mongoimport --db mvm_db --collection <collection> --file mongodb/scripts/<collection>.json
 ```
 
-#### MVC in Flask Structure
-
-|Type|Folders|File Name Convention|
-|--|--|--|
-|Model|models|\<classname\>_m.py|
-|Views|views|\<classname\>_v.py|
-|Controllers|routes|\<classname\>_c.py|
-
 #### MongoDB structure
 
 |Structure|Name|
 |--|--|
 |Database|mvm_db|
-|Collection|users, challenges, rankings|
+|Collection|Users, Challenges, Rankings|
 
-
-### Accessing application/services
-```bash
-# React application
-## WSL Users
-ip a # Take the IP address of your WSL system eg. 172.31.103.150
-http://<IP address of WSL>:3000
-
-## MAC Users
-http://localhost:3000
-
-# Flask application
-http://localhost:5000
-
-# Accessing mongodb via terminal
-mongo # mongoshell
-show dbs
-use mvm_db
-show collections
-```
 ---
 
 ## Development Workflow
@@ -177,19 +120,16 @@ git commit -m "Enter message here"
 git pull
 git push
 ```
-Messages should be clear, eg. Update ... or Implemented ... or Integrated A with B
 
-## Things to test
-- React integration [See link](https://dev.to/dev_elie/connecting-a-react-frontend-to-a-flask-backend-h1o)
-- Github integration with docker (see got what benefits)
+## UAT
 
-Links - to be added to Wiki:  
-- [Jira Project Board](https://bellesim.atlassian.net/jira/software/projects/ICT/boards/1)  
-- [Draw.io](https://drive.google.com/file/d/1drLCtK4bo_EIfNhGjwgATMPUvP54XOKO/view?usp=sharing)
-- [Flask - MVC](https://python.plainenglish.io/flask-crud-application-using-mvc-architecture-3b073271274f)
-- [MongoDB - Cheatsheet](https://www.mongodb.com/developer/quickstart/cheat-sheet/)
-- [React Setting up](https://www.youtube.com/watch?v=7LNl2JlZKHA)
-- [React VSCode plugin](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
-- [Gitignore templates](https://github.com/github/gitignore)
-- [Tailwind Guide](https://tailwindcomponents.com/cheatsheet/)
-- [Tailwind Components](https://merakiui.com/#main)
+
+## Whitebox Testing
+
+## M3 Overview
+![M3 Burndown](media/M3_Burndown.png)
+
+## Other Links
+- [Troubleshoot](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Troubleshoot.md)
+- [Useful Links](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Useful_links.md)
+
