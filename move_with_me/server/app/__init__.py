@@ -84,7 +84,8 @@ def retrieve_challenge():
     challenges = []
     x =  db.Challenges.find()
     for data in x:
-        data['_id'] = str(data['_id']) 
+        data['_id'] = str(data['_id'])
+        data.pop("tiles") 
         challenges.append(data)
     return jsonify(challenges)
 

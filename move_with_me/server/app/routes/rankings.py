@@ -23,7 +23,7 @@ def displayRankings():
         record["score"] = doc["count"]
         hallOfFameArr.append(record)
         counter += 1
-    print(hallOfFameArr)
+    # print(hallOfFameArr)
 
     response = {"rankingData" : hallOfFameArr}
 
