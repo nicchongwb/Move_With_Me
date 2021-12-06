@@ -126,6 +126,26 @@ git push
 
 ## Whitebox Testing
 ![Whitebox Testing](media/whitebox_testing_gif.gif)
+Whitebox testing was mainly performed on the Flask API endpoints. For example, the storeRanking test case tests for the interaction between GameManagement class and RankingManagement class.
+
+|Test Case|Class|
+|--|--|
+|storeRanking|RankingManagment|
+|rankings|RankingManagement|
+|move|GameManagement|
+|map|GameManagement|
+|createMap|GameManagement|
+|challengeResult|RankingManagement|
+
+### Running test cases
+ - unittest was used to model the test cases.
+ - coverage was used to generate coverage statistics of the test results.
+```bash
+. venv/bin/activate
+python test_<name>.py # Run the respective testcase
+coverage run # Run coverage
+coverage report -m # Get report
+```
 
 ## M3 Overview
 ![M3 Burndown](media/M3_Burndown.png)
