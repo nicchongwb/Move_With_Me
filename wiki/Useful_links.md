@@ -1,0 +1,10 @@
+Links - to be added to Wiki:  
+- [Jira Project Board](https://bellesim.atlassian.net/jira/software/projects/ICT/boards/1)  
+- [Draw.io](https://drive.google.com/file/d/1drLCtK4bo_EIfNhGjwgATMPUvP54XOKO/view?usp=sharing)
+- [Flask - MVC](https://python.plainenglish.io/flask-crud-application-using-mvc-architecture-3b073271274f)
+- [MongoDB - Cheatsheet](https://www.mongodb.com/developer/quickstart/cheat-sheet/)
+- [React Setting up](https://www.youtube.com/watch?v=7LNl2JlZKHA)
+- [React VSCode plugin](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
+- [Gitignore templates](https://github.com/github/gitignore)
+- [Tailwind Guide](https://tailwindcomponents.com/cheatsheet/)
+- [Tailwind Components](https://merakiui.com/#main)
