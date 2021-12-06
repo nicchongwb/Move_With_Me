@@ -63,12 +63,15 @@ def retrieve_car_commands():
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
     player_name = request.get_json()
-    print('i am player name',player_name)
+    # print('i am player name',type(player_name))
+    # print('i am player name',len(player_name))
     if player_name:
-        db.users.insert_one({'playerName': player_name})
-        print('Successful')
-    return 'Success'
-    
+        if(len(player_name)<=15):
+            db.users.insert_one({'playerName': player_name})
+            return 'True'
+    else: 
+            return 'False'
+
 @app.route("/usersList",methods=['GET'])
 def users_list():
     usernames = []
