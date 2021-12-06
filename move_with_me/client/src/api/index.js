@@ -24,6 +24,17 @@ export const saveCommands = (array) => {
   return API.post("/saveCommands", body, config);
 };
 
-// export const saveCommands = () => API.get("/saveCommands");
+export const retrieveCommands = () => API.get("/retrieveCommands");
 
 export const challenges = () => API.get("/challenges");
+
+export const ghLogin = (adminDetails) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  var body = JSON.stringify(adminDetails);
+  console.log("admin", adminDetails);
+  return API.post("/token", body, config);
+};

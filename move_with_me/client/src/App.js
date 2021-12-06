@@ -8,36 +8,27 @@ import Map from "./components/GameManagement/Map";
 import Challenge from "./components/GameManagement/Challenge";
 import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
+import CreateMap from "./components/GameManagement/Map/CreateMap";
+import Admin from "./components/GameManagement/Admin/Admin";
+import AdminHome from "./components/GameManagement/Admin/AdminHome";
+import Home from "./components/GameManagement/Home";
+import admLogin from "./components/AccountManagement/admLogin";
+import ProtectedRoute from "./components/AccountManagement/ProtectedRoute";
+import loginLand from "./components/AccountManagement/loginland";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
+import ChallengeResult from "./components/GameManagement/ChallengeResult";
 
 function App() {
-  {
-    /* const [data, setData] = useState([{}]);
-
-  useEffect(() => {
-    fetch("/members")
-      .then(
-        // Response from /members will be json
-        (res) => res.json()
-      )
-      .then(
-        // set data inside json to variable named data
-        (data) => {
-          setData(data);
-          console.log(data);
-        }
-      );
-  }, []); */
-  }
   return (
     <div>
       <Router>
+        <Route exact key="home" path="/" exact component={Home}></Route>
         <Route
           exact
           key="startGame"
-          path="/"
+          path="/start"
           exact
           component={StartGame}
         ></Route>
@@ -86,6 +77,56 @@ function App() {
           exact
           component={Ranking}
         ></Route>
+        <Route
+          exact
+          key="challengeResult"
+          path="/challengeResult"
+          exact
+          component={ChallengeResult}
+        ></Route>
+        <ProtectedRoute
+          exact
+          key="createMap"
+          path="/createMap"
+          exact
+          component={CreateMap}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          key="createMap"
+          path="/createMap"
+          exact
+          component={CreateMap}
+        ></ProtectedRoute>
+        <Route
+          exact
+          key="admlogin"
+          path="/admlogin"
+          exact
+          component={admLogin}
+        ></Route>
+        <ProtectedRoute
+          exact
+          key="createGame"
+          path="/createGame"
+          exact
+          component={Admin}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          key="adminHome"
+          path="/adminHome"
+          exact
+          component={AdminHome}
+        ></ProtectedRoute>
+
+        {/* <Route
+          exact
+          key="loginland"
+          path="/loginland"
+          exact
+          component={loginLand}
+        ></Route> */}
       </Router>
     </div>
   );

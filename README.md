@@ -153,4 +153,3 @@ coverage report -m # Get report
 ## Other Links
 - [Troubleshoot](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Troubleshoot.md)
 - [Useful Links](https://github.com/nicchongwb/ict2101_project/blob/main/wiki/Useful_links.md)
-

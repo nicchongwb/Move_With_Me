@@ -4,9 +4,11 @@ import App from "./App";
 import "./index.css";
 import "./assets/font/font.css";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
+
