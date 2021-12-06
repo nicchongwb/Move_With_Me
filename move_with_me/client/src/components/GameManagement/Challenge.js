@@ -87,7 +87,6 @@ const Challenge = (props) => {
   const handleOk = () => {
     setIsComplete(false);
     setIsModalClose(true);
-    history.push("/selectchallenge");
   };
 
   // EffectHook to submit final score to /api/storeRanking WHEN user close Modal
