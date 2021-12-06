@@ -1,13 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
-
 import pymongo
-import os
-
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
+
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import JWTManager
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -65,11 +64,21 @@ def retrieve_car_commands():
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
     player_name = request.get_json()
-    print('i am player name',player_name)
+    # print('i am player name',type(player_name))
+    # print('i am player name',len(player_name))
     if player_name:
-        db.users.insert_one({'playerName': player_name})
-        print('Successful')
-    return 'Success'
+        if(len(player_name)<=15):
+            db.users.insert_one({'playerName': player_name})
+            print('Successful')
+    else: 
+        print('Not successful')
+
+    usernames = []
+    x =  db.users.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        usernames.append(data)
+    return jsonify(usernames)
     
 @app.route("/usersList",methods=['GET'])
 def users_list():
@@ -90,7 +99,6 @@ def retrieve_challenge():
         challenges.append(data)
     return jsonify(challenges)
 
-
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')  # getting JWT_SECRET key from .env file
 jwt = JWTManager(app)
 
@@ -108,7 +116,5 @@ def login():
             print(data)
             # return jsonify(a=data,access_token=access_token)
             return(data)
-        
-
 
 from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult
