@@ -14,6 +14,7 @@ const SetPlayerName = () => {
 
   const saveName = async () => {
     const res1 = await savePlayerNames(name);
+    sessionStorage.setItem("playerName", name);
 
     if (res1.status == 200) {
       console.log("status 200");

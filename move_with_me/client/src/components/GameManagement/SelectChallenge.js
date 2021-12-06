@@ -37,6 +37,19 @@ const SelectChallenge = (props) => {
 
   return (
     <div class="background w-full min-h-screen opacity-80 text-center ">
+      <div class="float-right mt-12">
+        <Link to="/SetPlayerName">
+          <Button
+            type="text"
+            style={{
+              fontSize: "1.2rem",
+              color: "black",
+            }}
+          >
+            Change Player{" "}
+          </Button>
+        </Link>
+      </div>
       <div class="pt-24 ">
         <h1 class="font-semibold text-6xl text-gray-800 pb-12">
           Select Challenge
@@ -61,6 +74,12 @@ const SelectChallenge = (props) => {
             </Button>
           </div>
         ))}
+      </div>
+
+      <div class="mr-12">
+        <Link to="/start">
+          <Button type="secondary">Back </Button>
+        </Link>
       </div>
     </div>
   );

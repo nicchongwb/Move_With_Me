@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/startGame.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -18,9 +18,11 @@ const Challenge = (props) => {
   // UI States
   const data = props.location.state?.challengeInfo;
   console.log("data challengeInfo is", data["challenge"]);
-  const name = props.location.state?.name;
+  const sessionName = sessionStorage.getItem("playerName");
+  console.log(sessionName);
+  // const name = props.location.state?.name;
   //const name = "Belle"
-  console.log("name", name);
+  console.log("name", sessionName);
   let history = useHistory(); // History hook for redirecting user
   const [elementData, setElementData] = useState([]);
   const [dragId, setDragId] = useState("");
@@ -32,8 +34,8 @@ const Challenge = (props) => {
   const [score, setScore] = useState(0); // State for score
   const [challenge, setChallenge] = useState(data["challenge"]); // data is defined above to store challengeInfo
   //const [challenge, setChallenge] = useState(1); // State for Challenge to replace with props.challengeInfo
-  const [chStatus, setChStatus] = useState('Running'); // State for challenge status
-  
+  const [chStatus, setChStatus] = useState("Running"); // State for challenge status
+
   // After Game completed States
   const [isComplete, setIsComplete] = useState(false); // State for end game summary modal
   const [isModalClose, setIsModalClose] = useState(false); // State for modalClose
@@ -42,10 +44,10 @@ const Challenge = (props) => {
 
   /*================================ (START) GAME FUNCTIONS ================================*/
   // Update Car Position State
-  function updateCarPos(newX, newY){
-    setPosition(prevPosition => {
-      return { x: newX, y: newY }
-    })
+  function updateCarPos(newX, newY) {
+    setPosition((prevPosition) => {
+      return { x: newX, y: newY };
+    });
   }
 
   // Event Handler for Sending commands to FLASK API - POST request to /api/move
@@ -65,12 +67,11 @@ const Challenge = (props) => {
     };
 
     // AXIOS to send a post req to api endpoint in FLASK - response.data.<key>
-    return axios.post('/api/move', payload, headers)
-    .then(function(response){
-        console.log(response.data)
-        setScore(response.data.score)
-        updateCarPos(response.data.position['x'], response.data.position['y'])
-        setChStatus(prevChStatus => response.data.chStatus)      
+    return axios.post("/api/move", payload, headers).then(function (response) {
+      console.log(response.data);
+      setScore(response.data.score);
+      updateCarPos(response.data.position["x"], response.data.position["y"]);
+      setChStatus((prevChStatus) => response.data.chStatus);
     });
   };
 
@@ -86,39 +87,41 @@ const Challenge = (props) => {
   const handleOk = () => {
     setIsComplete(false);
     setIsModalClose(true);
-  }  
+    history.push("/selectchallenge");
+  };
 
   // EffectHook to submit final score to /api/storeRanking WHEN user close Modal
   useEffect(() => {
-    if (isModalClose === true){
+    if (isModalClose === true) {
       const payload = {
-        "name":name,
-        "score":score,
-        "challengeID":challenge
-      }
-  
+        name: sessionName,
+        score: score,
+        challengeID: challenge,
+      };
+
       const headers = {
-        'Access-Control-Allow-Origin':'http://localhost:5000'
-      }
+        "Access-Control-Allow-Origin": "http://localhost:5000",
+      };
 
       // AXIOS to send a post req to api endpoint in FLASK
-      return axios.post('/api/storeRanking', payload, headers)
-      .then(function(response){
-        //console.log(response.data)
-        setRankingID(response.data.rankingID)
-        setToRedirect(response.data.toRedirect) // Set toRedirect state to true
-        //console.log("RankingID from /api/storeRanking is " + rankingID)
-        //console.log("POSTED TO STORE RANKING !!!")   
-      })
-    }    
-  }, [isModalClose])
+      return axios
+        .post("/api/storeRanking", payload, headers)
+        .then(function (response) {
+          //console.log(response.data)
+          setRankingID(response.data.rankingID);
+          setToRedirect(response.data.toRedirect); // Set toRedirect state to true
+          //console.log("RankingID from /api/storeRanking is " + rankingID)
+          //console.log("POSTED TO STORE RANKING !!!")
+        });
+    }
+  }, [isModalClose]);
 
   useEffect(() => {
-    if (toRedirect === true){
+    if (toRedirect === true) {
       //console.log("toRedirect is " + toRedirect)
       retrieveChResults(); // Set rankingID state to pass to redirect of /ChallengeResult
     }
-  }, [toRedirect, rankingID])
+  }, [toRedirect, rankingID]);
 
   // History Function to redirect user to /ChallengeResult passing necessary props
   const retrieveChResults = () => {
@@ -128,10 +131,10 @@ const Challenge = (props) => {
     history.push({
       pathname: "/ChallengeResult",
       state: {
-        rID:rankingID
-      }
+        rID: rankingID,
+      },
     });
-  }
+  };
   /*================================ (END) GAME FUNCTIONS ================================*/
 
   /*================================ (START) UI FUNCTIONS ================================*/
@@ -270,7 +273,7 @@ const Challenge = (props) => {
       </div>
 
       <div class="float-right text-right mr-16">
-        <p class="text-xl">Hello {name} </p>
+        <p class="text-xl">Hello {sessionName} </p>
         <p class=" text-green-700"> Connection Status</p>
       </div>
       <div class="float-left text-left ml-8">
@@ -352,16 +355,22 @@ const Challenge = (props) => {
           </div>
         </div>
       </div>
-
-      <div class="mt-12">
-        <Button type="primary" onClick={handleSubmit}>
-          I am Done!
-        </Button>
+      <div class="mt-12 flex justify-center">
+        <div class="mr-12">
+          <Link to="/selectchallenge">
+            <Button type="secondary">Quit</Button>
+          </Link>
+        </div>
+        <div>
+          <Button type="primary" onClick={handleSubmit}>
+            I am Done!
+          </Button>
+        </div>
       </div>
 
       <div class="mt-12">
         <Modal
-          title={"Congratulations " + name + "!"}
+          title={"Congratulations " + sessionName + "!"}
           visible={isComplete}
           onOk={handleOk}
           okText="Confirm"
@@ -383,7 +392,7 @@ const Challenge = (props) => {
       </div>
       {/*console.log(chStatus)*/}
     </div>
-    /*================================ (END) DOM RENDER ================================*/ 
+    /*================================ (END) DOM RENDER ================================*/
   );
 };;;
 export default Challenge;
