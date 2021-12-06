@@ -9,9 +9,13 @@ import Challenge from "./components/GameManagement/Challenge";
 import CarSpecs from "./components/GameManagement/CarSpecs";
 import Ranking from "./components/GameManagement/Ranking";
 import CreateMap from "./components/GameManagement/Map/CreateMap";
+import Admin from "./components/GameManagement/Admin/Admin";
+import AdminHome from "./components/GameManagement/Admin/AdminHome";
+import Home from "./components/GameManagement/Home";
 
 import "tailwindcss/tailwind.css";
 import "antd/dist/antd.css";
+import ChallengeResult from "./components/GameManagement/ChallengeResult";
 
 function App() {
   return (
@@ -20,7 +24,7 @@ function App() {
         <Route
           exact
           key="startGame"
-          path="/"
+          path="/start"
           exact
           component={StartGame}
         ></Route>
@@ -69,7 +73,25 @@ function App() {
           exact
           component={Ranking}
         ></Route>
+        <Route exact key="challengeResult" path="/challengeResult" exact component={ChallengeResult}></Route>
         <Route exact key="createMap" path="/createMap" exact component={CreateMap}></Route>
+        <Route
+          exact
+          key="createMap"
+          path="/createMap"
+          exact
+          component={CreateMap}
+        ></Route>
+        <Route exact key="admin" path="/admin" exact component={Admin}></Route>
+        <Route
+          exact
+          key="adminHome"
+          path="/adminHome"
+          exact
+          component={AdminHome}
+        ></Route>
+
+        <Route exact key="home" path="/" exact component={Home}></Route>
       </Router>
     </div>
   );

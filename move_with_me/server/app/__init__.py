@@ -35,18 +35,47 @@ def retrieve_car_commands():
     commands = []
     x =  db.commandTray.find()
     for data in x:
+        # print('data',data)
         data['_id'] = str(data['_id']) 
-        commands.append(data)
-    return jsonify(commands)
+        print(str(data['movement']) )
+        commands.append(str(data['movement']))
+        # commands.append(data)
+    #removal 
+    print(commands)
+    command = 0
+    if len(commands) > 0:
+        if commands[0] == 'left':
+            command = 1
+        elif commands[0] == 'right':
+            command = 2
+        elif commands[0] == 'up':
+            command = 3
+        elif commands[0] == 'down':
+            command = 4
+        db.commandTray.remove({'movement': commands.pop(0)})
+        print(commands)
+
+    return f'{command}\0'
+    # return jsonify(commands)
 
 @app.route("/saveUsers",methods=['GET', 'POST'])
 def save_player_names():
     player_name = request.get_json()
-    print('i am player name',player_name)
+    # print('i am player name',type(player_name))
+    # print('i am player name',len(player_name))
     if player_name:
-        db.users.insert_one({'playerName': player_name})
-        print('Successful')
-    return 'Success'
+        if(len(player_name)<=15):
+            db.users.insert_one({'playerName': player_name})
+            print('Successful')
+    else: 
+        print('Not successful')
+
+    usernames = []
+    x =  db.users.find()
+    for data in x:
+        data['_id'] = str(data['_id']) 
+        usernames.append(data)
+    return jsonify(usernames)
     
 @app.route("/usersList",methods=['GET'])
 def users_list():
@@ -61,15 +90,10 @@ def users_list():
 @app.route("/challenges",methods=[ 'GET'])
 def retrieve_challenge():
     challenges = []
-    x =  db.map.find()
+    x =  db.Challenges.find()
     for data in x:
         data['_id'] = str(data['_id']) 
         challenges.append(data)
     return jsonify(challenges)
 
-    # Select Challenge route
-@app.route("/selectchallenge", methods=["GET"])
-def displayChallengeList():
-    return render_template()
-
-from app.routes import home, users, react_test, rankings, game, map, move, createMap
+from app.routes import home, users, react_test, rankings, game, map, move, createMap, storeRanking, challengeResult

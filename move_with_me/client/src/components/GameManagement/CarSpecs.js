@@ -8,7 +8,7 @@ const CarSpecs = () => {
   return (
     <div class="   background w-full min-h-screen opacity-90">
       <div class="pt-96 text-center">
-        <h1 class="font-semibold text-8xl text-white">Car Specifications</h1>
+        <h1 class="font-semibold text-8xl text-gray-800">Car Specifications</h1>
 
         {/* <div class="w-2/6 m-auto">
           <img src={Car} alt="login image" />
@@ -34,7 +34,7 @@ const CarSpecs = () => {
         </div>
 
         <div class="pt-12">
-          <Link to="/">
+          <Link to="/start">
             <div class="mt-12">
               <Button type="secondary">Back</Button>
             </div>
