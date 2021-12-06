@@ -15,8 +15,8 @@ def storeRanking():
     if request.method == 'POST':
         json_data = request.json
         mongoPayload = {} # Payload for api response
-        print("Received score below: ")
-        print(json_data)
+        # print("Received score below: ")
+        # print(json_data)
 
         # Get document with largest 'ranking ID' and +1
         _maxRankIDDocument = mongo.db.Rankings.find().sort("id",-1).limit(1)
@@ -25,8 +25,8 @@ def storeRanking():
         mongoPayload["name"] = json_data["name"]
         mongoPayload["score"] = json_data["score"]
         mongoPayload["challenge"] = json_data["challengeID"]
-        print("Storing the following to mongo")
-        print(mongoPayload)
+        # print("Storing the following to mongo")
+        # print(mongoPayload)
 
         _insert = mongo.db.Rankings.insert(mongoPayload)
 
@@ -35,6 +35,6 @@ def storeRanking():
             "rankingID":mongoPayload["id"]
         }
 
-        print(response)
+        # print(response)
 
         return jsonify(response)
