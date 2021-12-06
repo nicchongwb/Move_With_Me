@@ -122,7 +122,7 @@ git push
 ```
 
 ## UAT
-[![Move With Me](https://img.youtube.com/vi/7qmEdSadc5Y/default.jpg)](https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be)
+[![Move With Me](https://img.youtube.com/vi/7qmEdSadc5Y/0.jpg)](https://www.youtube.com/watch?v=7qmEdSadc5Y&feature=youtu.be)
 
 ## Whitebox Testing
 ![Whitebox Testing](media/whitebox_testing_gif.gif)
